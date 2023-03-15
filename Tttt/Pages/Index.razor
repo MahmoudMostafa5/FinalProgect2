@@ -1,0 +1,32 @@
+﻿@page "/"
+@*@inject IJSRuntime JsRuntime;*@
+
+<h1 class="text-center text-info">Hello, world!</h1>
+
+@*<select @onchange="selectedDashboardChange">
+    <option>Departments</option>
+    <option>Campaigns</option>
+    <option>Manufacturing</option>
+    <option>Marketing</option>
+    <option>Sales</option>
+</select>
+
+<div id="revealView" class="m-auto" style="width:100%; height:750px"></div>
+
+
+
+@code{
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            //await JsRuntime.InvokeVoidAsync("loadRevealView", "revealView", "Campaigns");
+            await JsRuntime.InvokeVoidAsync("loadRevealView", "revealView", "Departments/GetAll");
+        }
+    }
+
+    async void selectedDashboardChange(ChangeEventArgs e)
+    {
+        await JsRuntime.InvokeVoidAsync("loadRevealView", "revealView", e.Value!.ToString());
+    }
+}*@

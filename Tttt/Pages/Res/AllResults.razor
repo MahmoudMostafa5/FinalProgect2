@@ -1,0 +1,253 @@
+﻿@page "/AllResults"
+
+<style>
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        font-size: 22px;
+    }
+</style>
+
+<h3 class="text-center text-info py-2">Exam Results OverView</h3>
+
+@if (Subjects is not null && Exams is not null && Students is not null)
+{
+    <!-- Search -->
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <div class="row dataTables_length" id="example_length">
+                <p class="h5 col-md-2"> Show</p>
+                <label class="h5 col-md-4">
+                    <select name="example_length" aria-controls="example" class="form-select form-select-sm">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+                <p class="h5 col-md-2">entries</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div id="example_filter" class="dataTables_filter row">
+                <p class="h5 col-md-2">Search : </p>
+                <label class="col-md-5">
+                    <input type="search" class="form-control form-control-sm" placeholder="Search for ExamResult" aria-controls="example">
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Table -->
+    <table id="example" class="my-3 table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th class="h4 text-center"> Student Name </th>
+                <th class="h4 text-center"> Subject Name </th>
+                <th class="h4 text-center"> Exam Name </th>
+                <th class="h4 text-center"> Exam Degree </th>
+                <th class="h4 text-center">
+                    <button class="btn btn-secondary" @onclick="AddSub"><i class="fa fa-plus-square"></i></button>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in AllExamResult)
+            {
+                <tr>
+                    <td class="h5 text-center">@item.Student.FirstName</td>
+                    <td class="h5 text-center">@item.Subject.Name</td>
+                    <td class="h5 text-center">@item.Exam.ExamName</td>
+                    <td class="h5 text-center">@item.ExamDegree</td>
+                    <td class="h5 text-center">
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteSub(item.StudentSSN,item.SubjectId,item.ExamId))"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- pagination -->
+    <div class="row">
+        <div class="col-sm-12 col-md-5">
+            <h3 class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</h3>
+        </div>
+        <div class="col-sm-12 col-md-2"></div>
+        <div class="col-sm-12 col-md-5">
+            <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                <ul class="pagination">
+                    <li class="paginate_button page-item previous disabled" id="example_previous">
+                        <a aria-controls="example" aria-disabled="true" aria-role="link" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a>
+                    </li>
+                    <li class="paginate_button page-item active">
+                        <a href="#" aria-controls="example" aria-role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="5" tabindex="0" class="page-link">6</a>
+                    </li>
+                    <li class="paginate_button page-item next" id="example_next">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    //ADD ExamResult
+    if (isAdd)
+    {
+        <div class="modal" tabindex="-1" style="display:block" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">@modalTitle</h3>
+                        <button type="button" class="close" @onclick="@closeModal">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@CurrenExamResult" OnValidSubmit="@HandleValidSubmitAdding">
+                            <DataAnnotationsValidator />
+                            <hr />
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">
+                                    Student
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputSelect class="form-control" @bind-Value="@CurrenExamResult.StudentSSN">
+                                        <option value="0">-- Select Student --</option>
+                                        @foreach (var student in Students)
+                                                {
+                                            <option value="@student.StudenntSSN">@student.FirstName @student.LastName </option>
+                                                }
+
+                                    </InputSelect>
+                                    <div class="col-sm-8 text-danger">
+                                        <ValidationMessage For="@(() => CurrenExamResult.StudentSSN)" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">
+                                    Subject
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputSelect class="form-control" @bind-Value="@CurrenExamResult.SubjectId">
+                                        <option value="0">-- Select Subject --</option>
+                                        @foreach (var Subject in Subjects)
+                                                {
+                                            <option value="@Subject.CodeId">@Subject.Name </option>
+                                                }
+
+                                    </InputSelect>
+                                    <div class="col-sm-8 text-danger">
+                                        <ValidationMessage For="@(() => CurrenExamResult.SubjectId)" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">
+                                    Exam
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputSelect class="form-control" @bind-Value="@CurrenExamResult.ExamId">
+                                        <option value="0">-- Select Exam --</option>
+                                        @foreach (var Exam in Exams)
+                                                {
+                                            <option value="@Exam.Id">@Exam.ExamName </option>
+
+
+                                                }
+
+                                    </InputSelect>
+                                    <div class="col-sm-8 text-danger">
+                                        <ValidationMessage For="@(() => CurrenExamResult.ExamId)" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="ExamDegree" class="col-sm-5 col-form-label">
+                                    Exam Degree
+                                </label>
+                                <div class="col-sm-7">
+                                    <InputNumber id="ExamDegree" class="form-control" placeholder="Exam Degree"
+                                                 @bind-Value="CurrenExamResult.ExamDegree" />
+                                    <div class="col-sm-8 text-danger">
+                                        <ValidationMessage For="() => CurrenExamResult.ExamDegree" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-block btn-success" data-dismiss="modal">Adding</button>
+                            </div>
+                        </EditForm>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    //Delete ExamResult
+    if (isDelete)
+    {
+        <div class="modal" tabindex="-1" style="display:block" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">@modalTitle</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Do you want to delete this Result ??</h4>
+                        <table class="table">
+                            <tr>
+                                <td>Student Name</td>
+                                <td>@CurrenExamResult.Student.FirstName @CurrenExamResult.Student.LastName</td>
+                            </tr>
+                            <tr>
+                                <td>Subject Name</td>
+                                <td>@CurrenExamResult.Subject.Name</td>
+                            </tr>
+                            <tr>
+                                <td>Exam Name</td>
+                                <td>@CurrenExamResult.Exam.ExamName</td>
+                            </tr>
+                            <tr>
+                                <td>Exam Degree</td>
+                                <td>@CurrenExamResult.ExamDegree</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteExamResult(CurrenExamResult.StudentSSN,CurrenExamResult.SubjectId,CurrenExamResult.ExamId))" data-dismiss="modal">YES</button>
+                        <button class="btn btn-warning" @onclick="@closeModal">NO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>Please Waiting</p>
+}

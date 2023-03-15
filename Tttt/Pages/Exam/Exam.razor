@@ -1,0 +1,524 @@
+﻿@page "/Exam"
+
+<style>
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        font-size: 22px;
+    }
+</style>
+
+<h3 class="text-center text-info py-2">Exams OverView</h3>
+
+@if (AllExam is not null && examTypes is not null && examAnswers is not null && schoolYears is not null)
+{
+    <!-- Search -->
+    <div class="row text-center m-auto">
+        <div class="col-sm-12 col-md-6">
+            <div class="row dataTables_length" id="example_length">
+                <p class="h5 col-md-2"> Show</p>
+                <label class="h5 col-md-4">
+                    <select name="example_length" aria-controls="example" class="form-select form-select-sm">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+                <p class="h5 col-md-2">entries</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div id="example_filter" class="dataTables_filter row">
+                <p class="h5 col-md-2">Search : </p>
+                <label class="col-md-5">
+                    <input type="search" class="form-control form-control-sm" placeholder="Search for Exam" aria-controls="example">
+                </label>
+            </div>
+        </div>
+    </div>
+    <!-- Table -->
+
+    <div class="p-2 m-auto">
+        <table class="table text-center">
+            <thead class="fs-5">
+                <tr>
+                    <th> Exam Id </th>
+                    <th> Exam Name </th>
+                    <th> Exam PDF </th>
+                    <th> Exam Link </th>
+                    <th> Exam Start at </th>
+                    <th> Exam End at </th>
+                    <th> Exam Type </th>
+                    <th> Exam Answer </th>
+                    <th> Final Degree </th>
+                    <th> School Year </th>
+                    <th>
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Add"><i class="fa fa-plus-square"></i></button>
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ExamDto in AllExam)
+                {
+                    <tr>
+                        @*<td class="h5 text-center">@ExamDto.ExamId</td>*@
+                        <td>@ExamDto.Id</td>
+                        <td>@ExamDto.ExamName</td>
+                        <td>@ExamDto.ExamPdf</td>
+                        <td>@ExamDto.ExamLink</td>
+                        <td>@ExamDto.StartAt.ToString("dd/MM/yyyy")</td>
+                        <td>@ExamDto.EndAt.ToString("dd/MM/yyyy")</td>
+                        <td>@ExamDto.ExamType.ExamName</td>
+                        <td>@ExamDto.ExamAnswer.ExamAnswerType</td>
+                        <td>@ExamDto.FinalDegree</td>
+                        <td>@ExamDto.SchoolYears.SchoolYear</td>
+
+                        <td class="h5 text-center">
+                            <button @onclick="@(async () => await Modify(ExamDto.Id))" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Edit"><i class="fa fa-pencil-square"></i></button>
+                            <button @onclick="@(async () => await DeleteExam(ExamDto.Id))" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Delete"><i class="fa fa-trash"></i></button>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- pagination -->
+
+    <div class="py-3 d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    //ADD Exam
+    <div class="modal fade" id="Add" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title text-center text-info">Add New Exam</h3>
+                    <button type="button" data-bs-dismiss="modal" class="close" @onclick="@closeModal">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="@CurrenExam" OnValidSubmit="@HandleValidSubmitAdding">
+                        <DataAnnotationsValidator />
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-8">
+
+                                @*<div class="form-group row">
+                                        <label for="ExamId" class="col-sm-3 col-form-label">
+                                            Exam Id
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <InputNumber id="ExamId" class="form-control" placeholder="Exam Id"
+                                                         @bind-Value="CurrenExam.Id" />
+
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="@(() => CurrenExam.Id)" />
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                <div class="form-group row">
+                                    <label for="ExamName" class="col-sm-3 col-form-label">
+                                        Exam Name
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputText id="ExamName" class="form-control" placeholder="Exam Name"
+                                                   @bind-Value="CurrenExam.ExamName" />
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="() => CurrenExam.ExamName" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ExamLink" class="col-sm-3 col-form-label">
+                                        Exam Link
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputText id="ExamLink" class="form-control" placeholder="Exam Link"
+                                                   @bind-Value="CurrenExam.ExamLink" />
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="() => CurrenExam.ExamLink" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="SA" class="col-sm-3 col-form-label">
+                                        Exam Start At
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputDate id="SA" class="form-control" placeholder="Exam Start At"
+                                                   @bind-Value="CurrenExam.StartAt" />
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="() => CurrenExam.StartAt" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="EA" class="col-sm-3 col-form-label">
+                                        Exam End At
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputDate id="EA" class="form-control" placeholder="Exam End At"
+                                                   @bind-Value="CurrenExam.EndAt" />
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="() => CurrenExam.EndAt" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="ExamType" class="col-sm-3 col-form-label">
+                                        Exam Type
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputSelect class="form-control" @bind-Value="@CurrenExam.ExamTypeId">
+                                            <option value="0">-- Select Exam Type --</option>
+                                            @foreach (var examType in examTypes)
+                                                {
+                                                <option value="@examType.Id">@examType.ExamName </option>
+                                                }
+
+                                        </InputSelect>
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="@(() => CurrenExam.ExamTypeId)" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="ExamAns" class="col-sm-3 col-form-label">
+                                        Exam Answer
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputSelect class="form-control" @bind-Value="@CurrenExam.ExamAnswerId">
+                                            <option value="0">-- Select Exam Answer --</option>
+                                            @foreach (var examType in examAnswers)
+                                                {
+                                                <option value="@examType.Id">@examType.ExamAnswerType </option>
+                                                }
+
+                                        </InputSelect>
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="@(() => CurrenExam.ExamAnswerId)" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="FinalDegree" class="col-sm-3 col-form-label">
+                                        Final Degree
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputNumber id="FinalDegree" class="form-control" placeholder="FinalDegree"
+                                                     @bind-Value="CurrenExam.FinalDegree" />
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="() => CurrenExam.FinalDegree" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="schoolYear" class="col-sm-3 col-form-label">
+                                        school Year
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputSelect class="form-control" @bind-Value="@CurrenExam.SchoolYearsId">
+                                            <option value="0" disabled>-- Select school Year --</option>
+                                            @foreach (var schoolYear in schoolYears)
+                                                {
+                                                <option value="@schoolYear.Id">@schoolYear.SchoolYear </option>
+                                                }
+
+                                        </InputSelect>
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="@(() => CurrenExam.SchoolYears)" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                @*<h1>Upload file!</h1>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <input type="file" @ref="inputReference" @onchange="@OpenFileAsync" />
+                                            <img class="w-100" src="@imagePreview">
+                                            @if (!string.IsNullOrWhiteSpace(message))
+                                            {
+                                                <div class="alert alert-success">
+                                                    File has been uploaded
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="col-4">
+                                            @if (imagePath != null)
+                                            {
+                                                <img src="@imagePath" />
+                                            }
+                                        </div>
+                                    </div>*@
+
+                                <div class="form-group row">
+                                    <label for="pdf" class="col-sm-5 m-auto col-form-label">
+                                        Exam PDF
+                                    </label>
+                                    <div class="col-sm-9 m-auto">
+                                        <InputFile id="pdf" class="form-control" placeholder="Exam Pdf"
+                                                   @bind-Value="CurrenExam.ExamPdf" />
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="() => CurrenExam.ExamPdf" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-block btn-success" data-bs-dismiss="modal">Adding</button>
+                        </div>
+                    </EditForm>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    //Update Exam
+    <div class="modal fade" id="Edit" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title text-center text-info">Edit @CurrenExam.ExamName</h3>
+                    <button type="button" class="close" data-bs-dismiss="modal" @onclick="@closeModal">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="@CurrenExam" OnValidSubmit="@HandleValidSubmitUpdate">
+                        <DataAnnotationsValidator />
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-8">
+
+                                @*<div class="form-group row">
+                                        <label for="ExamId" class="col-sm-3 col-form-label">
+                                            Exam Id
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <InputNumber id="ExamId" class="form-control" placeholder="Exam Id"
+                                                         @bind-Value="CurrenExam.Id" />
+
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="@(() => CurrenExam.Id)" />
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                <div class="form-group row">
+                                    <label for="ExamName" class="col-sm-3 col-form-label">
+                                        Exam Name
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputText id="ExamName" class="form-control" placeholder="Exam Name"
+                                                   @bind-Value="CurrenExam.ExamName" />
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="() => CurrenExam.ExamName" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ExamLink" class="col-sm-3 col-form-label">
+                                        Exam Link
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputText id="ExamLink" class="form-control" placeholder="Exam Link"
+                                                   @bind-Value="CurrenExam.ExamLink" />
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="() => CurrenExam.ExamLink" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="SA" class="col-sm-3 col-form-label">
+                                        Exam Start At
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputDate id="SA" class="form-control" placeholder="Exam Start At"
+                                                   @bind-Value="CurrenExam.StartAt" />
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="() => CurrenExam.StartAt" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="EA" class="col-sm-3 col-form-label">
+                                        Exam End At
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputDate id="EA" class="form-control" placeholder="Exam End At"
+                                                   @bind-Value="CurrenExam.EndAt" />
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="() => CurrenExam.EndAt" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="ExamType" class="col-sm-3 col-form-label">
+                                        Exam Type
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputSelect class="form-control" @bind-Value="@CurrenExam.ExamTypeId">
+                                            <option value="0">-- Select Exam Type --</option>
+                                            @foreach (var examType in examTypes)
+                                                {
+                                                <option value="@examType.Id">@examType.ExamName </option>
+                                                }
+
+                                        </InputSelect>
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="@(() => CurrenExam.ExamTypeId)" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="ExamAns" class="col-sm-3 col-form-label">
+                                        Exam Answer
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputSelect class="form-control" @bind-Value="@CurrenExam.ExamAnswerId">
+                                            <option value="0">-- Select Exam Answer --</option>
+                                            @foreach (var examType in examAnswers)
+                                                {
+                                                <option value="@examType.Id">@examType.ExamAnswerType </option>
+                                                }
+
+                                        </InputSelect>
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="@(() => CurrenExam.ExamAnswerId)" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="FinalDegree" class="col-sm-3 col-form-label">
+                                        Final Degree
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputNumber id="FinalDegree" class="form-control" placeholder="FinalDegree"
+                                                     @bind-Value="CurrenExam.FinalDegree" />
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="() => CurrenExam.FinalDegree" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="schoolYear" class="col-sm-3 col-form-label">
+                                        school Year
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputSelect class="form-control" @bind-Value="@CurrenExam.SchoolYearsId">
+                                            <option value="0" disabled>-- Select school Year --</option>
+                                            @foreach (var schoolYear in schoolYears)
+                                                {
+                                                <option value="@schoolYear.Id">@schoolYear.SchoolYear </option>
+                                                }
+
+                                        </InputSelect>
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="@(() => CurrenExam.SchoolYears)" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+
+                                <div class="form-group row">
+                                    <label for="pdf" class="col-sm-3 col-form-label">
+                                        Exam PDF
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <InputFile id="pdf" class="form-control" placeholder="Exam Pdf"
+                                                   @bind-Value="CurrenExam.ExamPdf" />
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="() => CurrenExam.ExamPdf" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-block btn-success" data-bs-dismiss="modal">Save</button>
+                        </div>
+                    </EditForm>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    //Delete Exam
+    <div class="modal fade" id="Delete" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title text-center text-info">Delete Exam</h3>
+                </div>
+                <div class="modal-body">
+                    <h4>Do you want to delete this Exam ??</h4>
+                    <table class="table">
+                        <tr>
+                            <td>Exam Id</td>
+                            <td>@CurrenExam.Id</td>
+                        </tr>
+                        <tr>
+                            <td>Exam Name</td>
+                            <td>@CurrenExam.ExamName</td>
+                        </tr>
+                        <tr>
+                            <td>Final Degree</td>
+                            <td>@CurrenExam.FinalDegree</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" @onclick="@(async () => await HandleValidDeleteExam(CurrenExam.Id))" data-bs-dismiss="modal">YES</button>
+                    <button class="btn btn-warning" @onclick="@closeModal" data-bs-dismiss="modal">NO</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>Please Waiting</p>
+}

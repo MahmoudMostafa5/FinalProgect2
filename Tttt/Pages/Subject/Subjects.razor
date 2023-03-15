@@ -1,0 +1,334 @@
+﻿@page "/Subjects"
+
+<style>
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        font-size: 22px;
+    }
+</style>
+
+<h3 class="text-center text-info py-2">Subjects OverView</h3>
+
+@if (AllSubject is not null && Teachers is not null)
+{
+    <!-- Search -->
+
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <div class="row dataTables_length" id="example_length">
+                <p class="h5 col-md-2"> Show</p>
+                <label class="h5 col-md-4">
+                    <select name="example_length" aria-controls="example" class="form-select form-select-sm">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+                <p class="h5 col-md-2">entries</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div id="example_filter" class="dataTables_filter row">
+                <p class="h5 col-md-2">Search : </p>
+                <label class="col-md-5">
+                    <input type="search" class="form-control form-control-sm" placeholder="Search for Subject" aria-controls="example">
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <table id="example" class="my-3 table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th class="h4 text-center"> CodeId </th>
+                <th class="h4 text-center"> Name </th>
+                <th class="h4 text-center"> Teacher </th>
+                <th class="h4 text-center"> Subject Duration </th>
+                <th class="h4 text-center">
+                    <button class="btn btn-secondary" @onclick="@AddSub"><i class="fa fa-plus-square"></i></button>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var subjectDto in AllSubject)
+            {
+                <tr>
+
+                    <td class="h5 text-center">@subjectDto.CodeId</td>
+                    <td class="h5 text-center">@subjectDto.Name</td>
+                    <td class="h5 text-center">@subjectDto.Teacher.FirstName @subjectDto.Teacher.LastName</td>
+                    <td class="h5 text-center">@subjectDto.SubjectDuration Hours</td>
+                    <td class="h5 text-center">
+                        <button class="btn btn-primary" @onclick="@(async () => await UpdateSub(subjectDto.CodeId))"><i class="fa fa-pencil-square"></i></button>
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteSub(subjectDto.CodeId))"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- pagination -->
+    <div class="row">
+        <div class="col-sm-12 col-md-5">
+            <h3 class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</h3>
+        </div>
+        <div class="col-sm-12 col-md-2"></div>
+        <div class="col-sm-12 col-md-5">
+            <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                <ul class="pagination">
+                    <li class="paginate_button page-item previous disabled" id="example_previous">
+                        <a aria-controls="example" aria-disabled="true" aria-role="link" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a>
+                    </li>
+                    <li class="paginate_button page-item active">
+                        <a href="#" aria-controls="example" aria-role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="5" tabindex="0" class="page-link">6</a>
+                    </li>
+                    <li class="paginate_button page-item next" id="example_next">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    if (isAdd)
+    {
+        <div class="modal" tabindex="-1" style="display:block" role="dialog">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">@modalTitle</h3>
+                        <button type="button" class="close" @onclick="@closeModal">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@CurrenSubject" OnValidSubmit="@HandleValidSubmitAdding">
+                            <DataAnnotationsValidator />
+                            <hr />
+                            <div class="form-group row">
+                                <label for="codeId" class="col-sm-2 col-form-label">
+                                    Code Id
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputText id="codeId" class="form-control" placeholder="Code Id"
+                                               @bind-Value="CurrenSubject.CodeId" />
+
+                                    <div class="col-sm-8 text-danger">
+                                        <ValidationMessage For="@(() => CurrenSubject.CodeId)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Name" class="col-sm-2 col-form-label">
+                                    Name
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputText id="Name" class="form-control" placeholder="Name"
+                                               @bind-Value="CurrenSubject.Name" />
+                                    <div class="col-sm-8 text-danger">
+                                        <ValidationMessage For="() => CurrenSubject.Name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email" class="col-sm-2 col-form-label">
+                                    Teacher
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputSelect class="form-control" @bind-Value="@CurrenSubject.TeacherId">
+                                        <option value="0" disabled>--Select Teacher--</option>
+                                        @foreach (var teacher in Teachers)
+                                                {
+
+                                            <option value="@teacher.TeacherSSN">@teacher.FirstName @teacher.LastName </option>
+                                                }
+
+                                    </InputSelect>
+                                    <div class="col-sm-8 text-danger">
+                                        <ValidationMessage For="@(() => CurrenSubject.TeacherId)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="lastName" class="col-sm-2 col-form-label">
+                                    Subject Duration
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputSelect class="form-control" @bind-Value="@CurrenSubject.SubjectDuration">
+                                        <option disabled value="0">--Select Subject Duration--</option>
+                                        @foreach (var teacher in Teachers)
+                                                {
+
+                                            <option value="1"> 1 Hours </option>
+                                            <option value="2"> 2 Hours </option>
+                                            <option value="3"> 3 Hours </option>
+                                            <option value="4"> 4 Hours </option>
+                                            <option value="5"> 5 Hours </option>
+                                                }
+
+                                    </InputSelect>
+                                    <div class="col-sm-8 text-danger">
+                                        <ValidationMessage For="@(() => CurrenSubject.SubjectDuration)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-block btn-success" data-dismiss="modal">Adding</button>
+                            </div>
+                        </EditForm>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    if (isModify)
+    {
+        <div class="modal" tabindex="-1" style="display:block" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">@modalTitle</h3>
+                        <button type="button" class="close" @onclick="@closeModal">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@CurrenSubject" OnValidSubmit="@HandleValidSubmitUpdate">
+                            <DataAnnotationsValidator />
+                            <hr />
+                            <div class="form-group row">
+                                <label for="lastName" class="col-sm-2 col-form-label">
+                                    Name
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputText id="lastName" class="form-control" placeholder="Name"
+                                               @bind-Value="CurrenSubject.Name" />
+                                    <div class="col-sm-8 text-danger">
+
+                                        <ValidationMessage For="() => CurrenSubject.Name" />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email" class="col-sm-2 col-form-label">
+                                    Teacher
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputSelect class="form-control" @bind-Value="@CurrenSubject.TeacherId">
+                                        <option value="0" disabled>--Select Teacher--</option>
+                                        @foreach (var teacher in Teachers)
+                                                {
+
+                                            <option value="@teacher.TeacherSSN">@teacher.FirstName @teacher.LastName </option>
+                                                }
+
+                                    </InputSelect>
+                                    <div class="col-sm-8 text-danger">
+
+                                        <ValidationMessage For="@(() => CurrenSubject.TeacherId)" />
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="lastName" class="col-sm-2 col-form-label">
+                                    Subject Duration
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputSelect class="form-control" @bind-Value="@CurrenSubject.SubjectDuration">
+                                        <option disabled value="0">--Select Subject Duration--</option>
+                                        @foreach (var teacher in Teachers)
+                                                {
+
+                                            <option value="1"> 1 Hours </option>
+                                            <option value="2"> 2 Hours </option>
+                                            <option value="3"> 3 Hours </option>
+                                            <option value="4"> 4 Hours </option>
+                                            <option value="5"> 5 Hours </option>
+                                                }
+
+                                    </InputSelect>
+                                    <div class="col-sm-8 text-danger">
+
+                                        <ValidationMessage For="@(() => CurrenSubject.SubjectDuration)" />
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-block btn-success" data-dismiss="modal">Save</button>
+                            </div>
+                        </EditForm>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    if (isDelete)
+    {
+        <div class="modal" tabindex="-1" style="display:block" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Delete Subject</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Do you want to delete this Subject ??</h4>
+                        <table class="table">
+                            <tr>
+                                <td>CodeId</td>
+                                <td>@CurrenSubject.CodeId</td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>@CurrenSubject.Name</td>
+                            </tr>
+                            <tr>
+                                <td>Teacher</td>
+                                <td>@CurrenSubject.Teacher.FirstName @CurrenSubject.Teacher.LastName</td>
+                            </tr>
+                            <tr>
+                                <td>Subject Duration</td>
+                                <td>@CurrenSubject.SubjectDuration</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteSubject(CurrenSubject.CodeId))" data-dismiss="modal">YES</button>
+                        <button class="btn btn-warning" @onclick="@closeModal">NO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>Please Waiting</p>
+}

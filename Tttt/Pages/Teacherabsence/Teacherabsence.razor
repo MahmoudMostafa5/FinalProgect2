@@ -1,0 +1,217 @@
+﻿@page "/Teacherabsence"
+
+<style>
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        font-size: 22px;
+    }
+</style>
+
+<h3 class="text-center text-info py-2">Teacherabsences OverView</h3>
+
+@if (AllTeacherabsence is not null)
+{
+    <!-- Search -->
+
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <div class="row dataTables_length" id="example_length">
+                <p class="h5 col-md-2"> Show</p>
+                <label class="h5 col-md-4">
+                    <select name="example_length" aria-controls="example" class="form-select form-select-sm">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+                <p class="h5 col-md-2">entries</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div id="example_filter" class="dataTables_filter row">
+                <p class="h5 col-md-2">Search : </p>
+                <label class="col-md-5">
+                    <input type="search" class="form-control form-control-sm" placeholder="Search for Teacherabsence" aria-controls="example">
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <table id="example" class="my-3 table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th class="h5 text-center"> Teacherabsence Id </th>
+                <th class="h5 text-center"> Teacherabsence Date </th>
+                <th class="h4 text-center"> Teacher Name </th>
+                <th class="h4 text-center">
+                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Add"><i class="fa fa-plus-square"></i></button>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var TeacherabsenceDto in AllTeacherabsence)
+            {
+                <tr>
+
+                    <td class="h5 text-center">@TeacherabsenceDto.Id</td>
+                    <td class="h5 text-center">@TeacherabsenceDto.Date.ToString("dd/MM/yyyy")</td>
+                    <td class="h5 text-center">@TeacherabsenceDto.Teacher.FirstName @TeacherabsenceDto.Teacher.LastName</td>
+
+                    <td class="h5 text-center">
+                        <button @onclick="@(async () => await DeleteSub(TeacherabsenceDto.Id))" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Delete"><i class="fa fa-trash"></i></button>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- pagination -->
+    <div class="row">
+        <div class="col-sm-12 col-md-5">
+            <h3 class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</h3>
+        </div>
+        <div class="col-sm-12 col-md-2"></div>
+        <div class="col-sm-12 col-md-5">
+            <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                <ul class="pagination">
+                    <li class="paginate_button page-item previous disabled" id="example_previous">
+                        <a aria-controls="example" aria-disabled="true" aria-role="link" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a>
+                    </li>
+                    <li class="paginate_button page-item active">
+                        <a href="#" aria-controls="example" aria-role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="5" tabindex="0" class="page-link">6</a>
+                    </li>
+                    <li class="paginate_button page-item next" id="example_next">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    //ADD Teacherabsence
+    <div class="modal fade" id="Add" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Add New Teacherabsence</h3>
+                    <button type="button" data-bs-dismiss="modal" class="close" @onclick="@closeModal">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="@CurrenTeacherabsence" OnValidSubmit="@HandleValidSubmitAdding">
+                        <DataAnnotationsValidator />
+                        <hr />
+                        <div class="row">
+                            @*<div class="form-group row">
+                                    <label for="TeacherabsenceId" class="col-sm-2 col-form-label">
+                                        Teacherabsence Id
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <InputNumber id="TeacherabsenceId" class="form-control" placeholder="Teacherabsence Id"
+                                                     @bind-Value="CurrenTeacherabsence.Id" />
+
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="@(() => CurrenTeacherabsence.Id)" />
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <div class="form-group row">
+                                <label for="TeacherabsenceType" class="col-sm-5 col-form-label">
+                                    Teacher Absence Date
+                                </label>
+                                <div class="col-sm-7">
+                                    <InputDate id="TeacherabsenceType" class="form-control" placeholder="Teacher Absence Date"
+                                               @bind-Value="CurrenTeacherabsence.Date" />
+                                    <div class="col-sm-8 text-danger">
+                                        <ValidationMessage For="() => CurrenTeacherabsence.Date" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">
+                                    Teacher
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputSelect class="form-control" @bind-Value="@CurrenTeacherabsence.TeacherSSN">
+                                        <option value="0" disabled>-- Select Teacher --</option>
+                                        @foreach (var teacher in Teachers)
+                                            {
+                                            <option value="@teacher.TeacherSSN">@teacher.FirstName @teacher.LastName </option>
+                                            }
+
+                                    </InputSelect>
+                                    <div class="col-sm-8 text-danger">
+                                        <ValidationMessage For="@(() => CurrenTeacherabsence.TeacherSSN)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-block btn-success" data-bs-dismiss="modal">Adding</button>
+                        </div>
+                    </EditForm>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    //Delete Teacherabsence
+    <div class="modal fade" id="Delete" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Delete Teacherabsence</h3>
+                </div>
+                <div class="modal-body">
+                    <h4>Do you want to delete Absence ??</h4>
+                    <table class="table">
+                        <tr>
+                            <td>Teacherabsence ID</td>
+                            <td>@CurrenTeacherabsence.Id</td>
+                        </tr>
+                        <tr>
+                            <td>Teacherabsence Date</td>
+                            <td>@CurrenTeacherabsence.Date</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" @onclick="@(async () => await DeleteTeacherabsence(CurrenTeacherabsence.Id))" data-bs-dismiss="modal">YES</button>
+                    <button class="btn btn-warning" @onclick="@closeModal" data-bs-dismiss="modal">NO</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>Please Waiting</p>
+}

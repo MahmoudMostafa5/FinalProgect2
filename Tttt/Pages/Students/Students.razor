@@ -1,0 +1,470 @@
+﻿@page "/Students"
+
+<style>
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        font-size: 22px;
+    }
+</style>
+
+<h3 class="text-center text-info py-2">Students OverView</h3>
+
+@if (AllStudent is not null && ClassRooms is not null && SchoolYears is not null)
+{
+    <!-- Search -->
+    <div class="row text-center m-auto">
+        <div class="col-sm-12 col-md-6">
+            <div class="row dataTables_length" id="example_length">
+                <p class="h5 col-md-2"> Show</p>
+                <label class="h5 col-md-4">
+                    <select name="example_length" aria-controls="example" class="form-select form-select-sm">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+                <p class="h5 col-md-2">entries</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div id="example_filter" class="dataTables_filter row">
+                <p class="h5 col-md-2">Search : </p>
+                <label class="col-md-5">
+                    <input type="search" class="form-control form-control-sm" placeholder="Search for Student" aria-controls="example">
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="p-2 m-auto">
+        <table class="table text-center">
+            <thead class="fs-6">
+                <tr>
+                    <th> Student SSN </th>
+                    <th> First Name </th>
+                    <th> Middle Name </th>
+                    <th> Last Name </th>
+                    <th> Date Of Birth </th>
+                    <th> Phone </th>
+                    <th> Class Room </th>
+                    <th> Scool Year </th>
+                    <th style="width:13%"> Image </th>
+                    <th>
+                        <button class="btn btn-secondary" @onclick="AddSub"><i class="fa fa-plus-square"></i></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var StudentDto in AllStudent)
+                {
+                    <tr>
+                        <td>@StudentDto.StudenntSSN</td>
+                        <td>@StudentDto.FirstName</td>
+                        <td>@StudentDto.MiddleName</td>
+                        <td>@StudentDto.LastName</td>
+                        <td>@StudentDto.DB.ToString("MM/dd/yyyy")</td>
+                        <td>@StudentDto.Phone</td>
+                        <td>@StudentDto.ClassRoom.ClassRoomNumber</td>
+                        <td>@StudentDto.SchoolYears.SchoolYear</td>
+                        <td><img src="https://localhost:44348/Images/@StudentDto.Image" class="w-25" style="height:50px" /></td>
+
+                        <td class="h5 text-center">
+                            <a @onclick="@(async () => await Detail(StudentDto.StudenntSSN))" class="btn btn-success"><i class="fa fa-info-circle"></i></a>
+                            <button @onclick="@(async () => await Modify(StudentDto.StudenntSSN))" class="btn btn-primary"><i class="fa fa-pencil-square"></i></button>
+                            <button @onclick="@(async () => await DeleteSub(StudentDto.StudenntSSN))" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- pagination -->
+    <div class="py-3 d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    if (isAdd)
+    {
+        <div class="modal" tabindex="-1" style="display:block" role="dialog">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">@modalTitle</h3>
+                        <button type="button" class="close" @onclick="@closeModal">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@CurrenStudent" OnValidSubmit="@HandleValidSubmitAdding">
+                            <DataAnnotationsValidator />
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group row">
+                                        <label for="StudenntSSN" class="col-sm-2 col-form-label">
+                                            Student SSN
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputNumber id="StudenntSSN" class="form-control" placeholder="Student SSN"
+                                                         @bind-Value="CurrenStudent.StudenntSSN" />
+
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="@(() => CurrenStudent.StudenntSSN)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="FirstName" class="col-sm-2 col-form-label">
+                                            First Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="FirstName" class="form-control" placeholder="First Name"
+                                                       @bind-Value="CurrenStudent.FirstName" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenStudent.FirstName" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="MiddleName" class="col-sm-2 col-form-label">
+                                            Middle Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="MiddleName" class="form-control" placeholder="Middle Name"
+                                                       @bind-Value="CurrenStudent.MiddleName" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenStudent.MiddleName" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="LastName" class="col-sm-2 col-form-label">
+                                            Last Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="LastName" class="form-control" placeholder="Last Name"
+                                                       @bind-Value="CurrenStudent.LastName" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenStudent.LastName" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="db" class="col-sm-2 col-form-label">
+                                            Date Of Birth
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputDate id="db" class="form-control" placeholder="Date Of Birth"
+                                                       @bind-Value="CurrenStudent.DB" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenStudent.DB" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="Phone" class="col-sm-2 col-form-label">
+                                            Phone
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="Phone" class="form-control" placeholder="Phone"
+                                                       @bind-Value="CurrenStudent.Phone" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenStudent.Phone" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="classRoom" class="col-sm-2 col-form-label">
+                                            Class Room
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputSelect class="form-control" @bind-Value="@CurrenStudent.ClassRoomId">
+                                                <option value="0">--Select Class Room --</option>
+                                                @foreach (var classRoom in ClassRooms)
+                                                        {
+
+                                                    <option value="@classRoom.Id">@classRoom.ClassRoomNumber </option>
+                                                        }
+                                            </InputSelect>
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="@(() => CurrenStudent.ClassRoomId)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="SchoolYears" class="col-sm-2 col-form-label">
+                                            School Years
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputSelect class="form-control" @bind-Value="@CurrenStudent.SchoolsYearId">
+                                                <option value="0">--Select School Years --</option>
+                                                @foreach (var school in SchoolYears)
+                                                        {
+                                                    <option value="@school.Id">@school.SchoolYear </option>
+                                                        }
+                                            </InputSelect>
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="@(() => CurrenStudent.SchoolsYearId)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h1>Upload file!</h1>
+                                    <div class="form-group row">
+                                        <div class="col-8 text-center">
+                                            @if (file is null)
+                                            {
+                                                <img src="https://localhost:44348/Images/@CurrenStudent.Image" class="w-100 mb-3" />
+                                            }
+                                            else
+                                            {
+                                                <img src="@imagePreview" class="w-100 mb-3" />
+                                            }
+                                            <div class="row text-center">
+                                                <div class="col-8">
+                                                    <div class="form-group">
+                                                        <input type="file" @ref="inputReference" @onchange="@OpenFileAsync" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-block btn-success" data-dismiss="modal">Adding</button>
+                            </div>
+                        </EditForm>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    if (isModify)
+    {
+        <div class="modal" tabindex="-1" style="display:block" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">@modalTitle</h3>
+                        <button type="button" class="close" @onclick="@closeModal">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@CurrenStudent" OnValidSubmit="@HandleValidSubmitUpdate">
+                            <DataAnnotationsValidator />
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group row">
+                                        <label for="StudenntSSN" class="col-sm-2 col-form-label">
+                                            Student SSN
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputNumber id="StudenntSSN" class="form-control" placeholder="Student SSN"
+                                                         @bind-Value="CurrenStudent.StudenntSSN" />
+
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="@(() => CurrenStudent.StudenntSSN)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="FirstName" class="col-sm-2 col-form-label">
+                                            First Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="FirstName" class="form-control" placeholder="First Name"
+                                                       @bind-Value="CurrenStudent.FirstName" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenStudent.FirstName" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="MiddleName" class="col-sm-2 col-form-label">
+                                            Middle Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="MiddleName" class="form-control" placeholder="Middle Name"
+                                                       @bind-Value="CurrenStudent.MiddleName" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenStudent.MiddleName" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="LastName" class="col-sm-2 col-form-label">
+                                            Last Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="LastName" class="form-control" placeholder="Last Name"
+                                                       @bind-Value="CurrenStudent.LastName" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenStudent.LastName" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="db" class="col-sm-2 col-form-label">
+                                            Date Of Birth
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputDate id="db" class="form-control" placeholder="Date Of Birth"
+                                                       @bind-Value="CurrenStudent.DB" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenStudent.DB" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="Phone" class="col-sm-2 col-form-label">
+                                            Phone
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="Phone" class="form-control" placeholder="Phone"
+                                                       @bind-Value="CurrenStudent.Phone" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenStudent.Phone" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="classRoom" class="col-sm-2 col-form-label">
+                                            Class Room
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputSelect class="form-control" @bind-Value="@CurrenStudent.ClassRoomId">
+                                                <option value="0">--Select Class Room --</option>
+                                                @foreach (var classRoom in ClassRooms)
+                                                        {
+
+                                                    <option value="@classRoom.Id">@classRoom.ClassRoomNumber </option>
+                                                        }
+                                            </InputSelect>
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="@(() => CurrenStudent.ClassRoomId)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="SchoolYears" class="col-sm-2 col-form-label">
+                                            School Years
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputSelect class="form-control" @bind-Value="@CurrenStudent.SchoolsYearId">
+                                                <option value="0">--Select School Years --</option>
+                                                @foreach (var school in SchoolYears)
+                                                        {
+                                                    <option value="@school.Id">@school.SchoolYear </option>
+                                                        }
+                                            </InputSelect>
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="@(() => CurrenStudent.SchoolsYearId)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h1>Upload file!</h1>
+                                    <div class="form-group row">
+                                        <div class="col-8 text-center">
+                                            @if (file is null)
+                                            {
+                                                <img src="https://localhost:44348/Images/@CurrenStudent.Image" class="w-100 mb-3" />
+                                            }
+                                            else
+                                            {
+                                                <img src="@imagePreview" class="w-100 mb-3" />
+                                            }
+                                            <div class="row text-center">
+                                                <div class="col-8">
+                                                    <div class="form-group">
+                                                        <input type="file" @ref="inputReference" @onchange="@OpenFileAsync" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-block btn-success" data-dismiss="modal">Save</button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    if (isDelete)
+    {
+        <div class="modal" tabindex="-1" style="display:block" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Delete Student</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Do you want to delete this Student ??</h4>
+                        <table class="table">
+                            <tr>
+                                <td>Student SSN</td>
+                                <td>@CurrenStudent.StudenntSSN</td>
+                            </tr>
+                            <tr>
+                                <td>First Name</td>
+                                <td>@CurrenStudent.FirstName</td>
+                            </tr>
+                            <tr>
+                                <td>Middle Name</td>
+                                <td>@CurrenStudent.MiddleName</td>
+                            </tr>
+                            <tr>
+                                <td>Last Name</td>
+                                <td>@CurrenStudent.LastName</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteStudent(CurrenStudent.StudenntSSN))" data-dismiss="modal">YES</button>
+                        <button class="btn btn-warning" @onclick="@closeModal">NO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>Please Waiting</p>
+}
