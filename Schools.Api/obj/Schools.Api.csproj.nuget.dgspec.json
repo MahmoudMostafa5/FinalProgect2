@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Team\\FinalProject\\Schools\\Schools.Api\\Schools.Api.csproj": {}
+    "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Api\\Schools.Api.csproj": {}
   },
   "projects": {
-    "E:\\Team\\FinalProject\\Schools\\Schools.Api\\Schools.Api.csproj": {
+    "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Api\\Schools.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Team\\FinalProject\\Schools\\Schools.Api\\Schools.Api.csproj",
+        "projectUniqueName": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Api\\Schools.Api.csproj",
         "projectName": "Schools.Api",
-        "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.Api\\Schools.Api.csproj",
+        "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Api\\Schools.Api.csproj",
         "packagesPath": "C:\\Users\\jkhal\\.nuget\\packages\\",
-        "outputPath": "E:\\Team\\FinalProject\\Schools\\Schools.Api\\obj\\",
+        "outputPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jkhal\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -22,24 +22,23 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Public\\Documents\\Infragistics\\NuGet\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "E:\\Team\\FinalProject\\Schools\\Schools.AutoMapper\\Schools.AutoMapper.csproj": {
-                "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.AutoMapper\\Schools.AutoMapper.csproj"
+              "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.AutoMapper\\Schools.AutoMapper.csproj": {
+                "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.AutoMapper\\Schools.AutoMapper.csproj"
               },
-              "E:\\Team\\FinalProject\\Schools\\Schools.DAL\\Schools.DAL.csproj": {
-                "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DAL\\Schools.DAL.csproj"
+              "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DAL\\Schools.DAL.csproj": {
+                "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DAL\\Schools.DAL.csproj"
               },
-              "E:\\Team\\FinalProject\\Schools\\Schools.DataBase\\Schools.DataBase.csproj": {
-                "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DataBase\\Schools.DataBase.csproj"
+              "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataBase\\Schools.DataBase.csproj": {
+                "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataBase\\Schools.DataBase.csproj"
               },
-              "E:\\Team\\FinalProject\\Schools\\Schools.DTO\\Schools.DTO.csproj": {
-                "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DTO\\Schools.DTO.csproj"
+              "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DTO\\Schools.DTO.csproj": {
+                "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DTO\\Schools.DTO.csproj"
               }
             }
           }
@@ -61,6 +60,10 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[12.0.0, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[3.6.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -90,9 +93,17 @@
               "target": "Package",
               "version": "[5.0.0, )"
             },
+            "MimeKit": {
+              "target": "Package",
+              "version": "[3.6.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.27.0, )"
             }
           },
           "imports": [
@@ -119,18 +130,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Team\\FinalProject\\Schools\\Schools.AutoMapper\\Schools.AutoMapper.csproj": {
+    "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.AutoMapper\\Schools.AutoMapper.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Team\\FinalProject\\Schools\\Schools.AutoMapper\\Schools.AutoMapper.csproj",
+        "projectUniqueName": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.AutoMapper\\Schools.AutoMapper.csproj",
         "projectName": "Schools.AutoMapper",
-        "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.AutoMapper\\Schools.AutoMapper.csproj",
+        "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.AutoMapper\\Schools.AutoMapper.csproj",
         "packagesPath": "C:\\Users\\jkhal\\.nuget\\packages\\",
-        "outputPath": "E:\\Team\\FinalProject\\Schools\\Schools.AutoMapper\\obj\\",
+        "outputPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.AutoMapper\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jkhal\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -141,18 +152,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Public\\Documents\\Infragistics\\NuGet\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "E:\\Team\\FinalProject\\Schools\\Schools.DataStorage\\Schools.DataStorage.csproj": {
-                "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DataStorage\\Schools.DataStorage.csproj"
+              "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj": {
+                "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj"
               },
-              "E:\\Team\\FinalProject\\Schools\\Schools.DTO\\Schools.DTO.csproj": {
-                "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DTO\\Schools.DTO.csproj"
+              "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DTO\\Schools.DTO.csproj": {
+                "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DTO\\Schools.DTO.csproj"
               }
             }
           }
@@ -191,18 +201,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Team\\FinalProject\\Schools\\Schools.DAL\\Schools.DAL.csproj": {
+    "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DAL\\Schools.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Team\\FinalProject\\Schools\\Schools.DAL\\Schools.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DAL\\Schools.DAL.csproj",
         "projectName": "Schools.DAL",
-        "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DAL\\Schools.DAL.csproj",
+        "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DAL\\Schools.DAL.csproj",
         "packagesPath": "C:\\Users\\jkhal\\.nuget\\packages\\",
-        "outputPath": "E:\\Team\\FinalProject\\Schools\\Schools.DAL\\obj\\",
+        "outputPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jkhal\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -213,18 +223,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Public\\Documents\\Infragistics\\NuGet\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "E:\\Team\\FinalProject\\Schools\\Schools.DataBase\\Schools.DataBase.csproj": {
-                "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DataBase\\Schools.DataBase.csproj"
+              "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataBase\\Schools.DataBase.csproj": {
+                "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataBase\\Schools.DataBase.csproj"
               },
-              "E:\\Team\\FinalProject\\Schools\\Schools.DataStorage\\Schools.DataStorage.csproj": {
-                "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DataStorage\\Schools.DataStorage.csproj"
+              "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj": {
+                "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj"
               }
             }
           }
@@ -253,18 +262,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Team\\FinalProject\\Schools\\Schools.DataBase\\Schools.DataBase.csproj": {
+    "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataBase\\Schools.DataBase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Team\\FinalProject\\Schools\\Schools.DataBase\\Schools.DataBase.csproj",
+        "projectUniqueName": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataBase\\Schools.DataBase.csproj",
         "projectName": "Schools.DataBase",
-        "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DataBase\\Schools.DataBase.csproj",
+        "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataBase\\Schools.DataBase.csproj",
         "packagesPath": "C:\\Users\\jkhal\\.nuget\\packages\\",
-        "outputPath": "E:\\Team\\FinalProject\\Schools\\Schools.DataBase\\obj\\",
+        "outputPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataBase\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jkhal\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -275,15 +284,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Public\\Documents\\Infragistics\\NuGet\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "E:\\Team\\FinalProject\\Schools\\Schools.DataStorage\\Schools.DataStorage.csproj": {
-                "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DataStorage\\Schools.DataStorage.csproj"
+              "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj": {
+                "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj"
               }
             }
           }
@@ -342,18 +350,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Team\\FinalProject\\Schools\\Schools.DataStorage\\Schools.DataStorage.csproj": {
+    "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Team\\FinalProject\\Schools\\Schools.DataStorage\\Schools.DataStorage.csproj",
+        "projectUniqueName": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj",
         "projectName": "Schools.DataStorage",
-        "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DataStorage\\Schools.DataStorage.csproj",
+        "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj",
         "packagesPath": "C:\\Users\\jkhal\\.nuget\\packages\\",
-        "outputPath": "E:\\Team\\FinalProject\\Schools\\Schools.DataStorage\\obj\\",
+        "outputPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataStorage\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jkhal\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -364,15 +372,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Public\\Documents\\Infragistics\\NuGet\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "E:\\Team\\FinalProject\\Schools\\Schools.Service\\Schools.Service.csproj": {
-                "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.Service\\Schools.Service.csproj"
+              "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Service\\Schools.Service.csproj": {
+                "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Service\\Schools.Service.csproj"
               }
             }
           }
@@ -407,18 +414,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Team\\FinalProject\\Schools\\Schools.DTO\\Schools.DTO.csproj": {
+    "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DTO\\Schools.DTO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Team\\FinalProject\\Schools\\Schools.DTO\\Schools.DTO.csproj",
+        "projectUniqueName": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DTO\\Schools.DTO.csproj",
         "projectName": "Schools.DTO",
-        "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DTO\\Schools.DTO.csproj",
+        "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DTO\\Schools.DTO.csproj",
         "packagesPath": "C:\\Users\\jkhal\\.nuget\\packages\\",
-        "outputPath": "E:\\Team\\FinalProject\\Schools\\Schools.DTO\\obj\\",
+        "outputPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DTO\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jkhal\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -429,15 +436,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Public\\Documents\\Infragistics\\NuGet\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "E:\\Team\\FinalProject\\Schools\\Schools.DataStorage\\Schools.DataStorage.csproj": {
-                "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DataStorage\\Schools.DataStorage.csproj"
+              "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj": {
+                "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj"
               }
             }
           }
@@ -472,18 +478,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Team\\FinalProject\\Schools\\Schools.Service\\Schools.Service.csproj": {
+    "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Service\\Schools.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Team\\FinalProject\\Schools\\Schools.Service\\Schools.Service.csproj",
+        "projectUniqueName": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Service\\Schools.Service.csproj",
         "projectName": "Schools.Service",
-        "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.Service\\Schools.Service.csproj",
+        "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Service\\Schools.Service.csproj",
         "packagesPath": "C:\\Users\\jkhal\\.nuget\\packages\\",
-        "outputPath": "E:\\Team\\FinalProject\\Schools\\Schools.Service\\obj\\",
+        "outputPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Service\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jkhal\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -494,7 +500,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Public\\Documents\\Infragistics\\NuGet\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -527,7 +532,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,6 +1,6 @@
 ﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="/" Path="E:\Team\FinalProject\Schools\Tttt\obj\Debug\net5.0\scopedcss\bundle\" />
+  <ContentRoot BasePath="/" Path="C:\Users\jkhal\Desktop\FinalProject\FinalProgect2\Tttt\obj\Debug\net5.0\scopedcss\bundle\" />
   <ContentRoot BasePath="_content/Blazored.Toast" Path="C:\Users\jkhal\.nuget\packages\blazored.toast\3.2.2\build\..\staticwebassets\" />
-  <ContentRoot BasePath="_content/Schools.Api" Path="E:\Team\FinalProject\Schools\Schools.Api\wwwroot\" />
+  <ContentRoot BasePath="_content/Schools.Api" Path="C:\Users\jkhal\Desktop\FinalProject\FinalProgect2\Schools.Api\wwwroot\" />
   <ContentRoot BasePath="_content/Tewr.Blazor.FileReader" Path="C:\Users\jkhal\.nuget\packages\tewr.blazor.filereader\3.3.1.21360\build\..\staticwebassets\" />
 </StaticWebAssets>

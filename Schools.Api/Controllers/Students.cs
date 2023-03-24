@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Schools.Api.Sevice.UploadImages;
 using Schools.DAL.UnitOfWork;
@@ -75,6 +76,18 @@ namespace Schools.Api.Controllers
                 }
 
             }
+        }
+        [HttpPost("{SSN}")]
+        public async Task<IActionResult> AddImage(long SSN, IFormFile image)
+        {
+
+            var CurrentStudent = await _unitOfWork.Student.GetByIdAsync(SSN);
+            if (CurrentStudent is null)
+                return BadRequest();
+            CurrentStudent.StudenntSSN = SSN;
+            CurrentStudent.Image = UploadFiles.UploadImage(image);
+            _unitOfWork.Student.Updating(SSN, CurrentStudent);
+            return _unitOfWork.Complete() > 0 ? Ok("Adding Image is Done") : BadRequest("Adding Image Failed!");
         }
 
         [HttpPut("{SSN}")]

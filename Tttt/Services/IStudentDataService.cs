@@ -14,5 +14,7 @@ namespace Tttt.Services
         Task<HttpResponseMessage> Update(long? CodedId, StudentDto Students);
         Task<HttpResponseMessage> Delete(long? StudentId);
         Task<StudentDto> Get(long? StudentId);
+        Task<HttpResponseMessage> Check(long SSN);
+
     }
 }

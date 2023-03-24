@@ -1,0 +1,128 @@
+﻿
+@page "/Register"
+
+<div class="main" style="background-color:white;height:100vh;">
+    <div>
+        <div class="signup-content d-flex align-items-center">
+            <div class="signup-img">
+                <img src="pluto-1.0.0/images/02-register-student.gif" class="w-100" alt="">
+            </div>
+
+            <div class="signup-form">
+                @if (StatusesCheckRegister)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Error!</strong> Serial Number is Not Valid For Any @CheckRegisterDto.RoleName
+                        <button type="button" class="close" @onclick="@CloseAlert" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                }
+
+                @if (StatuesRegister)
+                {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Success Registeration</strong> Please You Must Verification Your Email Plaese Check Ypur inbox Mail  For Confirmation Sir, @userRegistrationDto.UserName
+                        <button type="button" class="close" @onclick="@CloseAlert" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                }
+                @if (StatuesRegisterFailed)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Error! Registeration</strong> Try Again !!
+                        <button type="button" class="close" @onclick="@CloseAlert" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                }
+                @if (ShowCheckUser)
+                {
+                    <EditForm method="POST" Model="@CheckRegisterDto" class="register-form" id="register-form" OnValidSubmit="@HandelCheckRegister">
+                        <DataAnnotationsValidator />
+                        <div class="form-group">
+                            <label for="name">Serial Number</label>
+                            <InputNumber @bind-Value="CheckRegisterDto.SSN" placeholder="Enter Serail Number" class="form-control" type="text" name="name" id="name" required />
+                            <ValidationMessage For="@(()=>CheckRegisterDto.SSN)" />
+                        </div>
+                        <div class="form-group">
+                            <label for="course">Register As :</label>
+                            <InputSelect @bind-Value="CheckRegisterDto.RoleName" class="form-select " id="course" aria-label="Default select example">
+                                <option> -- Select Roles Registeration --</option>
+                                @foreach (var role in Roles)
+                                    {
+                                    <option value="@role.Name">@role.Name</option>
+                                    }
+                            </InputSelect>
+                            <ValidationMessage For="@(()=>CheckRegisterDto.RoleName)" />
+                        </div>
+                        <div class="form-submit d-flex justify-content-end">
+                            <button type="submit" class="submit btn btn-outline-primary me-3"> Register</button>
+                            <button type="button" @onclick="ShowNotification" class="submit btn btn-outline-primary me-3"> Notification</button>
+                        </div>
+                    </EditForm>
+                }
+                @if (ShowCompleteRegister)
+                {
+
+                   
+            <EditForm method="POST" Model="@userRegistrationDto" class="register-form" id="register-form" OnValidSubmit="@HandelRegister">
+
+                @if (ShowchekSerialNumber)
+                {
+
+                    <div class="form-group">
+                        <label for="name">Serial Number</label>
+                        <input @bind-value="@StuddentSSN" placeholder="Enter SSN of Your Children" class="form-control" type="number" dis name="name" id="name" required />
+                        <input type="button" class="btn-block bg-primary" value="Checking Student " @onclick="MouseOut" />
+                        @if (ShowErrorSnn)
+                        {
+                            <p class="text-danger">This Student is Not Existed </p>
+                        }
+                    </div>
+                }
+                <DataAnnotationsValidator />
+
+                <div class="form-group">
+                    <label for="name">Serial Number</label>
+                    <InputText disabled="@IsDisabled" @bind-Value="userRegistrationDto.UserName" placeholder="Enter User Name" class="form-control" type="text" dis name="name" id="name" required />
+                    <ValidationMessage For="@(()=>userRegistrationDto.UserName)" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email </label>
+                    <InputText disabled="@IsDisabled" @bind-Value="userRegistrationDto.Email" class="form-control" type="email" name="email" id="email" />
+                    <ValidationMessage For="@(()=>userRegistrationDto.Email)" />
+
+                </div>
+                <div class="form-group">
+                    <label for="email">Password</label>
+                    <InputText disabled="@IsDisabled" @bind-Value="userRegistrationDto.Password" placeholder="Enter You Password" class="form-control" type="password" name="email" id="email" required />
+                    <ValidationMessage For="@(()=>userRegistrationDto.Password)" />
+
+                </div>
+                <div class="form-group">
+                    <label for="email">Confirm Password </label>
+                    <InputText disabled="@IsDisabled" @bind-Value="userRegistrationDto.ConfirmPassword" placeholder="Enter You Confirm Password" class="form-control" type="password" name="email" id="email" />
+                    <ValidationMessage For="@(()=>userRegistrationDto.Password)" />
+
+                </div>
+                <div class="form-submit d-flex justify-content-end">
+                    <button type="submit" class="submit btn btn-outline-primary me-3"> Register</button>
+                </div>
+            </EditForm>
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+
+
+
+

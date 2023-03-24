@@ -1,0 +1,125 @@
+﻿/* @extend display-flex; */
+display-flex,
+.signup-content,
+.form-row,
+.select-icon,
+.select-icon i {
+    display: flex;
+    display: -webkit-flex;
+}
+
+/* @extend list-type-ulli; */
+list-type-ulli {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+body {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #222;
+    font-weight: 400;
+    background: #282828;
+}
+
+
+.signup-img,
+.signup-form {
+    width: 50%;
+}
+
+.signup-img {
+    margin-bottom: -7px;
+}
+
+.register-form {
+    padding: 50px 100px 50px 70px;
+}
+
+
+.form-group {
+    margin-bottom: 23px;
+    position: relative;
+}
+
+label {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 2px;
+    display: block;
+}
+
+
+@media screen and (max-width: 992px) {
+    .container {
+        width: calc(100% - 40px);
+        max-width: 100%;
+    }
+
+    .signup-content {
+        flex-direction: column;
+        -moz-flex-direction: column;
+        -webkit-flex-direction: column;
+        -o-flex-direction: column;
+        -ms-flex-direction: column;
+    }
+
+    .signup-img,
+    .signup-form {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .register-form {
+        padding: 50px 40px 50px 40px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .form-row {
+        flex-direction: column;
+        -moz-flex-direction: column;
+        -webkit-flex-direction: column;
+        -o-flex-direction: column;
+        -ms-flex-direction: column;
+        margin: 0px;
+    }
+
+        .form-row .form-group {
+            width: 100%;
+            padding: 0px;
+        }
+
+    .radio-label {
+        padding-right: 22px;
+    }
+
+    .form-radio-item {
+        margin-right: 25px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .form-radio {
+        flex-direction: column;
+        -moz-flex-direction: column;
+        -webkit-flex-direction: column;
+        -o-flex-direction: column;
+        -ms-flex-direction: column;
+    }
+
+    .submit {
+        width: 100%;
+    }
+
+    #reset {
+        margin-right: 0px;
+        margin-bottom: 10px;
+    }
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -15,5 +15,7 @@ namespace Schools.DTO.DTO
         [Required(ErrorMessage = "Please insert Password")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        public bool RememberMe { get; set; } = false;
+
     }
 }

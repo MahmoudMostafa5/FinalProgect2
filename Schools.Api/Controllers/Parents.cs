@@ -33,7 +33,7 @@ namespace Schools.Api.Controllers
             var Data = _Map.Map<IEnumerable<Parent>, IEnumerable<ParentDto>>(Parents);
             return Ok(Data);
         }
-        [HttpPost("{SSN}")]
+        [HttpGet("{SSN}")]
         public async Task<IActionResult> Get(long SSN)
         {
             var CurrentParent = await _unitOfWork.Parent.GetByIdAsync(SSN);

@@ -1,13 +1,21 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Schools.Api.Sevice.Authentication;
+using Schools.Api.Sevice.EmailService;
+using Schools.Api.Sevice.Settings;
 using Schools.DAL.UnitOfWork;
 using Schools.DataStorage.Entity;
 using Schools.DTO.DTO;
 using Schools.Service.Users;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Principal;
+using System.Text;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -22,29 +30,40 @@ namespace Schools.Api.Controllers
         private readonly IMapper _Map;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signManager;
-        public Account(IUnitOfWork unit, IMapper map, UserManager<ApplicationUser> user , SignInManager<ApplicationUser> sign)
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        //private readonly Mailing _mailingController ;
+        private readonly IMailingService _mailingService;
+        private readonly IAuthService _authService;
+        private readonly JWT _jwt;
+
+
+
+        public Account(IMailingService mailing,
+            IUnitOfWork unit, RoleManager<IdentityRole> role, IMapper map,
+            UserManager<ApplicationUser> user, SignInManager<ApplicationUser> sign
+            , IAuthService IAuthentication ,IOptions<JWT>Jwt)
         {
+            this._jwt = Jwt.Value;
             this._unitOfWork = unit;
             this._Map = map;
             this._userManager = user;
             this._signManager = sign;
+            this._mailingService = mailing;
+            this._roleManager = role;
+            this._authService = IAuthentication;
         }
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             if (!ModelState.IsValid)
-                return BadRequest("Not valid !");
+                return BadRequest();
+            var result = await _authService.LoginAync(loginDto);
+            if (!result.IsAuthenticated)
+                return BadRequest();
             else
-            {
-                var CurrentUser = await _userManager.FindByEmailAsync(loginDto.Email);
-                if(CurrentUser is not null && await _userManager.CheckPasswordAsync(CurrentUser, loginDto.Password))
-                {
-                   await _signManager.SignInAsync(CurrentUser, true);
-                    return Ok("You are Sign int");
-                }
-                else
-                    return BadRequest("Error Sign please try again ");
-            }
+                return Ok(result);
+
         }
         [HttpPost]
         public async Task<IActionResult> LogOut()
@@ -52,164 +71,149 @@ namespace Schools.Api.Controllers
             await _signManager.SignOutAsync();
             return Ok("SignOut Dine");
         }
+        [HttpGet]
+        public async Task<CurrentUser> CurrentUserInfoAsync()
+        {
+            var CurrentUser = await _userManager.GetUserAsync(User);
+            var Roles = await _userManager.GetRolesAsync(CurrentUser);
+            var CurrentUserRole = Roles.FirstOrDefault();
+            return new CurrentUser
+            {
+                IsAuthenticated = User.Identity.IsAuthenticated,
+                UserName = User.Identity.Name,
+                Role = CurrentUserRole,
+                Claims = User.Claims
+                .ToDictionary(c => c.Type, c => c.Value)
+            };
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] UserRegistrationDto userRegistrationDto)
+        {
+            string BodyMessage;
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        [HttpPost("{SSN}")]
-        public async Task<IActionResult> Register(long SSN, string Role, UserRegistrationDto userRegistrationDto)
+            var result = await _authService.RegisterAsync(userRegistrationDto);
+
+            if (!result.IsAuthenticated)
+                return BadRequest(result.Message);
+            if( userRegistrationDto.RoleName is not null&& userRegistrationDto.RoleName.Contains("Parent"))
+                BodyMessage = $"" + "Wellcom Sir in Your Schools We want to Confirmation Your Register " + Environment.NewLine + "Please Cliek on this Link" + Environment.NewLine + $"https://localhost:44382/ConfirmEmail?token={result.Token}&email={result.Email}&role={userRegistrationDto.RoleName}&ssn={userRegistrationDto.SSN}&anotherssn={userRegistrationDto.AnotherSSN}";
+            else
+            BodyMessage = $"" + "Wellcom Sir in Your Schools We want to Confirmation Your Register " + Environment.NewLine + "Please Cliek on this Link" + Environment.NewLine + $"https://localhost:44382/ConfirmEmail?token={result.Token}&email={result.Email}&role={userRegistrationDto.RoleName}&ssn={userRegistrationDto.SSN}";
+            await _mailingService.SendEmailAsync(userRegistrationDto.Email, $"Confirmation Email", BodyMessage);
+            return Ok(result);
+        }
+        //Account/GetToken
+        [HttpPost]
+        public async Task<IActionResult> GetToken(TokenRequestModel tokenRequestModel)
         {
             if (!ModelState.IsValid)
-                return BadRequest("Please Fill Form Correct");
-            else
-            {
-                // Mapping information from userRegistrationDto to ApplicationUser(User) to Register
-                ApplicationUser AppUser = new ApplicationUser()
-                {
-                    UserName = userRegistrationDto.UserName,
-                    Email = userRegistrationDto.Email
-                };
+                return BadRequest(ModelState);
+            var result = await _authService.GetTokenAsync(tokenRequestModel);
 
-                try
-                {
+            if (!result.IsAuthenticated)
+                return BadRequest(result.Message);
 
-                    var result = await _userManager.CreateAsync(AppUser, userRegistrationDto.Password);
-                    if (!result.Succeeded)
-                    {
-                        return BadRequest($"Error in Registeration");
-                    }
-                    else
-                    {
-                        var CurrentUserByEmail = await _userManager.FindByEmailAsync(userRegistrationDto.Email);
-                        var Current_User_ByUserId = CurrentUserByEmail.Id;
-                        var AddingUserIdToRole= await AddUserIdToUser(Role,SSN, Current_User_ByUserId);
-                        var AddingUserToRole = await _userManager.AddToRoleAsync(AppUser, Role);
-                        var CheckUserIsExisted = await CheckUserIs_Existed(SSN, Role);
-                        if (!AddingUserToRole.Succeeded || !AddingUserIdToRole || !CheckUserIsExisted)
-                        {
-                            await _userManager.DeleteAsync(CurrentUserByEmail);
-                            return Ok("Register Failed Try Again !!!! ");
-                        }
-                        else
-                            return Ok("Register Done");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest($"Error When User Register {ex.Message}");
-                }
-            }
+            return Ok(result);
         }
-        [HttpPost("{ParentSSN}")]
-        public async Task<IActionResult> RegisterAsParent(long StudentSSN , long ParentSSN, UserRegistrationDto userRegistrationDto)
+        [HttpPost]
+        public async Task<IActionResult> ConfirmationEmail(ConfirmEmailDto confirmEmailDto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest("Please Fill Form Correct");
-            else
+            bool AddingUserIdToUser;
+            var AppUser = await _userManager.FindByEmailAsync(confirmEmailDto.Email);
+            if (AppUser is null)
+                return BadRequest();
+            var validateConfirmationToken = ValidateToken(confirmEmailDto.Token);
+            if (validateConfirmationToken)
             {
-                // Mapping information from userRegistrationDto to ApplicationUser(User) to Register
-                ApplicationUser AppUser = new ApplicationUser()
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(AppUser);
+                var checkEmailIsConfirmed = await _userManager.ConfirmEmailAsync(AppUser, token);
+                if (!checkEmailIsConfirmed.Succeeded)
+                    return BadRequest();
+               
+                var Role = await _roleManager.FindByNameAsync(confirmEmailDto.Role);
+                if (Role is null)
+                    return BadRequest();
+                var AppUserId = AppUser.Id;
+                if (confirmEmailDto.Role.Contains("Parent"))
+                    AddingUserIdToUser = await AddUserIdToUser(Role, confirmEmailDto.SSN, AppUserId,confirmEmailDto.AnotherSSN);
+                else
+                    AddingUserIdToUser = await AddUserIdToUser(Role, confirmEmailDto.SSN, AppUserId);
+                var AddingUserToRole = await _userManager.AddToRoleAsync(AppUser, Role.Name);
+                if (!AddingUserToRole.Succeeded || !AddingUserIdToUser)
                 {
-                    UserName = userRegistrationDto.UserName,
-                    Email = userRegistrationDto.Email
-                };
-
-                try
-                {
-
-                    var result = await _userManager.CreateAsync(AppUser, userRegistrationDto.Password);
-                    if (!result.Succeeded)
-                    {
-                        return BadRequest($"Error in Registeration");
-                    }
-                    else
-                    {
-                        var CheckStudentAndParentIsExisted = await CheckStudentAndParentIs_Existed(StudentSSN, ParentSSN);
-                        if (CheckStudentAndParentIsExisted)
-                        {
-                            var CurrentUserEmail = await _userManager.FindByEmailAsync(userRegistrationDto.Email);
-                            var CurrentUserId = CurrentUserEmail.Id; // User Id For User Registeration
-                            var AddingUserIdToRole = await AddUserIdToUser("Parent", ParentSSN, CurrentUserId);
-                            var AddingUserToRole = await _userManager.AddToRoleAsync(AppUser, "Parent");
-                            var AddingParentToStudent = await AddStudenToParent(StudentSSN, ParentSSN);
-                            if (!AddingUserToRole.Succeeded || !AddingUserIdToRole )
-                            {
-                                await _userManager.DeleteAsync(CurrentUserEmail);
-                                return Ok("Register Failed Try Again !!!! ");
-                            }
-                            else
-                                return Ok("Register Done");
-                        }else
-                            return BadRequest("Registeration Failed !! please Try Again");
-                    }
+                    await _userManager.DeleteAsync(AppUser);
+                    return BadRequest("Register Failed Try Again !!!! ");
                 }
-                catch (Exception ex)
+                else
                 {
-                    return BadRequest($"Error When User Register {ex.Message}");
+                    var LoginDto = new LoginDto() { Email = confirmEmailDto.Email, Password = "A", RememberMe = true };
+                    var ResultLogin = await _authService.LoginAfterConfirmation(LoginDto);
+                    if (!ResultLogin.IsAuthenticated)
+                        return BadRequest();
+                    return Ok(ResultLogin);
                 }
+               
             }
+            return BadRequest("Register Failed Try Again !!!!");
         }
 
+        private  bool ValidateToken(string authToken)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var validationParameters = GetValidationParameters();
 
-
-
-        private async Task<bool> AddUserIdToUser(string Role ,long SSN, string User_Id)
+            SecurityToken validatedToken;
+            IPrincipal principal = tokenHandler.ValidateToken(authToken, validationParameters, out validatedToken);
+            return true;
+        }
+        private  TokenValidationParameters GetValidationParameters()
+        {
+            return new TokenValidationParameters()
+            {
+                ValidateLifetime = false, // Because there is no expiration in the generated token
+                ValidateAudience = false, // Because there is no audiance in the generated token
+                ValidateIssuer = false,   // Because there is no issuer in the generated token
+                ValidIssuer = "Sample",
+                ValidAudience = "Sample",
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key)) // The same key as the one that generate the token
+            };
+        }
+        private async Task<bool> AddUserIdToUser(IdentityRole Role, long SSN, string User_Id,long? AnotherSSN = null)
         {
             var CurrentUserEmail_ByUserId = await _userManager.FindByIdAsync(User_Id); // Get Email
-            if (CurrentUserEmail_ByUserId is null) // Check Email is Not Null 
-                return false;
             var CurrentUserId = CurrentUserEmail_ByUserId.Id; // Get User Id Of Email
-            if (Role == "Teacher")
+            var AddingRole = Role.Name.ToLower();
+            if (AddingRole == "Teacher".ToLower())
             {
-                _unitOfWork.Teacher.GetById(SSN).User_Id = CurrentUserId;// Add User_Id To Teacher Record
+                _unitOfWork.Teacher.GetById(SSN).User_Id = CurrentUserId;
                 return _unitOfWork.Complete() > 0 ? true : false;
             }
-            else if (Role == "Student")
+            else if (AddingRole == "Student".ToLower())
             {
-                _unitOfWork.Student.GetById(SSN).User_Id = CurrentUserId;// Add User_Id To Student Record
+                _unitOfWork.Student.GetById(SSN).User_Id = CurrentUserId;
                 return _unitOfWork.Complete() > 0 ? true : false;
             }
-            else if (Role == "Parent")
+            else if (AddingRole == "Parent".ToLower())
             {
-                _unitOfWork.Parent.GetById(SSN).User_Id = CurrentUserId;// SSN=> Parent SSN Add User_Id To Student Record
+                if (AnotherSSN is not null)
+                {
+                    var CurrenUserConfirmed =await _unitOfWork.Parent.GetByIdAsync(SSN);
+                    CurrenUserConfirmed.User_Id = CurrentUserId;
+                    var CurrentUser =await _unitOfWork.Student.GetByIdAsync(AnotherSSN);
+                    CurrentUser.ParentId = SSN;
+                    return _unitOfWork.Complete() > 0 ? true : false;
+                }
+                return false;
+            }
+            else if (AddingRole == "StudentAffaris".ToLower() || AddingRole == "Employee".ToLower())
+            {
+                _unitOfWork.Employee.GetById(SSN).User_Id = CurrentUserId;
                 return _unitOfWork.Complete() > 0 ? true : false;
             }
-
             else
                 return false;
         }
-        private async Task<bool> CheckUserIs_Existed(long SSN , string Role)
-        {
-            if (Role == "Teacher")
-            {
-                var CurrentUser =await _unitOfWork.Teacher.GetByIdAsync(SSN);
-                return CurrentUser is not null ? true : false;
-            }
-            else if (Role == "Student")
-            {
-                var CurrentUser =await _unitOfWork.Student.GetByIdAsync(SSN);
-                return CurrentUser is not null ? true : false;
-            }
-            
-            else
-                return false;
-        }
-        private async Task<bool> CheckStudentAndParentIs_Existed(long StudentSSN , long ParentSSN)
-        {
-            var CurrentStudent =await _unitOfWork.Student.GetByIdAsync(StudentSSN);
-            var CurrentParent  =await _unitOfWork.Parent.GetByIdAsync(ParentSSN);
-            if (CurrentStudent is not null && CurrentParent is not null)
-                return true;
-            else
-                return false;
-        }
-        private async Task<bool> AddStudenToParent( long StudentSSN, long ParentUserId)
-        {
-            var CurrentStudent = await _unitOfWork.Student.GetByIdAsync(StudentSSN);
-            CurrentStudent.ParentId = ParentUserId;
-            return _unitOfWork.Complete() > 0 ? true : false;
-        }
-        
-   
-
-
-
     }
 }

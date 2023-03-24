@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Schools.Api.Sevice.UploadImages;
 using Schools.DAL.UnitOfWork;
 using Schools.DataStorage.Entity;
 using Schools.DTO.DTO;
@@ -55,7 +57,18 @@ namespace Schools.Api.Controllers
             await _unitOfWork.Employee.Insert(Data);
             return _unitOfWork.Complete() > 0 ? Ok("Done") : BadRequest("Error in Add Employee");
         }
+        [HttpPost("{SSN}")]
+        public async Task<IActionResult> AddImage(long SSN, IFormFile image)
+        {
 
+            var CurrentEmployee = await _unitOfWork.Employee.GetByIdAsync(SSN);
+            if (CurrentEmployee is null)
+                return BadRequest();
+            CurrentEmployee.EmployeeSSN = SSN;
+            CurrentEmployee.Image = UploadFiles.UploadImage(image);
+            _unitOfWork.Employee.Updating(SSN, CurrentEmployee);
+            return _unitOfWork.Complete() > 0 ? Ok("Adding Image is Done") : BadRequest("Adding Image Failed!");
+        }
         // PUT api/<Department>/5
         [HttpPut("{SSN}")]
         public async Task<IActionResult> Update(long SSN,  EmployeeDto employeeDto)

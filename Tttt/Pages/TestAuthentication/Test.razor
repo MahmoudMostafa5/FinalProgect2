@@ -1,0 +1,28 @@
+﻿
+@page "/TestAuth"
+<h3>Test</h3>
+
+
+<h1>Hello, world!</h1>
+<button @onclick="getUserIdAsync" class="btn btn-danger ">
+    Display
+</button>
+Welcome to your new app.
+<p>@_userId</p>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        @if (roles is not null)
+        {
+            foreach (var item in roles.ToList())
+            {
+                <p>@item</p>
+            }
+        }
+    </Authorized>
+    <NotAuthorized>
+        This User is Logged Out
+    </NotAuthorized>
+</AuthorizeView>
+

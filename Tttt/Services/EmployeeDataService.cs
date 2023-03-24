@@ -42,7 +42,11 @@ namespace Tttt.Services
 
         public async Task<HttpResponseMessage> Update(long SSN, EmployeeDto EmployeeDto)
         {
-            return await _httpClient.PutAsync($"api/Employees/Update/{SSN}", getStringContentFromObject(EmployeeDto));
+
+            var ResultUpdate = await _httpClient.PutAsync($"api/Employees/Update/{SSN}", getStringContentFromObject(EmployeeDto));
+            if (ResultUpdate.IsSuccessStatusCode)
+                return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK };
+            return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.BadRequest };
         }
 
         public async Task<HttpResponseMessage> Delete(long SSN)
@@ -55,6 +59,14 @@ namespace Tttt.Services
             var serialized = JsonConvert.SerializeObject(obj);
             var stringContent = new StringContent(serialized, Encoding.UTF8, "application/json");
             return stringContent;
+        }
+
+        public async Task<HttpResponseMessage> Check(long SSN)
+        {
+            var CurrentEmployee = await _httpClient.GetAsync($"api/Employees/Get/{SSN}");
+            if (CurrentEmployee.IsSuccessStatusCode)
+                return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK };
+            return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.BadRequest };
         }
     }
 }

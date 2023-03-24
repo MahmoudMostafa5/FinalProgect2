@@ -70,7 +70,7 @@ namespace Tttt.Pages.Teachers
         {
             try
             {
-                await TeacherDataService.Add(CurrenTeacher);
+                //await TeacherDataService.Add(CurrenTeacher);
                 await UploadFileAsync();
                 AfterChangeImage();
                 

@@ -27,6 +27,7 @@ namespace Tttt.Services
         public async Task<StudentDto> Get(long? StudentId)
         {
             var json = await _httpClient.GetStringAsync($"api/Students/Get/{StudentId}");
+            var st = "AA";
             return JsonConvert.DeserializeObject<StudentDto>(json);
         }
 
@@ -47,7 +48,14 @@ namespace Tttt.Services
             var client = new HttpClient();
             return await _httpClient.DeleteAsync($"api/Students/Delete/{StudentId}");
         }
-
+        //Task<HttpResponseMessage> Check(long SSN);
+        public async Task<HttpResponseMessage> Check(long SSN)
+        {
+            var CurrentTeacher = await _httpClient.GetAsync($"api/Students/Get/{SSN}");
+            if (CurrentTeacher.IsSuccessStatusCode)
+                return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK };
+            return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.BadRequest };
+        }
         private StringContent getStringContentFromObject(object obj)
         {
             var serialized = JsonConvert.SerializeObject(obj);

@@ -1,0 +1,241 @@
+﻿@page "/UserRoles"
+<style>
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        font-size: 22px;
+    }
+</style>
+
+<h3 class="text-center text-info py-2">Subjects OverView</h3>
+
+@if (AllUserRolesDto is not null)
+{
+    <!-- Search -->
+
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <div class="row dataTables_length" id="example_length">
+                <p class="h5 col-md-2"> Show</p>
+                <label class="h5 col-md-4">
+                    <select name="example_length" aria-controls="example" class="form-select form-select-sm">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+                <p class="h5 col-md-2">entries</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div id="example_filter" class="dataTables_filter row">
+                <p class="h5 col-md-2">Search : </p>
+                <label class="col-md-5">
+                    <input type="search" class="form-control form-control-sm" placeholder="Search for Subject" aria-controls="example">
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex">
+        <!-- Table -->
+        <div class="col-8 col-md-6 col-sm-12">
+            <table id="example" class="my-3 table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th class="h4 text-center"> UserName </th>
+                        <th class="h4 text-center"> Email </th>
+                        <th class="h4 text-center"> RoleName </th>
+                        <th class="h4 text-center">
+                            <button class="btn btn-secondary" @onclick="@AddSub"><i class="fa fa-plus-square"></i></button>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var UserRoles in AllUserRolesDto)
+                    {
+                        <tr>
+
+                            <td class="h5 text-center">@UserRoles.UserName</td>
+                            <td class="h5 text-center">@UserRoles.Email</td>
+                            <td class="h5 text-center">@UserRoles.Roles</td>
+                            <td class="h5 text-center">
+                                <button class="btn btn-danger" @onclick="@(async () => await DeleteSub(UserRoles.UserId,UserRoles.Roles))"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-4 col-md-6 col-sm-12">
+            <EditForm method="POST" Model="@userRegistrationDto" class="register-form" id="register-form" OnValidSubmit="@HandelRegister">
+                <DataAnnotationsValidator />
+
+                <div class="form-group">
+                    <label for="name">Serial Number</label>
+                    <InputText  @bind-Value="userRegistrationDto.UserName" placeholder="Enter User Name" class="form-control" type="text" dis name="name" id="name" required />
+                    <ValidationMessage For="@(()=>userRegistrationDto.UserName)" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email </label>
+                    <InputText @bind-Value="userRegistrationDto.Email" class="form-control" type="email" name="email" id="email" />
+                    <ValidationMessage For="@(()=>userRegistrationDto.Email)" />
+
+                </div>
+                <div class="form-group">
+                    <label for="email">Password</label>
+                    <InputText  @bind-Value="userRegistrationDto.Password" placeholder="Enter You Password" class="form-control" type="password" name="email" id="email" required />
+                    <ValidationMessage For="@(()=>userRegistrationDto.Password)" />
+
+                </div>
+                <div class="form-group">
+                    <label for="email">Confirm Password </label>
+                    <InputText @bind-Value="userRegistrationDto.ConfirmPassword" placeholder="Enter You Confirm Password" class="form-control" type="password" name="email" id="email" />
+                    <ValidationMessage For="@(()=>userRegistrationDto.Password)" />
+
+                </div>
+                <div class="form-submit d-flex justify-content-end">
+                    <button type="submit" class="submit btn btn-outline-primary me-3"> Register</button>
+                </div>
+            </EditForm>
+
+        </div>
+    </div>
+    <!-- pagination -->
+    <div class="row">
+        <div class="col-sm-12 col-md-5">
+            <h3 class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</h3>
+        </div>
+        <div class="col-sm-12 col-md-2"></div>
+        <div class="col-sm-12 col-md-5">
+            <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                <ul class="pagination">
+                    <li class="paginate_button page-item previous disabled" id="example_previous">
+                        <a aria-controls="example" aria-disabled="true" aria-role="link" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a>
+                    </li>
+                    <li class="paginate_button page-item active">
+                        <a href="#" aria-controls="example" aria-role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a>
+                    </li>
+                    <li class="paginate_button page-item ">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="5" tabindex="0" class="page-link">6</a>
+                    </li>
+                    <li class="paginate_button page-item next" id="example_next">
+                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    if (isAdd)
+    {
+        <div class="modal" tabindex="-1" style="display:block" role="dialog">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">@modalTitle</h3>
+                        <button type="button" class="close" @onclick="@closeModal">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@manageUserRolesDto" OnValidSubmit="@HandleValidSubmitAdding">
+                            <DataAnnotationsValidator />
+                            <hr />
+                            <div class="form-group row">
+                                <label for="codeId" class="col-sm-2 col-form-label">
+                                    User Id
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputSelect class="form-control" @bind-Value="@manageUserRolesDto.UserId">
+                                        <option>-- Select User Email --</option>
+                                        @foreach (var User in AllUserRolesRegisterd)
+                                                {
+                                            <option value="@User.UserId">@User.Email</option>
+                                                }
+                                    </InputSelect>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="codeId" class="col-sm-2 col-form-label">
+                                    Role Name
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputSelect class="form-control" @bind-Value="@manageUserRolesDto.RoleName">
+                                        <option>-- Select User Email --</option>
+                                        @foreach (var role in AllRolesDto)
+                                                {
+                                            <option value="@role.Name">@role.Name</option>
+                                                }
+                                    </InputSelect>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-block btn-success" data-dismiss="modal">Adding</button>
+                            </div>
+                        </EditForm>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    if (isDelete)
+    {
+        <div class="modal" tabindex="-1" style="display:block" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Delete Subject</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Do you want to delete this Subject ??</h4>
+                        <table class="table">
+                            <tr>
+                                <td>Role Name</td>
+                                <td>@string.Join(" , ", UserRolesDto.Roles.ToList())</td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>@UserRolesDto.UserName</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>@UserRolesDto.Email</td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteSubject(UserRolesDto.UserId, UserRolesDto.Roles))" data-dismiss="modal">YES</button>
+                        <button class="btn btn-warning" @onclick="@closeModal">NO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>Please Waiting</p>
+}

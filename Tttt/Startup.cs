@@ -1,12 +1,15 @@
 using Blazored.Toast;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 //using Reveal.Sdk;
+using Blazored.LocalStorage;
 using Schools.AutoMapper.ProfileMapping;
 using System;
 using System.Collections.Generic;
@@ -14,6 +17,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Tewr.Blazor.FileReader;
+using Tttt.Authentication;
 using Tttt.Data;
 using Tttt.Services;
 
@@ -38,6 +42,10 @@ namespace Tttt
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             services.AddAutoMapper(typeof(ProfileMapping));
+            services.AddOptions();
+            services.AddBlazoredLocalStorage();
+
+
             //Reveal BI
             //services.AddControllers().AddReveal();
 
@@ -86,7 +94,27 @@ namespace Tttt
             services.AddHttpClient<ISchoolYearDataService, SchoolYearDataService>(
                 client => client.BaseAddress = new Uri("https://localhost:44348/"));
 
+            services.AddHttpClient<IAccountService, AccountService>(
+               client => client.BaseAddress = new Uri("https://localhost:44348/"));
+            services.AddHttpClient<IRoleDataService, RoleDataService>(
+               client => client.BaseAddress = new Uri("https://localhost:44348/"));
+
+            services.AddHttpClient<IParentService, ParentService>(
+               client => client.BaseAddress = new Uri("https://localhost:44348/"));
+            services.AddHttpClient<IUserRolesService, UserRolesService>(
+               client => client.BaseAddress = new Uri("https://localhost:44348/"));
+
+
             services.AddFileReaderService();
+
+            services.AddAuthorizationCore();
+            services.AddScoped<CustomStateProvider>();
+            services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<CustomStateProvider>());
+            services.AddResponseCompression(opts =>
+            {
+                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "application/octet-stream" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

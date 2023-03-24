@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
-@using Blazored.Toast.Configuration 
+@inject NavigationManager navigationManager
+@inject Tttt.Authentication.CustomStateProvider _customStateProvider
+@using Blazored.Toast.Configuration
 <div class="full_container">
     <div class="inner_container">
         <NavMenu />
@@ -28,7 +30,7 @@
                                         <a class="dropdown-item" href="profile.html">My Profile</a>
                                         <a class="dropdown-item" href="settings.html">Settings</a>
                                         <a class="dropdown-item" href="help.html">Help</a>
-                                        <a class="dropdown-item" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                                        <a class="dropdown-item" @onclick="@Logout" ><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
                                     </div>
                                 </li>
                             </ul>
@@ -64,9 +66,36 @@
         <!-- end dashboard inner -->
     </div>
 </div>
+@code{
+    [CascadingParameter]
+    Task<AuthenticationState> AuthenticationState { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!(await AuthenticationState).User.Identity.IsAuthenticated)
+        {
+            string email =await _customStateProvider.GetemailAsync();
+            string password =await _customStateProvider.GetpaswordAsync();
+            if(string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+               string uri= navigationManager.ToBaseRelativePath(navigationManager.Uri);
+                if(string.IsNullOrWhiteSpace(uri))
+                navigationManager.NavigateTo("/LoginPage");
+            }
+            else
+            {
+                await _customStateProvider.Login(new Schools.DTO.DTO.LoginDto() { Email = email, Password = password, RememberMe = true });
+            }
+
+        }
+    }
+    async Task Logout()
+    {
+        await _customStateProvider.Logout();
+        navigationManager.NavigateTo("/LoginPage");
+    }
+}
 
 
 
-
-<BlazoredToasts
-                Position="ToastPosition.BottomRight"/>
+<BlazoredToasts Position="ToastPosition.BottomRight" />

@@ -17,6 +17,9 @@ namespace Schools.DataStorage.Entity
         public int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
 
+        public string User_Id { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
 
     }
 }

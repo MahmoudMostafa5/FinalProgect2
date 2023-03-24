@@ -55,5 +55,13 @@ namespace Tttt.Services
             var stringContent = new StringContent(serialized, Encoding.UTF8, "application/json");
             return stringContent;
         }
+
+        public async Task<HttpResponseMessage> Check(long SSN)
+        {
+            var CurrentTeacher =await _httpClient.GetAsync($"api/Teachers/Get/{SSN}");
+            if (CurrentTeacher.IsSuccessStatusCode)
+                return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK };
+            return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.BadRequest };
+        }
     }
 }

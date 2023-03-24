@@ -7640,11 +7640,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Team\\FinalProject\\Schools\\Schools.DataBase\\Schools.DataBase.csproj",
+      "projectUniqueName": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataBase\\Schools.DataBase.csproj",
       "projectName": "Schools.DataBase",
-      "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DataBase\\Schools.DataBase.csproj",
+      "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataBase\\Schools.DataBase.csproj",
       "packagesPath": "C:\\Users\\jkhal\\.nuget\\packages\\",
-      "outputPath": "E:\\Team\\FinalProject\\Schools\\Schools.DataBase\\obj\\",
+      "outputPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataBase\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\jkhal\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7655,15 +7655,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Users\\Public\\Documents\\Infragistics\\NuGet\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "E:\\Team\\FinalProject\\Schools\\Schools.DataStorage\\Schools.DataStorage.csproj": {
-              "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.DataStorage\\Schools.DataStorage.csproj"
+            "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj": {
+              "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj"
             }
           }
         }
@@ -7722,7 +7721,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
       }
     }
   }

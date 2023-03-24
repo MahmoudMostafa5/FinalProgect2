@@ -274,9 +274,16 @@ namespace Schools.DataBase.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("User_Id")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("EmployeeSSN");
 
                     b.HasIndex("DepartmentId");
+
+                    b.HasIndex("User_Id")
+                        .IsUnique()
+                        .HasFilter("[User_Id] IS NOT NULL");
 
                     b.ToTable("Employees");
                 });
@@ -715,6 +722,12 @@ namespace Schools.DataBase.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Schools.DataStorage.Entity.ApplicationUser", "ApplicationUser")
+                        .WithOne("Employee")
+                        .HasForeignKey("Schools.DataStorage.Entity.Employee", "User_Id");
+
+                    b.Navigation("ApplicationUser");
+
                     b.Navigation("Department");
                 });
 
@@ -897,6 +910,8 @@ namespace Schools.DataBase.Migrations
 
             modelBuilder.Entity("Schools.DataStorage.Entity.ApplicationUser", b =>
                 {
+                    b.Navigation("Employee");
+
                     b.Navigation("Parent");
 
                     b.Navigation("Student");

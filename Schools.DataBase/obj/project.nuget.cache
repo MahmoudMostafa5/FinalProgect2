@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oqfpUc+z2SwisJGp7Dzpbj6QSb3zSwvARZBwsiw1WZFLO9zuQD/Pca8yz5TzVDmco9+asKgXlFklbhyx4aL7uQ==",
+  "dgSpecHash": "b9Zw2S9zP+WbWCOWlQaFrJABY9J8CP2Q10mIeQD4QQ6bYtvuiYiFIUcgaDSCBZtd547xBpJo8VieFWenw3elMQ==",
   "success": true,
-  "projectFilePath": "E:\\Team\\FinalProject\\Schools\\Schools.DataBase\\Schools.DataBase.csproj",
+  "projectFilePath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.DataBase\\Schools.DataBase.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jkhal\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
     "C:\\Users\\jkhal\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

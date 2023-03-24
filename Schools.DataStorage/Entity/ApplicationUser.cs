@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Schools.DataStorage.Entity
 {
-    public class ApplicationUser :IdentityUser
+    public class ApplicationUser : IdentityUser
     {
         public string Comment { get; set; }
 
@@ -15,6 +15,7 @@ namespace Schools.DataStorage.Entity
 
         public virtual Teacher Teacher { get; set; }
         public virtual Student Student { get; set; }
-        public virtual Parent  Parent { get; set; }
+        public virtual Parent Parent { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

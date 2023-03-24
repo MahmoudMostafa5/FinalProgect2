@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Team\\FinalProject\\Schools\\Schools.Service\\Schools.Service.csproj",
+      "projectUniqueName": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Service\\Schools.Service.csproj",
       "projectName": "Schools.Service",
-      "projectPath": "E:\\Team\\FinalProject\\Schools\\Schools.Service\\Schools.Service.csproj",
+      "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Service\\Schools.Service.csproj",
       "packagesPath": "C:\\Users\\jkhal\\.nuget\\packages\\",
-      "outputPath": "E:\\Team\\FinalProject\\Schools\\Schools.Service\\obj\\",
+      "outputPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Service\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\jkhal\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,7 +28,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Users\\Public\\Documents\\Infragistics\\NuGet\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -61,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
       }
     }
   }

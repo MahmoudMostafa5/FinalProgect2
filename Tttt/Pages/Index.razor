@@ -2,7 +2,42 @@
 @*@inject IJSRuntime JsRuntime;*@
 
 <h1 class="text-center text-info">Hello, world!</h1>
-
+<AuthorizeView >
+    <Authorized >
+        
+        <!--<AuthorizeView Roles="Student">-->
+            @*<h1>Hello An Authorized User @context.User.Identity.Name</h1>
+            <h1>Hello An Authorized UserId @UserId</h1>
+            <p>Welcome to Blazor Learner.</p>
+            <SurveyPrompt Title="How is Blazor working for you?" />*@
+            <!--<h2>Wellcom Student </h2>
+        </AuthorizeView>
+        <AuthorizeView Roles="Parent">-->
+            @*<h1>Hello An Authorized User @context.User.Identity.Name</h1>
+            <h1>Hello An Authorized UserId @UserId</h1>
+            <p>Welcome to Blazor Learner.</p>
+            <SurveyPrompt Title="How is Blazor working for you?" />*@
+            <!--<h2>Wellcom Parent </h2>
+        </AuthorizeView>
+        <AuthorizeView Roles="Teacher">-->
+            @*<h1>Hello An Authorized User @context.User.Identity.Name</h1>
+            <h1>Hello An Authorized UserId @UserId</h1>
+            <p>Welcome to Blazor Learner.</p>
+            <SurveyPrompt Title="How is Blazor working for you?" />*@
+            <!--<h2>Wellcom Teacher </h2>
+        </AuthorizeView>
+        <AuthorizeView Roles="StudentAffaris">-->
+    @*<h1>Hello An Authorized User @context.User.Identity.Name</h1>
+        <h1>Hello An Authorized UserId @UserId</h1>
+        <p>Welcome to Blazor Learner.</p>
+        <SurveyPrompt Title="How is Blazor working for you?" />*@
+            <!--<h2>Wellcom StudentAffaris </h2>
+        </AuthorizeView>-->
+    </Authorized>
+    <NotAuthorized>
+        Bad Not authorizing User !!!!!!!!!!!!!!!!!!!!!
+    </NotAuthorized>
+</AuthorizeView>
 @*<select @onchange="selectedDashboardChange">
     <option>Departments</option>
     <option>Campaigns</option>

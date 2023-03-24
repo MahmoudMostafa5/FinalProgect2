@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Schools.DataBase.Context
 {
-    public class SchoolsDB :IdentityDbContext<ApplicationUser>
+    public class SchoolsDB : IdentityDbContext<ApplicationUser>
     {
-        public SchoolsDB(DbContextOptions<SchoolsDB> options):base(options)
+        public SchoolsDB(DbContextOptions<SchoolsDB> options) : base(options)
         {
 
         }
@@ -46,6 +46,13 @@ namespace Schools.DataBase.Context
             builder.Entity<Teacher>()
                 .HasOne<ApplicationUser>(s => s.ApplicationUser)
                 .WithOne(s => s.Teacher).HasForeignKey<Teacher>(s => s.User_Id);
+
+
+            // RelationSipt between Techer and ApplicatioUser
+
+            builder.Entity<Employee>()
+                .HasOne<ApplicationUser>(s => s.ApplicationUser)
+                .WithOne(s => s.Employee).HasForeignKey<Employee>(s => s.User_Id);
 
             // RelationSipt between Student and ApplicatioUser
 
