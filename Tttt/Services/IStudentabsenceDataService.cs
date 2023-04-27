@@ -13,5 +13,6 @@ namespace Tttt.Services
         Task<HttpResponseMessage> Add(StudentAbsenceDto Studentabsence);
         Task<HttpResponseMessage> Delete(int? StudentabsenceId);
         Task<StudentAbsenceDto> Get(int? StudentabsenceId);
+        Task<IEnumerable<StudentAbsenceDto>> GetBySchoolYearAndClassRoom(int? SchoolsYearId, int? ClassRoomId);
     }
 }

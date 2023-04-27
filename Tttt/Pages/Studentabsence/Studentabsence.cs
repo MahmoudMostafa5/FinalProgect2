@@ -20,62 +20,69 @@ namespace Tttt.Pages.Studentabsence
         [Inject]
         public IStudentabsenceDataService StudentabsenceDataService { get; set; }
         [Inject]
+        public IEnumerable<SchoolYearsDto> SchoolYears { get; set; }
+        [Inject]
+        public ISchoolYearDataService SchoolYearDataService { get; set; }
+        [Inject]
+        public IEnumerable<ClassRoomDto> ClassRooms { get; set; }
+        [Inject]
+        public IClassRoomDataService classRoomDataService { get; set; }
+        [Inject]
         public IStudentDataService StudentDataService { get; set; }
         [Inject]
         public IToastService ToastService { get; set; }
         [Inject]
         public NavigationManager _navigation { get; set; }
 
+        public int SchoolYearId;
+        public int ClassRoomId;
+
         protected override async Task OnInitializedAsync()
         {
-            AllStudentabsence = await StudentabsenceDataService.GetAll();
-            Students = await StudentDataService.GetAll();
-
+            //AllStudentabsence = await StudentabsenceDataService.GetBySchoolYearAndClassRoom(SchoolYearId, ClassRoomId);
+            //Students = await StudentDataService.GetAll();
+            SchoolYears = await SchoolYearDataService.GetAll();
+            ClassRooms = await classRoomDataService.GetAll();
+        }
+        private async Task Search()
+        {
+            AllStudentabsence = await  StudentabsenceDataService.GetBySchoolYearAndClassRoom(SchoolYearId, ClassRoomId);
+            Students = (await StudentDataService.GetAll()).Where(a => a.SchoolsYearId == SchoolYearId && a.ClassRoomId == ClassRoomId);
+            await OnInitializedAsync();
         }
         protected async Task HandleValidSubmitAdding()
         {
+            CurrenStudentabsence = new StudentAbsenceDto();
             try
             {
                 await StudentabsenceDataService.Add(CurrenStudentabsence);
                 ToastService.ShowSuccess("Adding New Studentabsence Succefully");
-
-
             }
             catch
             {
                 ToastService.ShowError("Adding New Studentabsence Falied !!");
-
             }
+            await Search();
             await OnInitializedAsync();
         }
         protected async Task DeleteStudentabsence(int? CodedId)
         {
+            CurrenStudentabsence = await StudentabsenceDataService.Get(CodedId);
             try
             {
-                await StudentabsenceDataService.Delete(CodedId);
+                await StudentabsenceDataService.Delete(CurrenStudentabsence.Id);
                 ToastService.ShowSuccess("Deleting  Studentabsence Succefully");
             }
             catch
             {
                 ToastService.ShowError("Deleting Studentabsence Falied !!");
             }
+            await Search();
             await OnInitializedAsync();
         }
         protected void AddSub()
         {
             CurrenStudentabsence = new StudentAbsenceDto();
-        }
-        protected async Task DeleteSub(int? CodedId)
-        {
-            CurrenStudentabsence = await StudentabsenceDataService.Get(CodedId);
-        }
-        protected void closeModal()
-        {
-            CurrenStudentabsence = new StudentAbsenceDto();
-        }
-        protected async Task Modify(int? StudentabsenceId)
-        {
-            CurrenStudentabsence = await StudentabsenceDataService.Get(StudentabsenceId);
         }
     }
 }

@@ -91,16 +91,15 @@ namespace Tttt.Pages.Students
             try
             {
                 await StudentDataService.Update(CurrenStudent.StudenntSSN, CurrenStudent);
+                if (file is not null)
+                {
+                    await UploadFileAsync();
+                }
                 ToastService.ShowSuccess("Update  Student Succefully");
-
-
             }
             catch
             {
                 ToastService.ShowError("Update Student Falied !!");
-
-                //ToastService.ShowSuccess("Update  Student Succefully");
-
             }
             this.isModify = false;
             await OnInitializedAsync();

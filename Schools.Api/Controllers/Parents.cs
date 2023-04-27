@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Schools.Api.Sevice.UploadImages;
 using Schools.DAL.UnitOfWork;
@@ -47,7 +48,7 @@ namespace Schools.Api.Controllers
                 return BadRequest("This Student don't Exist ");
         }
         [HttpPost]
-        public async Task<IActionResult> Add([FromForm] ParentDto studentDto)
+        public async Task<IActionResult> Add(ParentDto studentDto)
         {
             if (!ModelState.IsValid)
             {
@@ -59,7 +60,7 @@ namespace Schools.Api.Controllers
                 {
 
                     var Data = _Map.Map<Parent>(studentDto);
-                    Data.Image = UploadFiles.UploadImage(studentDto.Picture);
+                    //Data.Image = UploadFiles.UploadImage(studentDto.Picture);
                     await _unitOfWork.Parent.Insert(Data);
                     if (_unitOfWork.Complete() > 0)
                     {
@@ -67,20 +68,33 @@ namespace Schools.Api.Controllers
                     }
                     else
                     {
-                        return BadRequest("Error when Adding student Data or Adress of Teacher");
+                        return BadRequest("Error when Adding student Data or Adress of Parent");
                     }
                 }
                 catch (Exception ex)
                 {
 
-                    return BadRequest($"Adding Teacher Failed Message {ex.Message}");
+                    return BadRequest($"Adding Parent Failed Message {ex.Message}");
                 }
 
             }
         }
 
+        [HttpPost("{SSN}")]
+        public async Task<IActionResult> AddImage(long SSN, IFormFile image)
+        {
+
+            var CurrentParent = await _unitOfWork.Parent.GetByIdAsync(SSN);
+            if (CurrentParent is null)
+                return BadRequest();
+            CurrentParent.ParentSSN = SSN;
+            CurrentParent.Image = UploadFiles.UploadImage(image);
+            _unitOfWork.Parent.Updating(SSN, CurrentParent);
+            return _unitOfWork.Complete() > 0 ? Ok("Adding Image is Done") : BadRequest("Adding Image Failed!");
+        }
+
         [HttpPut("{SSN}")]
-        public IActionResult Update(long SSN, [FromForm] ParentDto studentDto)
+        public IActionResult Update(long SSN, ParentDto studentDto)
         {
             if (!ModelState.IsValid)
             {
@@ -95,7 +109,7 @@ namespace Schools.Api.Controllers
             {
                 CurrentParent = _Map.Map<ParentDto, Parent>(studentDto, CurrentParent);
                 CurrentParent.ParentSSN = SSN;
-                CurrentParent.Image = studentDto.Image != null ? UploadFiles.UploadImage(studentDto.Picture) : CurrentParent.Image;
+                //CurrentParent.Image = studentDto.Image != null ? UploadFiles.UploadImage(studentDto.Picture) : CurrentParent.Image;
                 _unitOfWork.Parent.Updating(SSN,CurrentParent);
                 if (_unitOfWork.Complete() > 0)
                 {

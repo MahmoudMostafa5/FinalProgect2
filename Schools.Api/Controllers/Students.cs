@@ -58,7 +58,7 @@ namespace Schools.Api.Controllers
                 {
 
                     var Data = _Map.Map<Student>(studentDto);
-                    Data.Image = UploadFiles.UploadImage(studentDto.Picture);
+                    //Data.Image = UploadFiles.UploadImage(studentDto.Picture);
                     await _unitOfWork.Student.Insert(Data);
                     if (_unitOfWork.Complete() > 0)
                     {
@@ -106,7 +106,7 @@ namespace Schools.Api.Controllers
             {
                 CurrentStudent = _Map.Map<StudentDto,Student>(studentDto,CurrentStudent);
                 CurrentStudent.StudenntSSN = SSN;
-                CurrentStudent.Image = studentDto.Image!= null? UploadFiles.UploadImage(studentDto.Picture) : CurrentStudent.Image;
+                //CurrentStudent.Image = studentDto.Image!= null? UploadFiles.UploadImage(studentDto.Picture) : CurrentStudent.Image;
                 _unitOfWork.Student.Updating(SSN,CurrentStudent);
                 if (_unitOfWork.Complete() > 0)
                 {

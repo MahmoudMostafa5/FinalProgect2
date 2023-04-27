@@ -126,7 +126,8 @@ namespace Schools.Api.Controllers
             {
                 return BadRequest("SchoolsYearId is not Valid");
             }
-            var StudentAbsence = await _unitOfWork.StudentAbsence.FindAsync((s => s.Student.SchoolsYearId == SchoolsYearId && s.Student.ClassRoomId == ClassRoomId));
+            //var StudentAbsence = await _unitOfWork.StudentAbsence.FindAsync((s => s.Student.SchoolsYearId == SchoolsYearId && s.Student.ClassRoomId == ClassRoomId));
+            var StudentAbsence = await _unitOfWork.StudentAbsence.FindAsync((s => s.Student.SchoolsYearId == SchoolsYearId && s.Student.ClassRoomId == ClassRoomId && s.Date.Day == DateTime.Now.Day));
             if (StudentAbsence is null)
                 return BadRequest("Invalid !!");
             var Data = _Map.Map<IEnumerable<Studentabsence>, IEnumerable<StudentAbsenceDto>>(StudentAbsence);

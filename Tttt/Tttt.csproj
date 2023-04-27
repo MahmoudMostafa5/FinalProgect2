@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>Tttt</AssemblyName>
+    <RootNamespace>Tttt</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

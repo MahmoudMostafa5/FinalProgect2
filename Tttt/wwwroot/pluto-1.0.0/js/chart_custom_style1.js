@@ -139,12 +139,12 @@
 			});
 		};
 
-		document.getElementById('randomizeData').addEventListener('click', function() {
-			barChartData.datasets.forEach(function(dataset) {
-				dataset.data = dataset.data.map(function() {
-					return randomScalingFactor();
-				});
-			});
-			window.myBar.update();
-		});
+		//document.getElementById('randomizeData').addEventListener('click', function() {
+		//	barChartData.datasets.forEach(function(dataset) {
+		//		dataset.data = dataset.data.map(function() {
+		//			return randomScalingFactor();
+		//		});
+		//	});
+			//window.myBar.update();
+		//});
 		

@@ -34,3 +34,15 @@ C:\Users\jkhal\Desktop\FinalProject\FinalProgect2\Schools.Service\obj\Debug\net5
 C:\Users\jkhal\Desktop\FinalProject\FinalProgect2\Schools.Service\obj\Debug\net5.0\Schools.Service.dll
 C:\Users\jkhal\Desktop\FinalProject\FinalProgect2\Schools.Service\obj\Debug\net5.0\ref\Schools.Service.dll
 C:\Users\jkhal\Desktop\FinalProject\FinalProgect2\Schools.Service\obj\Debug\net5.0\Schools.Service.pdb
+D:\FinalProgect2\Schools.Service\bin\Debug\net5.0\Schools.Service.deps.json
+D:\FinalProgect2\Schools.Service\bin\Debug\net5.0\Schools.Service.dll
+D:\FinalProgect2\Schools.Service\bin\Debug\net5.0\ref\Schools.Service.dll
+D:\FinalProgect2\Schools.Service\bin\Debug\net5.0\Schools.Service.pdb
+D:\FinalProgect2\Schools.Service\obj\Debug\net5.0\Schools.Service.csproj.AssemblyReference.cache
+D:\FinalProgect2\Schools.Service\obj\Debug\net5.0\Schools.Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\FinalProgect2\Schools.Service\obj\Debug\net5.0\Schools.Service.AssemblyInfoInputs.cache
+D:\FinalProgect2\Schools.Service\obj\Debug\net5.0\Schools.Service.AssemblyInfo.cs
+D:\FinalProgect2\Schools.Service\obj\Debug\net5.0\Schools.Service.csproj.CoreCompileInputs.cache
+D:\FinalProgect2\Schools.Service\obj\Debug\net5.0\Schools.Service.dll
+D:\FinalProgect2\Schools.Service\obj\Debug\net5.0\ref\Schools.Service.dll
+D:\FinalProgect2\Schools.Service\obj\Debug\net5.0\Schools.Service.pdb

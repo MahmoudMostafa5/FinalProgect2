@@ -1,0 +1,435 @@
+﻿@page "/Parent"
+
+@page "/Parents"
+
+<style>
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        font-size: 22px;
+    }
+</style>
+
+<h3 class="text-center text-info py-2">Parents OverView</h3>
+
+@if (AllParent is not null)
+{
+    <!-- Search -->
+    <div class="row text-center m-auto">
+        <div class="col-sm-12 col-md-6">
+            <div class="row dataTables_length" id="example_length">
+                <p class="h5 col-md-2"> Show</p>
+                <label class="h5 col-md-4">
+                    <select name="example_length" aria-controls="example" class="form-select form-select-sm">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+                <p class="h5 col-md-2">entries</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div id="example_filter" class="dataTables_filter row">
+                <p class="h5 col-md-2">Search : </p>
+                <label class="col-md-5">
+                    <input type="search" class="form-control form-control-sm" placeholder="Search for Parent" aria-controls="example">
+                </label>
+            </div>
+        </div>
+    </div>
+    <!-- Table -->
+
+    <div class="p-2 m-auto">
+        <table class="table text-center">
+            <thead class="fs-5">
+                <tr>
+                    <th> Parent SSN </th>
+                    <th> First Name </th>
+                    <th> Middle Name </th>
+                    <th> Last Name </th>
+                    <th> Date Of Birth </th>
+                    <th> Phone </th>
+                    <th style="width:15%"> Image </th>
+                    <th>
+                        <button class="btn btn-secondary" @onclick="@AddParent"><i class="fa fa-plus-square"></i></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ParentDto in AllParent)
+                {
+                    <tr>
+                        <td>@ParentDto.ParentSSN</td>
+                        <td>@ParentDto.FirstName</td>
+                        <td>@ParentDto.MiddleName</td>
+                        <td>@ParentDto.LastName</td>
+                        <td>@ParentDto.DB.ToString("dd/MM/yyyy")</td>
+                        <td>@ParentDto.Phone</td>
+                        <td><img src="https://localhost:44348/Images/@ParentDto.Image" class="w-25" style="height:50px" /></td>
+
+                        <td class="h5 text-center">
+                            <button @onclick="@(async () => await Modify(ParentDto.ParentSSN))" class="btn btn-primary"><i class="fa fa-pencil-square"></i></button>
+                            <button @onclick="@(async () => await DeleteParent(ParentDto.ParentSSN))" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- pagination -->
+    <div class="py-3 d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    if (isAdd)
+    {
+        <div class="modal" style="display:block" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Add New Parent</h3>
+                        <button type="button" class="close" @onclick="@closeModal">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@CurrenParent" OnValidSubmit="@HandleValidSubmitAdding">
+                            <DataAnnotationsValidator />
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group row">
+                                        <label for="ParentSSN" class="col-sm-2 col-form-label">
+                                            Parent SSN
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputNumber id="ParentSSN" class="form-control" placeholder="Parent SSN"
+                                                         @bind-Value="CurrenParent.ParentSSN" />
+
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="@(() => CurrenParent.ParentSSN)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="FirstName" class="col-sm-2 col-form-label">
+                                            First Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="FirstName" class="form-control" placeholder="First Name"
+                                                       @bind-Value="CurrenParent.FirstName" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenParent.FirstName" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="MiddleName" class="col-sm-2 col-form-label">
+                                            Middle Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="MiddleName" class="form-control" placeholder="Middle Name"
+                                                       @bind-Value="CurrenParent.MiddleName" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenParent.MiddleName" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="LastName" class="col-sm-2 col-form-label">
+                                            Last Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="LastName" class="form-control" placeholder="Last Name"
+                                                       @bind-Value="CurrenParent.LastName" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenParent.LastName" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="DB" class="col-sm-2 col-form-label">
+                                            Date of Birth
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputDate id="DB" class="form-control" placeholder="Date of Birth"
+                                                       @bind-Value="CurrenParent.DB" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenParent.DB" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="Phone" class="col-sm-2 col-form-label">
+                                            Phone
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="Phone" class="form-control" placeholder="Phone"
+                                                       @bind-Value="CurrenParent.Phone" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenParent.Phone" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h1>Upload file!</h1>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            @*<div class="form-group">*@
+                                            <input type="file" @ref="inputReference" @onchange="@OpenFileAsync" />
+                                            @*<ul>
+                                                            <li>File Name: @fileName</li>
+                                                            <li>Size: @size</li>
+                                                            <li>Type: @type</li>
+                                                        </ul>
+                                                </div>
+                                                <div class="image-container">*@
+                                            <img class="w-100" src="@imagePreview">
+                                            @*</div>*@
+                                            @*<button class="btn btn-block btn-success" @onclick="async () => await UploadFileAsync()">Upload File</button>*@
+
+                                            @if (!string.IsNullOrWhiteSpace(message))
+                                            {
+                                                <div class="alert alert-success">
+                                                    File has been uploaded
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="col-4">
+                                            @if (imagePath != null)
+                                            {
+                                                <img src="@imagePath" />
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-block btn-success" data-dismiss="modal">Adding</button>
+                            </div>
+                        </EditForm>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+
+    if (isModify)
+    {
+        <div class="modal" style="display:block" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Edit @CurrenParent.FirstName @CurrenParent.LastName</h3>
+                        <button type="button" class="close" @onclick="@closeModal">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@CurrenParent" OnValidSubmit="@HandleValidSubmitUpdate">
+                            <DataAnnotationsValidator />
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-8">
+
+                                    @*<div class="form-group row">
+                                            <label for="ParentSSN" class="col-sm-2 col-form-label">
+                                                Parent SSN
+                                            </label>
+                                            <div class="col-sm-10">
+                                                <InputNumber id="ParentSSN" class="form-control" placeholder="Parent SSN"
+                                                             @bind-Value="CurrenParent.ParentSSN" />
+                                                <div class="col-sm-8 text-danger">
+
+                                                    <ValidationMessage For="() => CurrenParent.ParentSSN" />
+
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                    <div class="form-group row">
+                                        <label for="FirstName" class="col-sm-2 col-form-label">
+                                            First Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="FirstName" class="form-control" placeholder="First Name"
+                                                       @bind-Value="CurrenParent.FirstName" />
+                                            <div class="col-sm-8 text-danger">
+
+                                                <ValidationMessage For="() => CurrenParent.FirstName" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="MiddleName" class="col-sm-2 col-form-label">
+                                            Middle Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="MiddleName" class="form-control" placeholder="Middle Name"
+                                                       @bind-Value="CurrenParent.MiddleName" />
+                                            <div class="col-sm-8 text-danger">
+
+                                                <ValidationMessage For="() => CurrenParent.MiddleName" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="LastName" class="col-sm-2 col-form-label">
+                                            Last Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="LastName" class="form-control" placeholder="Last Name"
+                                                       @bind-Value="CurrenParent.LastName" />
+                                            <div class="col-sm-8 text-danger">
+
+                                                <ValidationMessage For="() => CurrenParent.LastName" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="DB" class="col-sm-2 col-form-label">
+                                            Date Of Birth
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputDate id="DB" class="form-control" placeholder="Date Of Birth"
+                                                       @bind-Value="CurrenParent.DB" />
+                                            <div class="col-sm-8 text-danger">
+
+                                                <ValidationMessage For="() => CurrenParent.DB" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="Phone" class="col-sm-2 col-form-label">
+                                            Phone
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="Phone" class="form-control" placeholder="Phone"
+                                                       @bind-Value="CurrenParent.Phone" />
+                                            <div class="col-sm-8 text-danger">
+
+                                                <ValidationMessage For="() => CurrenParent.Phone" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h1>Upload file!</h1>
+                                    <div class="form-group row">
+                                        <div class="col-8 text-center">
+                                            @if (file is null)
+                                            {
+                                                <img src="https://localhost:44348/Images/@CurrenParent.Image" class="w-100 mb-3" />
+                                            }
+                                            else
+                                            {
+                                                <img src="@imagePreview" class="w-100 mb-3" />
+                                            }
+                                            <div class="row text-center">
+                                                <div class="col-8">
+                                                    <div class="form-group">
+                                                        <input type="file" @ref="inputReference" @onchange="@OpenFileAsync" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-block btn-success" data-dismiss="modal">Save</button>
+                            </div>
+                        </EditForm>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    //Delete Parent
+    if (isDelete)
+    {
+        <div class="modal" style="display:block" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Delete Parent</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Do you want to delete this Parent ??</h4>
+                        <table class="table">
+                            <tr>
+                                <td>ParentSSN</td>
+                                <td>@CurrenParent.ParentSSN</td>
+                            </tr>
+                            <tr>
+                                <td>First Name</td>
+                                <td>@CurrenParent.FirstName</td>
+                            </tr>
+                            <tr>
+                                <td>Middle Name</td>
+                                <td>@CurrenParent.MiddleName</td>
+                            </tr>
+                            <tr>
+                                <td>Last Name</td>
+                                <td>@CurrenParent.LastName</td>
+                            </tr>
+                            <tr>
+                                <td>Date Of Birth</td>
+                                <td>@CurrenParent.DB</td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td>
+                                <td>@CurrenParent.Phone</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" @onclick="@(async () => await HandleValidDeleteParent(CurrenParent.ParentSSN))" data-dismiss="modal">YES</button>
+                        <button class="btn btn-warning" @onclick="@closeModal" data-dismiss="modal">NO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>Please Waiting</p>
+}

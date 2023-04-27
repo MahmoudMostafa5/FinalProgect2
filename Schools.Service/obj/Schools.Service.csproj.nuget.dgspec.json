@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Service\\Schools.Service.csproj": {}
+    "D:\\FinalProgect2\\Schools.Service\\Schools.Service.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Service\\Schools.Service.csproj": {
+    "D:\\FinalProgect2\\Schools.Service\\Schools.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Service\\Schools.Service.csproj",
+        "projectUniqueName": "D:\\FinalProgect2\\Schools.Service\\Schools.Service.csproj",
         "projectName": "Schools.Service",
-        "projectPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Service\\Schools.Service.csproj",
-        "packagesPath": "C:\\Users\\jkhal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jkhal\\Desktop\\FinalProject\\FinalProgect2\\Schools.Service\\obj\\",
+        "projectPath": "D:\\FinalProgect2\\Schools.Service\\Schools.Service.csproj",
+        "packagesPath": "C:\\Users\\mahmoud khallaf\\.nuget\\packages\\",
+        "outputPath": "D:\\FinalProgect2\\Schools.Service\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jkhal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mahmoud khallaf\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -54,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
         }
       }
     }

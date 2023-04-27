@@ -18,29 +18,29 @@ namespace Tttt.Services
         }
         public async Task<HttpResponseMessage> Add(ParentDto parentDto)
         {
-            return await _httpClient.PostAsync($"api/Parent/Add", getStringContentFromObject(parentDto));
+            return await _httpClient.PostAsync($"api/Parents/Add", getStringContentFromObject(parentDto));
         }
 
-        public async Task<HttpResponseMessage> Delete(long SSN)
+        public async Task<HttpResponseMessage> Delete(long? SSN)
         {
-            return await _httpClient.DeleteAsync($"api/Parent/Delete/{SSN}");
+            return await _httpClient.DeleteAsync($"api/Parents/Delete/{SSN}");
         }
 
         public async Task<ParentDto> Get(long? SSN)
         {
-            var json = await _httpClient.GetStringAsync($"api/Parent/Get/{SSN}");
+            var json = await _httpClient.GetStringAsync($"api/Parents/Get/{SSN}");
             return JsonConvert.DeserializeObject<ParentDto>(json);
         }
 
         public async Task<IEnumerable<ParentDto>> GetAll()
         {
-            var json = await _httpClient.GetStringAsync($"api/Parent/GetAll");
+            var json = await _httpClient.GetStringAsync($"api/Parents/GetAll");
             return JsonConvert.DeserializeObject<IEnumerable<ParentDto>>(json);
         }
 
         public async Task<HttpResponseMessage> Update(long? SSN, ParentDto parentDto)
         {
-            return await _httpClient.PutAsync($"api/Parent/Update/{SSN}", getStringContentFromObject(parentDto));
+            return await _httpClient.PutAsync($"api/Parents/Update/{SSN}", getStringContentFromObject(parentDto));
         }
 
         public async Task<HttpResponseMessage> Check(long SSN)

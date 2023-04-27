@@ -30,6 +30,12 @@ namespace Tttt.Services
             return JsonConvert.DeserializeObject<StudentAbsenceDto>(json);
         }
 
+        public async Task<IEnumerable<StudentAbsenceDto>> GetBySchoolYearAndClassRoom(int? SchoolsYearId, int? ClassRoomId)
+        {
+            var json = await _httpClient.GetStringAsync($"api/StudentAbsense/GetStudentAbsenceByClassRoom/{SchoolsYearId}/{ClassRoomId}");
+            return JsonConvert.DeserializeObject<IEnumerable<StudentAbsenceDto>>(json);
+        }
+
         public async Task<HttpResponseMessage> Add(StudentAbsenceDto Studentabsence)
         {
 

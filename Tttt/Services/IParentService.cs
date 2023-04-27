@@ -12,7 +12,7 @@ namespace Tttt.Services
         Task<IEnumerable<ParentDto>> GetAll();
         Task<HttpResponseMessage> Add(ParentDto parentDto);
         Task<HttpResponseMessage> Update(long? SSN, ParentDto parentDto);
-        Task<HttpResponseMessage> Delete(long SSN);
+        Task<HttpResponseMessage> Delete(long? SSN);
         Task<ParentDto> Get(long? SSN);
         Task<HttpResponseMessage> Check(long SSN);
     }

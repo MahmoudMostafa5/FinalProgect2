@@ -15,15 +15,10 @@ namespace Tttt.Pages.Teachers
     public partial class Teachers : ComponentBase
     {
         [Parameter]
-        //public TeacherDto CurrenTeacher { get; set; }
-        [Inject]
+        //[Inject]
         public IEnumerable<TeacherDto> AllTeacher { get; set; }
         [Inject]
-        public IEnumerable<TeacherDto> Teacher { get; set; }
-        [Inject]
         public ITeacherDataService TeacherDataService { get; set; }
-        //[Inject]
-        //public IToastService ToastService { get; set; }
         [Inject]
         public NavigationManager _navigation { get; set; }
 
@@ -41,8 +36,7 @@ namespace Tttt.Pages.Teachers
         string fileName = string.Empty;
         string type = string.Empty;
         string size = string.Empty;
-        //[Inject]
-        //public ITeacherDataService Teacherservice { get; set; }
+        
         Stream fileStream = null;
         protected string imagePreview;
         byte[] imageFileBytes;
@@ -63,14 +57,13 @@ namespace Tttt.Pages.Teachers
         protected override async Task OnInitializedAsync()
         {
             AllTeacher = await TeacherDataService.GetAll();
-            //Teacher = await TeacherDataService.GetAll();
 
         }
         protected async Task HandleValidSubmitAdding()
         {
             try
             {
-                //await TeacherDataService.Add(CurrenTeacher);
+                await TeacherDataService.Add(CurrenTeacher);
                 await UploadFileAsync();
                 AfterChangeImage();
                 
@@ -80,7 +73,6 @@ namespace Tttt.Pages.Teachers
             catch
             {
                 ToastService.ShowError("Adding New Teacher Falied !!");
-
             }
             this.isAdd = false;
             CurrenTeacher = new TeacherDto();
@@ -96,17 +88,12 @@ namespace Tttt.Pages.Teachers
                     await UploadFileAsync();
                 }
                 ToastService.ShowSuccess("Update  Teacher Succefully");
-
-
             }
             catch
             {
                 ToastService.ShowError("Update Teacher Falied !!");
-
-                //ToastService.ShowSuccess("Update  Teacher Succefully");
-
             }
-            
+            this.isModify = false;
             await OnInitializedAsync();
         }
         protected async Task HandleValidDeleteTeacher(long SSN)
@@ -122,13 +109,6 @@ namespace Tttt.Pages.Teachers
             }
             this.isDelete = false;
             await OnInitializedAsync();
-        }
-        protected void AddTeacher()
-        {
-            CurrenTeacher = new TeacherDto();
-            this.modalTitle = "Add Teacher";
-            this.isAdd = true;
-
         }
         protected async Task OpenFileAsync()
         {
@@ -151,7 +131,6 @@ namespace Tttt.Pages.Teachers
             }
 
         }
-
         protected async Task UploadFileAsync()
         {
 
@@ -175,24 +154,6 @@ namespace Tttt.Pages.Teachers
 
 
         }
-        protected async Task UpdateTeacher(long SSN)
-        {
-            CurrenTeacher = await TeacherDataService.Get(SSN);
-            this.modalTitle = "Update Teacher";
-            this.isModify = true;
-        }
-        protected async Task DeleteTeacher(long SSN)
-        {
-            CurrenTeacher = await TeacherDataService.Get(SSN);
-            this.modalTitle = "Delete Teacher";
-            this.isDelete = true;
-        }
-        protected void closeModal()
-        {
-
-            CurrenTeacher = new TeacherDto();
-            AfterChangeImage();
-        }
         private void AfterChangeImage()
         {
             message = string.Empty;
@@ -205,12 +166,33 @@ namespace Tttt.Pages.Teachers
             file = null;
             imagePreview = string.Empty;
         }
+        protected void AddTeacher()
+        {
+            CurrenTeacher = new TeacherDto();
+            this.modalTitle = "Add Teacher";
+            this.isAdd = true;
+
+        }
         protected async Task Modify(long SSN)
         {
             CurrenTeacher = await TeacherDataService.Get(SSN);
-
             this.modalTitle = "Modify Teacher";
             this.isModify = true;
+        }
+        
+        protected async Task DeleteTeacher(long SSN)
+        {
+            CurrenTeacher = await TeacherDataService.Get(SSN);
+            this.modalTitle = "Delete Teacher";
+            this.isDelete = true;
+        }
+        protected void closeModal()
+        {
+            this.isAdd = false;
+            this.isModify = false;
+            this.isDelete = false;
+            CurrenTeacher = new TeacherDto();
+            AfterChangeImage();
         }
         protected async Task Detail(long SSN)
         {

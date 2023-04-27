@@ -14,7 +14,7 @@
 
 <h3 class="text-center text-info py-2">Teachers OverView</h3>
 
-@if (AllTeacher is not null && Teacher is not null)
+@if (AllTeacher is not null)
 {
     <!-- Search -->
     <div class="row text-center m-auto">
@@ -55,7 +55,7 @@
                     <th> Phone </th>
                     <th style="width:15%"> Image </th>
                     <th>
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Add"><i class="fa fa-plus-square"></i></button>
+                        <button class="btn btn-secondary" @onclick="@AddTeacher"><i class="fa fa-plus-square"></i></button>
                     </th>
                 </tr>
             </thead>
@@ -63,7 +63,6 @@
                 @foreach (var TeacherDto in AllTeacher)
                 {
                     <tr>
-                        @*<td class="h5 text-center">@TeacherDto.TeacherSSN</td>*@
                         <td>@TeacherDto.TeacherSSN</td>
                         <td>@TeacherDto.FirstName</td>
                         <td>@TeacherDto.MiddleName</td>
@@ -74,8 +73,8 @@
 
                         <td class="h5 text-center">
                             <a @onclick="@(async () => await Detail(TeacherDto.TeacherSSN))" class="btn btn-success"><i class="fa fa-info-circle"></i></a>
-                            <button @onclick="@(async () => await Modify(TeacherDto.TeacherSSN))" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Edit"><i class="fa fa-pencil-square"></i></button>
-                            <button @onclick="@(async () => await DeleteTeacher(TeacherDto.TeacherSSN))" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Delete"><i class="fa fa-trash"></i></button>
+                            <button @onclick="@(async () => await Modify(TeacherDto.TeacherSSN))" class="btn btn-primary"><i class="fa fa-pencil-square"></i></button>
+                            <button @onclick="@(async () => await DeleteTeacher(TeacherDto.TeacherSSN))" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                         </td>
 
                     </tr>
@@ -85,7 +84,6 @@
     </div>
 
     <!-- pagination -->
-
     <div class="py-3 d-flex justify-content-center">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
@@ -107,338 +105,328 @@
         </nav>
     </div>
 
-    //ADD Teacher
-    <div class="modal fade" id="Add" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Add New Teacher</h3>
-                    <button type="button" data-bs-dismiss="modal" class="close" @onclick="@closeModal">
-                        <span aria-hidden="true">X</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <EditForm Model="@CurrenTeacher" OnValidSubmit="@HandleValidSubmitAdding">
-                        <DataAnnotationsValidator />
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group row">
-                                    <label for="TeacherSSN" class="col-sm-2 col-form-label">
-                                        Teacher SSN
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <InputNumber id="TeacherSSN" class="form-control" placeholder="Teacher SSN"
-                                                     @bind-Value="CurrenTeacher.TeacherSSN" />
+    if (isAdd)
+    {
+        <div class="modal" style="display:block" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Add New Teacher</h3>
+                        <button type="button" class="close" @onclick="@closeModal">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@CurrenTeacher" OnValidSubmit="@HandleValidSubmitAdding">
+                            <DataAnnotationsValidator />
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group row">
+                                        <label for="TeacherSSN" class="col-sm-2 col-form-label">
+                                            Teacher SSN
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputNumber id="TeacherSSN" class="form-control" placeholder="Teacher SSN"
+                                                         @bind-Value="CurrenTeacher.TeacherSSN" />
 
-                                        <div class="col-sm-8 text-danger">
-                                            <ValidationMessage For="@(() => CurrenTeacher.TeacherSSN)" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="@(() => CurrenTeacher.TeacherSSN)" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="FirstName" class="col-sm-2 col-form-label">
-                                        First Name
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <InputText id="FirstName" class="form-control" placeholder="First Name"
-                                                   @bind-Value="CurrenTeacher.FirstName" />
-                                        <div class="col-sm-8 text-danger">
-                                            <ValidationMessage For="() => CurrenTeacher.FirstName" />
+                                    <div class="form-group row">
+                                        <label for="FirstName" class="col-sm-2 col-form-label">
+                                            First Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="FirstName" class="form-control" placeholder="First Name"
+                                                       @bind-Value="CurrenTeacher.FirstName" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenTeacher.FirstName" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="MiddleName" class="col-sm-2 col-form-label">
-                                        Middle Name
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <InputText id="MiddleName" class="form-control" placeholder="Middle Name"
-                                                   @bind-Value="CurrenTeacher.MiddleName" />
-                                        <div class="col-sm-8 text-danger">
-                                            <ValidationMessage For="() => CurrenTeacher.MiddleName" />
+                                    <div class="form-group row">
+                                        <label for="MiddleName" class="col-sm-2 col-form-label">
+                                            Middle Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="MiddleName" class="form-control" placeholder="Middle Name"
+                                                       @bind-Value="CurrenTeacher.MiddleName" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenTeacher.MiddleName" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="LastName" class="col-sm-2 col-form-label">
-                                        Last Name
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <InputText id="LastName" class="form-control" placeholder="Last Name"
-                                                   @bind-Value="CurrenTeacher.LastName" />
-                                        <div class="col-sm-8 text-danger">
-                                            <ValidationMessage For="() => CurrenTeacher.LastName" />
+                                    <div class="form-group row">
+                                        <label for="LastName" class="col-sm-2 col-form-label">
+                                            Last Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="LastName" class="form-control" placeholder="Last Name"
+                                                       @bind-Value="CurrenTeacher.LastName" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenTeacher.LastName" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group row">
-                                    <label for="DB" class="col-sm-2 col-form-label">
-                                        Date of Birth
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <InputDate id="DB" class="form-control" placeholder="Date of Birth"
-                                                   @bind-Value="CurrenTeacher.DB" />
-                                        <div class="col-sm-8 text-danger">
-                                            <ValidationMessage For="() => CurrenTeacher.DB" />
+                                    <div class="form-group row">
+                                        <label for="DB" class="col-sm-2 col-form-label">
+                                            Date of Birth
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputDate id="DB" class="form-control" placeholder="Date of Birth"
+                                                       @bind-Value="CurrenTeacher.DB" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenTeacher.DB" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="Phone" class="col-sm-2 col-form-label">
+                                            Phone
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="Phone" class="form-control" placeholder="Phone"
+                                                       @bind-Value="CurrenTeacher.Phone" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenTeacher.Phone" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <h1>Upload file!</h1>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            @*<div class="form-group">*@
+                                            <input type="file" @ref="inputReference" @onchange="@OpenFileAsync" />
+                                            @*<ul>
+                                                            <li>File Name: @fileName</li>
+                                                            <li>Size: @size</li>
+                                                            <li>Type: @type</li>
+                                                        </ul>
+                                                </div>
+                                                <div class="image-container">*@
+                                            <img class="w-100" src="@imagePreview">
+                                            @*</div>*@
+                                            @*<button class="btn btn-block btn-success" @onclick="async () => await UploadFileAsync()">Upload File</button>*@
 
-                                <div class="form-group row">
-                                    <label for="Phone" class="col-sm-2 col-form-label">
-                                        Phone
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <InputText id="Phone" class="form-control" placeholder="Phone"
-                                                   @bind-Value="CurrenTeacher.Phone" />
-                                        <div class="col-sm-8 text-danger">
-                                            <ValidationMessage For="() => CurrenTeacher.Phone" />
+                                            @if (!string.IsNullOrWhiteSpace(message))
+                                            {
+                                                <div class="alert alert-success">
+                                                    File has been uploaded
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="col-4">
+                                            @if (imagePath != null)
+                                            {
+                                                <img src="@imagePath" />
+                                            }
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <h1>Upload file!</h1>
-                                <div class="row">
-                                    <div class="col-8">
-                                        @*<div class="form-group">*@
-                                        <input type="file" @ref="inputReference" @onchange="@OpenFileAsync" />
-                                        @*<ul>
-                                                        <li>File Name: @fileName</li>
-                                                        <li>Size: @size</li>
-                                                        <li>Type: @type</li>
-                                                    </ul>
-                                            </div>
-                                            <div class="image-container">*@
-                                        <img class="w-100" src="@imagePreview">
-                                        @*</div>*@
-                                        @*<button class="btn btn-block btn-success" @onclick="async () => await UploadFileAsync()">Upload File</button>*@
 
-                                        @if (!string.IsNullOrWhiteSpace(message))
-                                        {
-                                            <div class="alert alert-success">
-                                                File has been uploaded
-                                            </div>
-                                        }
-                                    </div>
-                                    <div class="col-4">
-                                        @if (imagePath != null)
-                                        {
-                                            <img src="@imagePath" />
-                                        }
-                                    </div>
-                                </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-block btn-success" data-dismiss="modal">Adding</button>
                             </div>
-                        </div>
+                        </EditForm>
+                    </div>
 
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-block btn-success" data-bs-dismiss="modal">Adding</button>
-                        </div>
-                    </EditForm>
                 </div>
-
             </div>
         </div>
-    </div>
+    }
+    
+    if (isModify)
+    {
+        <div class="modal" style="display:block" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Edit @CurrenTeacher.FirstName @CurrenTeacher.LastName</h3>
+                        <button type="button" class="close" @onclick="@closeModal">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@CurrenTeacher" OnValidSubmit="@HandleValidSubmitUpdate">
+                            <DataAnnotationsValidator />
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-8">
 
-    //Update Teacher
-    <div class="modal fade" id="Edit" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Edit @CurrenTeacher.FirstName @CurrenTeacher.LastName</h3>
-                    <button type="button" class="close" data-bs-dismiss="modal" @onclick="@closeModal">
-                        <span aria-hidden="true">X</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <EditForm Model="@CurrenTeacher" OnValidSubmit="@HandleValidSubmitUpdate">
-                        <DataAnnotationsValidator />
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-8">
+                                    @*<div class="form-group row">
+                                        <label for="TeacherSSN" class="col-sm-2 col-form-label">
+                                            Teacher SSN
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputNumber id="TeacherSSN" class="form-control" placeholder="Teacher SSN"
+                                                         @bind-Value="CurrenTeacher.TeacherSSN" />
+                                            <div class="col-sm-8 text-danger">
 
-                                <div class="form-group row">
-                                    <label for="TeacherSSN" class="col-sm-2 col-form-label">
-                                        Teacher SSN
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <InputNumber id="TeacherSSN" class="form-control" placeholder="Teacher SSN"
-                                                     @bind-Value="CurrenTeacher.TeacherSSN" />
-                                        <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenTeacher.TeacherSSN" />
 
-                                            <ValidationMessage For="() => CurrenTeacher.TeacherSSN" />
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                    <div class="form-group row">
+                                        <label for="FirstName" class="col-sm-2 col-form-label">
+                                            First Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="FirstName" class="form-control" placeholder="First Name"
+                                                       @bind-Value="CurrenTeacher.FirstName" />
+                                            <div class="col-sm-8 text-danger">
 
+                                                <ValidationMessage For="() => CurrenTeacher.FirstName" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="MiddleName" class="col-sm-2 col-form-label">
+                                            Middle Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="MiddleName" class="form-control" placeholder="Middle Name"
+                                                       @bind-Value="CurrenTeacher.MiddleName" />
+                                            <div class="col-sm-8 text-danger">
+
+                                                <ValidationMessage For="() => CurrenTeacher.MiddleName" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="LastName" class="col-sm-2 col-form-label">
+                                            Last Name
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="LastName" class="form-control" placeholder="Last Name"
+                                                       @bind-Value="CurrenTeacher.LastName" />
+                                            <div class="col-sm-8 text-danger">
+
+                                                <ValidationMessage For="() => CurrenTeacher.LastName" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="DB" class="col-sm-2 col-form-label">
+                                            Date Of Birth
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputDate id="DB" class="form-control" placeholder="Date Of Birth"
+                                                       @bind-Value="CurrenTeacher.DB" />
+                                            <div class="col-sm-8 text-danger">
+
+                                                <ValidationMessage For="() => CurrenTeacher.DB" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="Phone" class="col-sm-2 col-form-label">
+                                            Phone
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="Phone" class="form-control" placeholder="Phone"
+                                                       @bind-Value="CurrenTeacher.Phone" />
+                                            <div class="col-sm-8 text-danger">
+
+                                                <ValidationMessage For="() => CurrenTeacher.Phone" />
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="FirstName" class="col-sm-2 col-form-label">
-                                        First Name
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <InputText id="FirstName" class="form-control" placeholder="First Name"
-                                                   @bind-Value="CurrenTeacher.FirstName" />
-                                        <div class="col-sm-8 text-danger">
-
-                                            <ValidationMessage For="() => CurrenTeacher.FirstName" />
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="MiddleName" class="col-sm-2 col-form-label">
-                                        Middle Name
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <InputText id="MiddleName" class="form-control" placeholder="Middle Name"
-                                                   @bind-Value="CurrenTeacher.MiddleName" />
-                                        <div class="col-sm-8 text-danger">
-
-                                            <ValidationMessage For="() => CurrenTeacher.MiddleName" />
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="LastName" class="col-sm-2 col-form-label">
-                                        Last Name
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <InputText id="LastName" class="form-control" placeholder="Last Name"
-                                                   @bind-Value="CurrenTeacher.LastName" />
-                                        <div class="col-sm-8 text-danger">
-
-                                            <ValidationMessage For="() => CurrenTeacher.LastName" />
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="DB" class="col-sm-2 col-form-label">
-                                        Date Of Birth
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <InputDate id="DB" class="form-control" placeholder="Date Of Birth"
-                                                   @bind-Value="CurrenTeacher.DB" />
-                                        <div class="col-sm-8 text-danger">
-
-                                            <ValidationMessage For="() => CurrenTeacher.DB" />
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="Phone" class="col-sm-2 col-form-label">
-                                        Phone
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <InputText id="Phone" class="form-control" placeholder="Phone"
-                                                   @bind-Value="CurrenTeacher.Phone" />
-                                        <div class="col-sm-8 text-danger">
-
-                                            <ValidationMessage For="() => CurrenTeacher.Phone" />
-
+                                <div class="col-md-4">
+                                    <h1>Upload file!</h1>
+                                    <div class="form-group row">
+                                        <div class="col-8 text-center">
+                                            @if (file is null)
+                                            {
+                                                <img src="https://localhost:44348/Images/@CurrenTeacher.Image" class="w-100 mb-3" />
+                                            }
+                                            else
+                                            {
+                                                <img src="@imagePreview" class="w-100 mb-3" />
+                                            }
+                                            <div class="row text-center">
+                                                <div class="col-8">
+                                                    <div class="form-group">
+                                                        <input type="file" @ref="inputReference" @onchange="@OpenFileAsync" />
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <h1>Upload file!</h1>
-                                <div class="form-group row">
-                                    @*<label for="Image" class="col-sm-2 col-form-label">
-                                            Image
-                                        </label>*@
-                                    <div class="col-8 text-center">
-                                        @*<InputFile id="Image" class="form-control" placeholder="Image"
-                                                           @bind-Value="CurrenTeacher.Image" />
-                                                <div class="col-sm-8 text-danger">
-                                                    <ValidationMessage For="() => CurrenTeacher.Image" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">*@
-                                        @if (file is null)
-                                        {
-                                            <img src="https://localhost:44348/Images/@CurrenTeacher.Image" class="w-100 mb-3" />
-                                        }
-                                        else
-                                        {
-                                            <img src="@imagePreview" class="w-100 mb-3" />
-                                        }
-                                        @*<div class="col-md-4">*@
-                                        @*<h1>Upload file!</h1>*@
-                                        <div class="row text-center">
-                                            <div class="col-8">
-                                                <div class="form-group">
-                                                    <input type="file" @ref="inputReference" @onchange="@OpenFileAsync" />
-                                                </div>
 
 
-                                            </div>
-                                        </div>
-
-                                        @*</div>*@
-                                    </div>
-                                </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-block btn-success" data-dismiss="modal">Save</button>
                             </div>
-                        </div>
+                        </EditForm>
+                    </div>
 
-
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-block btn-success" data-bs-dismiss="modal">Save</button>
-                        </div>
-                    </EditForm>
                 </div>
-
             </div>
         </div>
-    </div>
-
+    }
     //Delete Teacher
-    <div class="modal fade" id="Delete" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Delete Teacher</h3>
-                </div>
-                <div class="modal-body">
-                    <h4>Do you want to delete this Teacher ??</h4>
-                    <table class="table">
-                        <tr>
-                            <td>TeacherSSN</td>
-                            <td>@CurrenTeacher.TeacherSSN</td>
-                        </tr>
-                        <tr>
-                            <td>First Name</td>
-                            <td>@CurrenTeacher.FirstName</td>
-                        </tr>
-                        <tr>
-                            <td>Middle Name</td>
-                            <td>@CurrenTeacher.MiddleName</td>
-                        </tr>
-                        <tr>
-                            <td>Last Name</td>
-                            <td>@CurrenTeacher.LastName</td>
-                        </tr>
-                        <tr>
-                            <td>Date Of Birth</td>
-                            <td>@CurrenTeacher.DB</td>
-                        </tr>
-                        <tr>
-                            <td>Phone</td>
-                            <td>@CurrenTeacher.Phone</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger" @onclick="@(async () => await HandleValidDeleteTeacher(CurrenTeacher.TeacherSSN))" data-bs-dismiss="modal">YES</button>
-                    <button class="btn btn-warning" @onclick="@closeModal" data-bs-dismiss="modal">NO</button>
+    if (isDelete)
+    {
+        <div class="modal" style="display:block" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Delete Teacher</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Do you want to delete this Teacher ??</h4>
+                        <table class="table">
+                            <tr>
+                                <td>TeacherSSN</td>
+                                <td>@CurrenTeacher.TeacherSSN</td>
+                            </tr>
+                            <tr>
+                                <td>First Name</td>
+                                <td>@CurrenTeacher.FirstName</td>
+                            </tr>
+                            <tr>
+                                <td>Middle Name</td>
+                                <td>@CurrenTeacher.MiddleName</td>
+                            </tr>
+                            <tr>
+                                <td>Last Name</td>
+                                <td>@CurrenTeacher.LastName</td>
+                            </tr>
+                            <tr>
+                                <td>Date Of Birth</td>
+                                <td>@CurrenTeacher.DB</td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td>
+                                <td>@CurrenTeacher.Phone</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" @onclick="@(async () => await HandleValidDeleteTeacher(CurrenTeacher.TeacherSSN))" data-dismiss="modal">YES</button>
+                        <button class="btn btn-warning" @onclick="@closeModal" data-dismiss="modal">NO</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
 }
 else
 {

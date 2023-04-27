@@ -28,12 +28,6 @@ namespace Tttt.Pages.Teacherabsence
         [Inject]
         public NavigationManager _navigation { get; set; }
 
-
-        //protected string modalTitle { get; set; }
-        //protected Boolean isDelete = false;
-        //protected Boolean isAdd = false;
-        //protected Boolean isModify = false;
-
         protected override async Task OnInitializedAsync()
         {
             AllTeacherabsence = await TeacherabsenceDataService.GetAll();
@@ -42,6 +36,7 @@ namespace Tttt.Pages.Teacherabsence
         }
         protected async Task HandleValidSubmitAdding()
         {
+            CurrenTeacherabsence = new TeacherAbsenceDto();
             try
             {
                 await TeacherabsenceDataService.Add(CurrenTeacherabsence);
@@ -54,13 +49,13 @@ namespace Tttt.Pages.Teacherabsence
                 ToastService.ShowError("Adding New Teacherabsence Falied !!");
 
             }
-            //this.isAdd = false;
             await OnInitializedAsync();
         }
         protected async Task DeleteTeacherabsence(int? CodedId)
         {
             try
             {
+                CurrenTeacherabsence = await TeacherabsenceDataService.Get(CodedId);
                 await TeacherabsenceDataService.Delete(CodedId);
                 ToastService.ShowSuccess("Deleting  Teacherabsence Succefully");
             }
@@ -68,31 +63,15 @@ namespace Tttt.Pages.Teacherabsence
             {
                 ToastService.ShowError("Deleting Teacherabsence Falied !!");
             }
-            //this.isDelete = false;
             await OnInitializedAsync();
         }
         protected void AddSub()
         {
             CurrenTeacherabsence = new TeacherAbsenceDto();
-            //this.modalTitle = "Add Teacherabsence";
-            //this.isAdd = true;
         }
         protected async Task DeleteSub(int? CodedId)
         {
             CurrenTeacherabsence = await TeacherabsenceDataService.Get(CodedId);
-            //this.modalTitle = "Delete Teacherabsence";
-            //this.isDelete = true;
-        }
-        protected void closeModal()
-        {
-            //this.isAdd = false;
-            //this.isModify = false;
-            //this.isDelete = false;
-            CurrenTeacherabsence = new TeacherAbsenceDto();
-        }
-        protected async Task Modify(int? TeacherabsenceId)
-        {
-            CurrenTeacherabsence = await TeacherabsenceDataService.Get(TeacherabsenceId);
         }
     }
 }
