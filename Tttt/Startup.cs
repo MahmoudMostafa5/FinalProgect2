@@ -103,6 +103,8 @@ namespace Tttt
                client => client.BaseAddress = new Uri("https://localhost:44348/"));
             services.AddHttpClient<IUserRolesService, UserRolesService>(
                client => client.BaseAddress = new Uri("https://localhost:44348/"));
+            services.AddHttpClient<IJobDegreeService, JobDegreeService>(
+               client => client.BaseAddress = new Uri("https://localhost:44348/"));
 
 
             services.AddFileReaderService();

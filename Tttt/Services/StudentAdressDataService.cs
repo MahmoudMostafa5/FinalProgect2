@@ -30,6 +30,16 @@ namespace Tttt.Services
             return JsonConvert.DeserializeObject<StudentAdressDto>(json);
         }
 
+        public async Task<HttpResponseMessage> CheckStudentAdress(long? SSN)
+        {
+            var json = await _httpClient.GetAsync($"api/StudentAdresses/Get/{SSN}");
+            if (json.IsSuccessStatusCode)
+                return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK };
+            else
+                return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.NotFound };
+
+        }
+
         public async Task<HttpResponseMessage> Add(StudentAdressDto StudentAdress)
         {
 
@@ -39,7 +49,17 @@ namespace Tttt.Services
 
         public async Task<HttpResponseMessage> Update(long? SSN, StudentAdressDto StudentAdressDto)
         {
-            return await _httpClient.PutAsync($"api/StudentAdresses/Update/{SSN}", getStringContentFromObject(StudentAdressDto));
+            var StudentAdress = new StudentAdressDto();
+            StudentAdress.StudentSSN = StudentAdressDto.StudentSSN;
+            StudentAdress.State = StudentAdressDto.State;
+            StudentAdress.Government = StudentAdressDto.Government;
+            StudentAdress.street = StudentAdressDto.street;
+            StudentAdress.ZipCode = StudentAdressDto.ZipCode;
+            var ResultUpdate =await _httpClient.PutAsync($"api/StudentAdresses/Update/{SSN}", getStringContentFromObject(StudentAdress));
+            if (ResultUpdate.IsSuccessStatusCode)
+                return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK };
+            else
+                return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.NotFound };
         }
 
         public async Task<HttpResponseMessage> Delete(long SSN)
@@ -53,5 +73,7 @@ namespace Tttt.Services
             var stringContent = new StringContent(serialized, Encoding.UTF8, "application/json");
             return stringContent;
         }
+
+       
     }
 }

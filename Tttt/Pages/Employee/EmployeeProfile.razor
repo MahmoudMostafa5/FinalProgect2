@@ -1,0 +1,305 @@
+﻿@page "/EmployeeProfile/{SSN:long}"
+
+@* Spiner Style Css *@
+<style>
+    .lds-spinner {
+        color: official;
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+    }
+
+        .lds-spinner div {
+            transform-origin: 40px 40px;
+            animation: lds-spinner 1.2s linear infinite;
+        }
+
+            .lds-spinner div:after {
+                content: " ";
+                display: block;
+                position: absolute;
+                top: 3px;
+                left: 37px;
+                width: 6px;
+                height: 18px;
+                border-radius: 20%;
+                background: #fff;
+            }
+
+            .lds-spinner div:nth-child(1) {
+                transform: rotate(0deg);
+                animation-delay: -1.1s;
+            }
+
+            .lds-spinner div:nth-child(2) {
+                transform: rotate(30deg);
+                animation-delay: -1s;
+            }
+
+            .lds-spinner div:nth-child(3) {
+                transform: rotate(60deg);
+                animation-delay: -0.9s;
+            }
+
+            .lds-spinner div:nth-child(4) {
+                transform: rotate(90deg);
+                animation-delay: -0.8s;
+            }
+
+            .lds-spinner div:nth-child(5) {
+                transform: rotate(120deg);
+                animation-delay: -0.7s;
+            }
+
+            .lds-spinner div:nth-child(6) {
+                transform: rotate(150deg);
+                animation-delay: -0.6s;
+            }
+
+            .lds-spinner div:nth-child(7) {
+                transform: rotate(180deg);
+                animation-delay: -0.5s;
+            }
+
+            .lds-spinner div:nth-child(8) {
+                transform: rotate(210deg);
+                animation-delay: -0.4s;
+            }
+
+            .lds-spinner div:nth-child(9) {
+                transform: rotate(240deg);
+                animation-delay: -0.3s;
+            }
+
+            .lds-spinner div:nth-child(10) {
+                transform: rotate(270deg);
+                animation-delay: -0.2s;
+            }
+
+            .lds-spinner div:nth-child(11) {
+                transform: rotate(300deg);
+                animation-delay: -0.1s;
+            }
+
+            .lds-spinner div:nth-child(12) {
+                transform: rotate(330deg);
+                animation-delay: 0s;
+            }
+
+    keyframes lds-spinner {
+        0%
+
+    {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+    }
+</style>
+@if (CurrentEmployee is not null)
+{
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            @if (string.IsNullOrEmpty(CurrentEmployee.Image))
+                            {
+
+
+                                <img src="/pluto-1.0.0/images/images (2).jpg" alt="avatar"
+                                     class="rounded-circle img-fluid" style="width: 150px;">
+
+                            }
+                            else
+                            {
+                                <img src="https://localhost:44348/Images/@CurrentEmployee.Image" alt="avatar"
+                                     class="rounded-circle img-fluid" style="width: 150px;">
+                            }
+                            <h5 class="my-3">Name @CurrentEmployee.FirstName @CurrentEmployee.MiddleName @CurrentEmployee.LastName</h5>
+                            <p class="text-muted mb-1">Work at Department: </p>
+                            <p class="text-muted mb-1">@CurrentDepartment.DepartmentName </p>
+                            @if (CurrentEmployee.JobDegreeId is not null)
+                            {
+                                <p class="text-muted mb-1">Degree @CurrentJobDegree.Name </p>
+                            }
+
+                            <div class="d-flex justify-content-center mb-2">
+                                <input class="form-control" @ref="inputReference" type="file" @onchange="@OpenFileAsync" id="formFile">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-4 mb-lg-0">
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush rounded-3">
+                                <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
+                                    <i class="fa fa-globe fa-lg text-warning"></i>
+                                    <p class="mb-0">https://mdbootstrap.com</p>
+                                </li>
+                                <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
+                                    <i class="fa fa-github fa-lg" style="color: #333333;"></i>
+                                    <p class="mb-0">mdbootstrap</p>
+                                </li>
+                                <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
+                                    <i class="fa fa-twitter fa-lg" style="color: #55acee;"></i>
+                                    <p class="mb-0">mdbootstrap</p>
+                                </li>
+                                <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
+                                    <i class="fa fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                                    <p class="mb-0">mdbootstrap</p>
+                                </li>
+                                <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
+                                    <i class="fa fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                                    <p class="mb-0">mdbootstrap</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Full Name</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@CurrentEmployee.FirstName @CurrentEmployee.MiddleName @CurrentEmployee.LastName</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Date Of Birth</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@CurrentEmployee.DB.ToString("dd/MM/yyyy")</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Phone</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@CurrentEmployee.Phone </p>
+                                </div>
+                            </div>
+                            <hr>
+
+                          
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-11 m-auto">
+                            <div class="card mb-4 mb-md-0">
+                                <div class="card-body">
+
+                                    <div class="row" id="edit">
+                                        <div class="col-md-8 m-auto">
+                                            <h4>Student Details</h4>
+                                            <div class="form-group row">
+                                                <label for="State" class="col-sm-3 col-form-label">
+                                                    First Name:
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                           value="@CurrentEmployee.FirstName" />
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group row">
+                                                <label for="State" class="col-sm-3 col-form-label">
+                                                    Middel Name:
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                           value="@CurrentEmployee.MiddleName" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="State" class="col-sm-3 col-form-label">
+                                                    Last Name:
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                           value="@CurrentEmployee.LastName" />
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label for="State" class="col-sm-3 col-form-label">
+                                                    Date BirthDay:
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                           value="@CurrentEmployee.DB.ToString()" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="State" class="col-sm-3 col-form-label">
+                                                    Department
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                           value="@CurrentDepartment.DepartmentName" />
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="State" class="col-sm-3 col-form-label">
+                                                        Department Building
+                                                    </label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                               value="@CurrentDepartment.Departmentbuilding" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="State" class="col-sm-3 col-form-label">
+                                                        Department Location
+                                                    </label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                               value="@CurrentDepartment.DepartmentLocation" />
+                                                    </div>
+                                                </div>
+                                                @if (CurrentEmployee.JobDegreeId is not null)
+                                                {
+                                                    <div class="form-group row">
+                                                        <label for="State" class="col-sm-3 col-form-label">
+                                                            Job Degree
+                                                        </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                                   value="@CurrentJobDegree.Name" />
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+}

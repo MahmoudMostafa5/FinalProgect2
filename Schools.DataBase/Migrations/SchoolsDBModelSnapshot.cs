@@ -240,7 +240,13 @@ namespace Schools.DataBase.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("DepartmentLocation")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DepartmentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Departmentbuilding")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DepartmentId");
@@ -265,6 +271,9 @@ namespace Schools.DataBase.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("JobDegreeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -280,6 +289,8 @@ namespace Schools.DataBase.Migrations
                     b.HasKey("EmployeeSSN");
 
                     b.HasIndex("DepartmentId");
+
+                    b.HasIndex("JobDegreeId");
 
                     b.HasIndex("User_Id")
                         .IsUnique()
@@ -388,6 +399,21 @@ namespace Schools.DataBase.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ExamType");
+                });
+
+            modelBuilder.Entity("Schools.DataStorage.Entity.JobDegree", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JobDegree");
                 });
 
             modelBuilder.Entity("Schools.DataStorage.Entity.Parent", b =>
@@ -722,6 +748,12 @@ namespace Schools.DataBase.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Schools.DataStorage.Entity.JobDegree", "JobDegree")
+                        .WithMany("Employees")
+                        .HasForeignKey("JobDegreeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Schools.DataStorage.Entity.ApplicationUser", "ApplicationUser")
                         .WithOne("Employee")
                         .HasForeignKey("Schools.DataStorage.Entity.Employee", "User_Id");
@@ -729,6 +761,8 @@ namespace Schools.DataBase.Migrations
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Department");
+
+                    b.Navigation("JobDegree");
                 });
 
             modelBuilder.Entity("Schools.DataStorage.Entity.Exam", b =>
@@ -942,6 +976,11 @@ namespace Schools.DataBase.Migrations
             modelBuilder.Entity("Schools.DataStorage.Entity.ExamType", b =>
                 {
                     b.Navigation("Exam");
+                });
+
+            modelBuilder.Entity("Schools.DataStorage.Entity.JobDegree", b =>
+                {
+                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("Schools.DataStorage.Entity.Parent", b =>

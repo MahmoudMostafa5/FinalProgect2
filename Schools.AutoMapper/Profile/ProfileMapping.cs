@@ -65,6 +65,9 @@ namespace Schools.AutoMapper.ProfileMapping
             CreateMap<SchoolYearsDto, SchoolYears>();
 
 
+            CreateMap<JobDegree, JobDegreeDto>();
+            CreateMap<JobDegreeDto, JobDegree>();
+
         }
     }
 }

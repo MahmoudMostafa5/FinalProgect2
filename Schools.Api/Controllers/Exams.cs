@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Schools.Api.Sevice.UploadImages;
 using Schools.DAL.UnitOfWork;
@@ -41,6 +42,19 @@ namespace Schools.Api.Controllers
             //Data.ExamPdf = ExamPdf;
             await _unitOfWork.Exam.Insert(Data);
             return _unitOfWork.Complete() > 0 ? Ok("Adding Exam Successfully") : BadRequest("Adding Exam Failed");
+
+        }
+        [HttpPost("ID")]
+        public async Task<IActionResult> AddPDF(int ID,IFormFile formFile )
+        {
+
+            var CurrentExam = await _unitOfWork.Exam.GetByIdAsync(ID);
+            if (CurrentExam is null)
+                return BadRequest();
+            CurrentExam.Id = ID;
+            CurrentExam.ExamPdf = UploadFiles.UploadExamAsPdf(formFile);
+            _unitOfWork.Exam.Updating(ID, CurrentExam);
+            return _unitOfWork.Complete() > 0 ? Ok("Adding Image is Done") : BadRequest("Adding Image Failed!");
 
         }
 

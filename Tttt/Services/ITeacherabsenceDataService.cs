@@ -11,6 +11,7 @@ namespace Tttt.Services
     {
         Task<IEnumerable<TeacherAbsenceDto>> GetAll();
         Task<HttpResponseMessage> Add(TeacherAbsenceDto Teacherabsence);
+        Task<HttpResponseMessage> CheckTeacherAbsenceIsExisted(long SSN);
         //Task<HttpResponseMessage> Update(string CodedId, TeacherAbsenceDto Teacherabsence);
         Task<HttpResponseMessage> Delete(int? TeacherabsenceId);
         Task<TeacherAbsenceDto> Get(int? TeacherabsenceId);

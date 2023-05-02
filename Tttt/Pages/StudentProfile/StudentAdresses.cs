@@ -32,7 +32,7 @@ namespace Tttt.Pages.StudentProfile
         [Parameter]
         public StudentDto CurrenStudent { get; set; } = new StudentDto();
         [Parameter]
-        public long SSN { get; set; }
+        public string UserID { get; set; }
         [Inject]
         IFileReaderService fileReader { get; set; }
         [Inject]
@@ -59,37 +59,30 @@ namespace Tttt.Pages.StudentProfile
         public MultipartFormDataContent content = new MultipartFormDataContent();
         public bool IsShow { get; set; } = true;
 
-        public void Show()
-        {
-            IsShow = !IsShow;
-        }
-
-        protected string modalTitle { get; set; }
-        protected Boolean isDelete = false;
-        protected Boolean isAdd = false;
-        protected Boolean isModify = false;
         protected override async Task OnInitializedAsync()
         {
-            Student = await StudentDataService.GetAll();
-            CurrenStudent = await StudentDataService.Get(SSN);
-            CurrenStudentAdress = await StudentAdressDataService.Get(SSN);
+            CurrenStudent = (await StudentDataService.GetAll()).Where(s => s.User_Id == UserID).FirstOrDefault() ;
+            var SSN = CurrenStudent.StudenntSSN;
+            var Result = await StudentAdressDataService.CheckStudentAdress(SSN);
+            if (Result.IsSuccessStatusCode)
+            {
+                CurrenStudentAdress = await StudentAdressDataService.Get(SSN);
 
+            }
+            string AA = "klgfj";
         }
         protected async Task HandleValidSubmitUpdate()
         {
             try
             {
                 await StudentAdressDataService.Update(CurrenStudentAdress.StudentSSN, CurrenStudentAdress);
-                if (file is not null)
-                {
-                    await UploadFileAsync();
-                }
                 ToastService.ShowSuccess("Update  StudentAdress Succefully");
             }
             catch
             {
                 ToastService.ShowError("Update StudentAdress Falied !!");
             }
+            this.IsShow = true;
             await OnInitializedAsync();
         }
         protected async Task OpenFileAsync()
@@ -109,6 +102,8 @@ namespace Tttt.Pages.StudentProfile
                 fileStream = new MemoryStream(ms.ToArray());
                 imagePreview = string.Concat("data:image/png;base64,", Convert.ToBase64String(ms.ToArray()));
             }
+            await UploadFileAsync();
+            await OnInitializedAsync();
         }
         protected async Task UploadFileAsync()
         {
@@ -120,7 +115,7 @@ namespace Tttt.Pages.StudentProfile
 
             string url = "https://localhost:44348";
 
-            var response = await client.PostAsync($"{url}/api/StudentAdresss/AddImage/{CurrenStudentAdress.StudentSSN}", content);
+            var response = await client.PostAsync($"{url}/api/Students/AddImage/{CurrenStudentAdress.StudentSSN}", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -131,13 +126,7 @@ namespace Tttt.Pages.StudentProfile
                 fileStream = null;
             }
 
-
-        }
-        protected async Task UpdateTeacherAdress(long? SSN)
-        {
-            CurrenStudentAdress = await StudentAdressDataService.Get(SSN);
-            this.modalTitle = "Update TeacherAdress";
-            this.isModify = true;
+            await OnInitializedAsync();
         }
         private void AfterChangeImage()
         {
@@ -153,8 +142,15 @@ namespace Tttt.Pages.StudentProfile
         }
         protected async Task Modify(long? SSN)
         {
-            CurrenStudentAdress = await StudentAdressDataService.Get(SSN);
-            Show();
+            var Result = await StudentAdressDataService.CheckStudentAdress(SSN);
+            if (Result.IsSuccessStatusCode)
+            {
+                CurrenStudentAdress = await StudentAdressDataService.Get(SSN);
+            }
+            else
+                CurrenStudentAdress = new StudentAdressDto() { StudentSSN = SSN };
+            this.IsShow = !IsShow;
+            
         }
         protected async Task Detail(long SSN)
         {

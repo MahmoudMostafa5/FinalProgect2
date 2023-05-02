@@ -16,7 +16,7 @@ namespace Tttt.Authentication
         private readonly IAccountService api;
         private CurrentUser _currentUser;
         private ILocalStorageService _localStorageService;
-        public CustomStateProvider(IAccountService api , ILocalStorageService localStorage)
+        public CustomStateProvider(IAccountService api, ILocalStorageService localStorage)
         {
             this.api = api;
             this._localStorageService = localStorage;
@@ -58,13 +58,13 @@ namespace Tttt.Authentication
             _currentUser = null;
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }
-        public async Task<bool> Login(LoginDto loginParameters )
+        public async Task<bool> Login(LoginDto loginParameters)
         {
-           var LoginResult = await api.Login(loginParameters);
+            var LoginResult = await api.Login(loginParameters);
             if (LoginResult.IsAuthenticated)
             {
                 await SetJwtKeyAsync(LoginResult.Token);
-                await SetNamepassword(loginParameters.Email , loginParameters.Password);
+                await SetNamepassword(loginParameters.Email, loginParameters.Password);
                 NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
                 return true;
             }
@@ -78,7 +78,7 @@ namespace Tttt.Authentication
         public async Task<bool> Register(UserRegistrationDto userRegistrationDto)
         {
             var LoginResult = await api.Register(userRegistrationDto);
-            if (LoginResult.IsSuccessStatusCode || LoginResult.StatusCode==System.Net.HttpStatusCode.InternalServerError)
+            if (LoginResult.IsSuccessStatusCode || LoginResult.StatusCode == System.Net.HttpStatusCode.InternalServerError)
             {
                 return true;
             }
@@ -89,7 +89,7 @@ namespace Tttt.Authentication
         public async Task<bool> ConfirmationEmail(ConfirmEmailDto confirmEmailDto)
         {
             var confirmationResult = await api.ConfirmationEmail(confirmEmailDto);
-            if (confirmationResult.StatusCode==System.Net.HttpStatusCode.OK)
+            if (confirmationResult.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 await SetJwtKeyAsync(confirmEmailDto.Token);
                 NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
@@ -101,7 +101,7 @@ namespace Tttt.Authentication
         }
         public async Task<string> GetJwtKeyAsync()
         {
-           string A=  await _localStorageService.GetItemAsync<string>("Jwt");
+            string A = await _localStorageService.GetItemAsync<string>("Jwt");
             if (string.IsNullOrEmpty(A))
             {
                 return null;
@@ -110,14 +110,14 @@ namespace Tttt.Authentication
         }
         public async Task SetJwtKeyAsync(string JwtKey)
         {
-              await _localStorageService.SetItemAsync("Jwt", JwtKey);
+            await _localStorageService.SetItemAsync("Jwt", JwtKey);
         }
         public async Task RemoveJwtKeyAsync(string JwtKey)
         {
             await _localStorageService.RemoveItemAsync("Jwt");
         }
 
-        public async Task SetNamepassword(string email , string password)
+        public async Task SetNamepassword(string email, string password)
         {
             await _localStorageService.SetItemAsync("email", email);
             await _localStorageService.SetItemAsync("password", password);

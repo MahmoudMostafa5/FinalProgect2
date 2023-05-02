@@ -14,15 +14,21 @@ namespace Tttt.Pages.Res
         [Parameter]
         public ExamResultDto CurrenExamResult { get; set; } = new ExamResultDto();
         [Inject]
+        public IEnumerable<SchoolYearsDto> SchoolYears { get; set; }
+        [Inject]
         public IEnumerable<ExamResultDto> AllExamResult { get; set; }
         [Inject]
         public IExamResultDataService ExamResultDataService { get; set; }
+        [Inject]
+        public ISchoolYearDataService  SchoolYearDataService { get; set; }
         [Inject]
         public IEnumerable<StudentDto> Students { get; set; }
         [Inject]
         public IStudentDataService StudentDataService { get; set; }
         [Inject]
         public IEnumerable<SubjectDto> Subjects { get; set; }
+        [Inject]
+        public IEnumerable<SchoolYearsDto> AllSchoolsYear { get; set; }
         [Inject]
         public ISubjectDataService SubjectDataService { get; set; }
         [Inject]
@@ -31,7 +37,18 @@ namespace Tttt.Pages.Res
         public IExamDataService ExamDataService { get; set; }
         [Inject]
         public IToastService ToastService { get; set; }
-        [Inject]
+        [Parameter]
+        public int SchoolsYearID { get; set; } = 0;
+        [Parameter]
+        public int ExamID { get; set; } = 0;
+
+
+        [Parameter]
+        public Int64 StudentSSN { get; set; } = 0;
+
+
+        [Parameter]
+        public double Degree { get; set; } 
         public NavigationManager _navigation { get; set; }
         protected string modalTitle { get; set; }
         protected Boolean isDelete = false;
@@ -43,8 +60,58 @@ namespace Tttt.Pages.Res
             AllExamResult = await ExamResultDataService.GetAll();
             Subjects = await SubjectDataService.GetAll();
             Exams = await ExamDataService.GetAll();
+            SchoolYears = await SchoolYearDataService.GetAll();
+            string Al = "ll";
         }
 
+        async Task UpdateSchoolsYearAsync(ChangeEventArgs args)
+        {
+            string va = args.Value.ToString();
+            SchoolsYearID = Convert.ToInt32(va);
+            Students = (await StudentDataService.GetAll()).Where(s =>s.SchoolsYearId== SchoolsYearID); 
+            Exams = (await ExamDataService.GetAll()).Where(s => s.SchoolYearsId == SchoolsYearID );
+            
+        }
+        async Task UpdateStudentAsync(ChangeEventArgs args)
+        {
+            string va = args.Value.ToString();
+            StudentSSN = Convert.ToInt64(va);
+            
+        }
+        async Task UpdateExamAsync(ChangeEventArgs args)
+        {
+            string va = args.Value.ToString();
+            ExamID = Convert.ToInt32(va);
+            
+        }
+        async Task UpdateSubjectAsync(ChangeEventArgs args)
+        {
+            string va = args.Value.ToString();
+            ExamID = Convert.ToInt32(va);
+            
+        }
+        async Task AddingResultAsync()
+        {
+            CurrenExamResult = new ExamResultDto() { StudentSSN = StudentSSN, ExamDegree = Degree, ExamId = ExamID ,SubjectId= "DS12" };
+            var CurrentExam = await ExamDataService.Get(ExamID);
+            if (CurrentExam.FinalDegree < Degree)
+            {
+                ToastService.ShowError("Adding Exam Result Falied");
+            }else
+            {
+                try
+                {
+                    await ExamResultDataService.Add(CurrenExamResult);
+                    ToastService.ShowSuccess("Adding Exam Result Succsseded");
+                }
+                catch (Exception)
+                {
+                    ToastService.ShowError("Adding Exam Result Falied");
+                }
+            }
+            this.isAdd = false;
+            await OnInitializedAsync();
+        }
         protected async Task HandleValidSubmitAdding()
         {
             try
@@ -105,12 +172,16 @@ namespace Tttt.Pages.Res
             this.modalTitle = "Delete Result";
             this.isDelete = true;
         }
-        protected void closeModal()
+        protected async Task closeModalAsync()
         {
+            ExamID = 0;
+            SchoolsYearID = 0;
             //CurrenExamResult = new ExamResultDto();
             this.isAdd = false;
             this.isModify = false;
             this.isDelete = false;
+           await OnInitializedAsync();
+            
         }
         protected async Task Modify(long? StudentSSN, string SubjectId, int? ExamId)
         {

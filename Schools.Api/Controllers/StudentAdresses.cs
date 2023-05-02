@@ -96,7 +96,7 @@ namespace Schools.Api.Controllers
             }
             StudentAdress = _Map.Map<StudentAdressDto,StudentAdress>(studentAdressesDto,StudentAdress);
             StudentAdress.StudentSSN = SSN;
-            _unitOfWork.StudentAdress.Updating(SSN, StudentAdress);
+            _unitOfWork.StudentAdress.Updating(SSN,StudentAdress);
             return _unitOfWork.Complete() > 0 ? Ok("Update Successfully") : BadRequest("Update Failed ");
         }
 

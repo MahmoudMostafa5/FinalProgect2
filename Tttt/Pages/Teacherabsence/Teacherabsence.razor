@@ -15,6 +15,18 @@
 
 @if (Teachers is not null)
 {
+    <div class="row text-center m-auto">
+        
+        <div class="col-sm-12 col-md-6">
+            <div id="example_filter" class="dataTables_filter row">
+                <p class="h5 col-md-2">Search : </p>
+                <label class="col-md-5">
+                    <input type="search"@bind-value="TeacherName" class="form-control form-control-sm" placeholder="Search for Teacher" aria-controls="example">
+                    <input type="button" value="Search" class="btn-dark" @onclick="@(async () =>await Search())" />
+                </label>
+            </div>
+        </div>
+    </div>
     <!-- Table -->
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
         <table id="example" class="my-3 table-bordered table table-striped">
@@ -36,7 +48,7 @@
                         <td class="h5 text-center">@Teacher.Phone</td>
 
                         <td class="h5 text-center">
-                            <button type="submit" @onclick="@(async () =>await HandleValidSubmitAdding())" class="btn btn-secondary"><i class="fa fa-plus-square"></i></button>
+                            <button type="submit" @onclick="@(async () =>await HandleValidSubmitAdding(Teacher.TeacherSSN))" class="btn btn-secondary"><i class="fa fa-plus-square"></i></button>
                         </td>
 
                     </tr>
@@ -56,7 +68,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <EditForm Model="@CurrenTeacherabsence" OnValidSubmit="@HandleValidSubmitAdding">
+                    <EditForm Model="@CurrenTeacherabsence">
                         <DataAnnotationsValidator />
                         <hr />
                         <div class="row">

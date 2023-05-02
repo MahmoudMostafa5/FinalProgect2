@@ -9,16 +9,16 @@ namespace Tttt.Pages
 {
     public partial class Index
     {
-        [Inject]
-        public AuthenticationStateProvider _authenticationStateProvider { get; set; }
-        [Parameter]
-        public string UserId { get; set; }
-        protected override async Task OnInitializedAsync()
-        {
-            var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
-            var _UserId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
-            UserId = _UserId;
+        //[Inject]
+        //public AuthenticationStateProvider _authenticationStateProvider { get; set; }
+        //[Parameter]
+        //public string UserId { get; set; }
+        //protected override async Task OnInitializedAsync()
+        //{
+        //    var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        //    var _UserId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
+        //    UserId = _UserId;
             
-        }
+        //}
     }
 }

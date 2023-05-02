@@ -20,10 +20,14 @@ namespace Tttt.Pages.Teachers
         [Inject]
         public ITeacherDataService TeacherDataService { get; set; }
         [Inject]
+        public ITeacherAdressDataService TeacherAdressDataService { get; set; }
+        [Inject]
         public NavigationManager _navigation { get; set; }
 
         [Parameter]
         public TeacherDto CurrenTeacher { get; set; } = new TeacherDto();
+        [Parameter]
+        public TeacherAdressDto CurrenTeacherAdress { get; set; } = new TeacherAdressDto();
         [Inject]
         IFileReaderService fileReader { get; set; }
         [Inject]
@@ -53,6 +57,8 @@ namespace Tttt.Pages.Teachers
         protected Boolean isDelete = false;
         protected Boolean isAdd = false;
         protected Boolean isModify = false;
+        protected Boolean Adress = false;
+        protected Boolean UpdateStatues = false;
 
         protected override async Task OnInitializedAsync()
         {
@@ -86,6 +92,7 @@ namespace Tttt.Pages.Teachers
                 if(file is not null)
                 {
                     await UploadFileAsync();
+                    AfterChangeImage();
                 }
                 ToastService.ShowSuccess("Update  Teacher Succefully");
             }
@@ -108,6 +115,37 @@ namespace Tttt.Pages.Teachers
                 ToastService.ShowError("Deleting Teacher Falied !!");
             }
             this.isDelete = false;
+            await OnInitializedAsync();
+        }
+        protected async Task HandleTeacherAdress()
+        {
+            try
+            {
+                await TeacherAdressDataService.Update(CurrenTeacherAdress.TeacherSSN, CurrenTeacherAdress);
+                ToastService.ShowSuccess("Update Teacher Adress Success");
+            }
+            catch 
+            {
+                ToastService.ShowSuccess("Update Teacher Adress Failed !!");
+            }
+            this.Adress = false;
+            CurrenTeacherAdress = new TeacherAdressDto();
+            await OnInitializedAsync();
+        }
+        protected async Task AddingAdress()
+        {
+
+            try
+            {
+                await TeacherAdressDataService.Add(CurrenTeacherAdress);
+                ToastService.ShowSuccess("Adding Teacher Adress Success");
+            }
+            catch
+            {
+                ToastService.ShowError("Adding Teacher Adress Failed");
+            }
+            this.Adress = false;
+            CurrenTeacherAdress = new TeacherAdressDto();
             await OnInitializedAsync();
         }
         protected async Task OpenFileAsync()
@@ -173,6 +211,21 @@ namespace Tttt.Pages.Teachers
             this.isAdd = true;
 
         }
+        protected async Task AddTeacherAdress(long SSN)
+        {
+            var CheckTeacherAdress = await TeacherAdressDataService.CheckTeacherAdress(SSN);
+            if (CheckTeacherAdress.IsSuccessStatusCode
+                || CheckTeacherAdress.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                CurrenTeacherAdress = await TeacherAdressDataService.Get(SSN);
+                this.UpdateStatues = true;
+            }
+            else
+                CurrenTeacherAdress = new TeacherAdressDto() { TeacherSSN=SSN} ;
+            this.modalTitle = "Teacher Adress";
+            this.Adress = true;
+ 
+        }
         protected async Task Modify(long SSN)
         {
             CurrenTeacher = await TeacherDataService.Get(SSN);
@@ -191,6 +244,8 @@ namespace Tttt.Pages.Teachers
             this.isAdd = false;
             this.isModify = false;
             this.isDelete = false;
+            this.Adress = false;
+            this.UpdateStatues = false;
             CurrenTeacher = new TeacherDto();
             AfterChangeImage();
         }

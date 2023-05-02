@@ -11,7 +11,7 @@ namespace Tttt.Services
     {
         Task<IEnumerable<StudentDto>> GetAll();
         Task<HttpResponseMessage> Add(StudentDto Students);
-        Task<HttpResponseMessage> Update(long? CodedId, StudentDto Students);
+        Task<HttpResponseMessage> Update(long? SSN, StudentDto Students);
         Task<HttpResponseMessage> Delete(long? StudentId);
         Task<StudentDto> Get(long? StudentId);
         Task<HttpResponseMessage> Check(long SSN);

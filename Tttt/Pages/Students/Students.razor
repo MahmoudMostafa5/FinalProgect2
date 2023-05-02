@@ -79,6 +79,7 @@
                             <a @onclick="@(async () => await Detail(StudentDto.StudenntSSN))" class="btn btn-success"><i class="fa fa-info-circle"></i></a>
                             <button @onclick="@(async () => await Modify(StudentDto.StudenntSSN))" class="btn btn-primary"><i class="fa fa-pencil-square"></i></button>
                             <button @onclick="@(async () => await DeleteSub(StudentDto.StudenntSSN))" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                            <button @onclick="@(async () => await AddTeacherAdress(StudentDto.StudenntSSN))" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                         </td>
 
                     </tr>
@@ -285,19 +286,7 @@
                             <hr />
                             <div class="row">
                                 <div class="col-md-8">
-                                    @*<div class="form-group row">
-                                        <label for="StudenntSSN" class="col-sm-2 col-form-label">
-                                            Student SSN
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <InputNumber id="StudenntSSN" class="form-control" placeholder="Student SSN"
-                                                         @bind-Value="CurrenStudent.StudenntSSN" />
-
-                                            <div class="col-sm-8 text-danger">
-                                                <ValidationMessage For="@(() => CurrenStudent.StudenntSSN)" />
-                                            </div>
-                                        </div>
-                                    </div>*@
+                                   
                                     <div class="form-group row">
                                         <label for="FirstName" class="col-sm-2 col-form-label">
                                             First Name
@@ -462,6 +451,112 @@
                 </div>
             </div>
         </div>
+    }
+    if (Adress)
+    {
+        // HandleTeacherAdress
+        //CurrenTeacherAdress
+        <div class="modal" style="display:block" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Add Student Adress</h3>
+                        <button type="button" class="close" @onclick="@closeModal">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@CurrenStudentAdress" OnValidSubmit="@HandleStudentAdress">
+                            <DataAnnotationsValidator />
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group row">
+                                        <label for="TeacherSSN" class="col-sm-2 col-form-label">
+                                            Teacher SSN
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputNumber readonly id="TeacherSSN" class="form-control" placeholder="Teacher SSN"
+                                                         @bind-Value="CurrenStudentAdress.StudentSSN" />
+
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="@(() => CurrenStudentAdress.StudentSSN)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="FirstName" class="col-sm-2 col-form-label">
+                                            State :
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="FirstName" class="form-control" placeholder="State  "
+                                                       @bind-Value="CurrenStudentAdress.State" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenStudentAdress.State" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="MiddleName" class="col-sm-2 col-form-label">
+                                            Government
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="MiddleName" class="form-control" placeholder="Government "
+                                                       @bind-Value="CurrenStudentAdress.Government" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenStudentAdress.Government" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="LastName" class="col-sm-2 col-form-label">
+                                            Street
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="LastName" class="form-control" placeholder="Street  "
+                                                       @bind-Value="CurrenStudentAdress.street" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenStudentAdress.street" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="LastName" class="col-sm-2 col-form-label">
+                                            Zip Code
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputText id="LastName" class="form-control" placeholder="Zip Code  "
+                                                       @bind-Value="CurrenStudentAdress.ZipCode" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenStudentAdress.ZipCode" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                @if (!UpdateStatues)
+        {
+            <button type="button" @onclick="@(async () => await AddingAdress())" class="btn btn-block btn-success" data-dismiss="modal">Adding</button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-block btn-success" data-dismiss="modal">Save</button>
+        }
+
+                            </div>
+                        </EditForm>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     }
 }
 else

@@ -56,6 +56,8 @@ namespace Schools.DAL.UnitOfWork
 
         public IGenaricReprositry<ClassRoom> ClassRoom { get; private set; }
 
+        public IGenaricReprositry<JobDegree> JobDegree { get; private set; }
+
 
         //public IGenaricReprositry<StudentAdress> StudentAdresses { get; private set; }
 
@@ -80,6 +82,7 @@ namespace Schools.DAL.UnitOfWork
             TeacherAbsence = new GenaricReprositry<Teacherabsence>(_Context);
             Department = new GenaricReprositry<Department>(_Context);
             Employee = new GenaricReprositry<Employee>(_Context);
+            JobDegree = new GenaricReprositry<JobDegree>(_Context);
             Exam = new GenaricReprositry<Exam>(_Context);
             ExamType = new GenaricReprositry<ExamType>(_Context);
             ExamAnswer = new GenaricReprositry<ExamAnswer>(_Context);

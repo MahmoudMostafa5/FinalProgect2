@@ -12,6 +12,7 @@ namespace Tttt.Services
         Task<IEnumerable<StudentAbsenceDto>> GetAll();
         Task<HttpResponseMessage> Add(StudentAbsenceDto Studentabsence);
         Task<HttpResponseMessage> Delete(int? StudentabsenceId);
+        Task<HttpResponseMessage> CheckAbsenceIsExisted(long? SSN);
         Task<StudentAbsenceDto> Get(int? StudentabsenceId);
         Task<IEnumerable<StudentAbsenceDto>> GetBySchoolYearAndClassRoom(int? SchoolsYearId, int? ClassRoomId);
     }

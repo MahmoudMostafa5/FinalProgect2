@@ -1,6 +1,6 @@
 ﻿@page "/Studentabsence"
 
-<h3 class="text-center text-info py-2">Studentabsences OverView</h3>
+<h3 class="text-center text-info py-2">Student Absences OverView</h3>
 <!-- Search -->
 <div class="row text-center">
     <div class="col-md-5">
@@ -57,7 +57,7 @@
                         <td class="h5 text-center">@Student.SchoolYears.SchoolYear</td>
 
                         <td class="h5 text-center">
-                            <button @onclick="@(async () => await HandleValidSubmitAdding())" class="btn btn-primary"><i class="fa fa-plus-square"></i></button>
+                            <button @onclick="@(async () => await HandleValidSubmitAdding(Student.StudenntSSN))" class="btn btn-primary"><i class="fa fa-plus-square"></i></button>
                         </td>
 
                     </tr>
@@ -80,19 +80,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    @foreach (var StudentabsenceDto in AllStudentabsence)
-                    {
+                @foreach (var StudentabsenceDto in AllStudentabsence)
+                {
+                    <tr>
                         <td class="h5 text-center">@StudentabsenceDto.Student.FirstName @StudentabsenceDto.Student.LastName</td>
                         <td class="h5 text-center">@StudentabsenceDto.Student.ClassRoom.ClassRoomNumber</td>
                         <td class="h5 text-center">@StudentabsenceDto.Student.SchoolYears.SchoolYear</td>
-
                         <td class="h5 text-center">
                             <button @onclick="@(async () => await DeleteStudentabsence(StudentabsenceDto.Id))" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                         </td>
+                    </tr>
+                 }
 
-                    }
-                </tr>
             </tbody>
         </table>
 }

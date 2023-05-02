@@ -32,7 +32,7 @@ namespace Schools.Api.Controllers
         }
 
         [HttpGet("{StatuesCodedId}")]
-        public async Task<IActionResult> Get(int StatuesCodedId)
+        public async Task<IActionResult> Get(long StatuesCodedId)
         {
             //bool StatuesCodedId = string.IsNullOrEmpty(CodedId);
             //if (StatuesCodedId != 0 )
@@ -42,6 +42,20 @@ namespace Schools.Api.Controllers
                 return BadRequest("This Teacherabsence is Not Found");
             var Data = _Map.Map<TeacherAbsenceDto>(CurrentTeacherabsence);
             return Ok(Data);
+        }
+
+        [HttpGet("{SSN}")]
+        public async Task<IActionResult> CheckAbsenceIsExisted(long SSN)
+        {
+            
+            var CurrentTeacherabsence = (await _unitOfWork.TeacherAbsence.FindAsync(s=>s.TeacherSSN==SSN))
+                .Where(s=>s.Date.Date==DateTime.Now.Date).Count();
+            if (CurrentTeacherabsence>0)
+            {
+                return Ok();
+            }
+            else
+                return NotFound();
         }
 
         [HttpPost]

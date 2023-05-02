@@ -10,6 +10,8 @@ namespace Schools.DataStorage.Entity
     {
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
+        public string Departmentbuilding { get; set; }
+        public string DepartmentLocation { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }
     }

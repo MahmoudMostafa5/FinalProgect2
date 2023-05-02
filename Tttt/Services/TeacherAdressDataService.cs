@@ -29,7 +29,15 @@ namespace Tttt.Services
             var json = await _httpClient.GetStringAsync($"api/TeacherAdresses/Get/{SSN}");
             return JsonConvert.DeserializeObject<TeacherAdressDto>(json);
         }
+        public async Task<HttpResponseMessage> CheckTeacherAdress(long? SSN)
+        {
+            var json = await _httpClient.GetAsync($"api/TeacherAdresses/Get/{SSN}");
+            if (json.IsSuccessStatusCode)
+                return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK };
+            else
+                return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.NotFound };
 
+        }
         public async Task<HttpResponseMessage> Add(TeacherAdressDto TeacherAdress)
         {
 
@@ -53,5 +61,7 @@ namespace Tttt.Services
             var stringContent = new StringContent(serialized, Encoding.UTF8, "application/json");
             return stringContent;
         }
+
+        
     }
 }

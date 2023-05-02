@@ -13,6 +13,7 @@ namespace Tttt.Services
         Task<HttpResponseMessage> Add(StudentAdressDto StudentDto);
         Task<HttpResponseMessage> Update(long? SSN, StudentAdressDto StudentDto);
         Task<HttpResponseMessage> Delete(long SSN);
+        Task<HttpResponseMessage> CheckStudentAdress(long? SSN);
         Task<StudentAdressDto> Get(long? SSN);
     }
 }

@@ -74,6 +74,7 @@
                         <td><img src="https://localhost:44348/Images/@ParentDto.Image" class="w-25" style="height:50px" /></td>
 
                         <td class="h5 text-center">
+                            <button @onclick="@(async () => await Details(ParentDto.ParentSSN))" class="btn btn-primary"><i class="fa fa-pencil-square"></i></button>
                             <button @onclick="@(async () => await Modify(ParentDto.ParentSSN))" class="btn btn-primary"><i class="fa fa-pencil-square"></i></button>
                             <button @onclick="@(async () => await DeleteParent(ParentDto.ParentSSN))" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                         </td>
@@ -428,6 +429,7 @@
             </div>
         </div>
     }
+
 }
 else
 {

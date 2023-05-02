@@ -58,6 +58,7 @@ namespace Tttt.Pages.Department
             {
                 ToastService.ShowError("Update Department Falied !!");
             }
+            CurrenDepartment = new DepartmentDto();
 
             await OnInitializedAsync();
         }
@@ -72,6 +73,8 @@ namespace Tttt.Pages.Department
             {
                 ToastService.ShowError("Deleting Department Falied !!");
             }
+            CurrenDepartment = new DepartmentDto();
+
             await OnInitializedAsync();
         }
         protected void AddDepartment()

@@ -28,6 +28,7 @@ namespace Schools.DAL.UnitOfWork
         IGenaricReprositry<Teacherabsence> TeacherAbsence { get; }
         IGenaricReprositry<Department> Department { get; }
         IGenaricReprositry<Employee> Employee { get; }
+        IGenaricReprositry<JobDegree> JobDegree { get; }
 
         IGenaricReprositry<Exam> Exam { get; }
         IGenaricReprositry<ExamType> ExamType { get; }

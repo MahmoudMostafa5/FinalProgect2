@@ -65,8 +65,11 @@ namespace Tttt.Pages.Parent
             try
             {
                 await ParentDataService.Add(CurrenParent);
-                await UploadFileAsync();
-                AfterChangeImage();
+                if (file is not null)
+                {
+                    await UploadFileAsync();
+                    AfterChangeImage();
+                }
 
                 ToastService.ShowSuccess("Adding New Parent Succefully");
             }
@@ -86,6 +89,7 @@ namespace Tttt.Pages.Parent
                 if (file is not null)
                 {
                     await UploadFileAsync();
+                     AfterChangeImage();
                 }
                 ToastService.ShowSuccess("Update  Parent Succefully");
             }
@@ -179,7 +183,10 @@ namespace Tttt.Pages.Parent
             this.modalTitle = "Modify Parent";
             this.isModify = true;
         }
-
+        protected async Task Details(long? SSN)
+        {
+            _navigation.NavigateTo($"ParentInfo/{SSN}");
+        }
         protected async Task DeleteParent(long? SSN)
         {
             CurrenParent = await ParentDataService.Get(SSN);

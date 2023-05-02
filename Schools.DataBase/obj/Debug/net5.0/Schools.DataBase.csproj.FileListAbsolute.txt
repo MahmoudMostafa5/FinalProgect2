@@ -78,3 +78,23 @@ D:\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.dll
 D:\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\ref\Schools.DataBase.dll
 D:\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.pdb
 D:\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.genruntimeconfig.cache
+D:\final Project\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.DataBase.deps.json
+D:\final Project\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.DataBase.runtimeconfig.json
+D:\final Project\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.DataBase.runtimeconfig.dev.json
+D:\final Project\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.DataBase.dll
+D:\final Project\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\ref\Schools.DataBase.dll
+D:\final Project\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.DataBase.pdb
+D:\final Project\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.DataStorage.dll
+D:\final Project\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.Service.dll
+D:\final Project\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.DataStorage.pdb
+D:\final Project\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.Service.pdb
+D:\final Project\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.csproj.AssemblyReference.cache
+D:\final Project\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.GeneratedMSBuildEditorConfig.editorconfig
+D:\final Project\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.AssemblyInfoInputs.cache
+D:\final Project\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.AssemblyInfo.cs
+D:\final Project\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.csproj.CoreCompileInputs.cache
+D:\final Project\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.csproj.CopyComplete
+D:\final Project\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.dll
+D:\final Project\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\ref\Schools.DataBase.dll
+D:\final Project\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.pdb
+D:\final Project\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.genruntimeconfig.cache

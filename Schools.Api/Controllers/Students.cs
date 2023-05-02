@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Schools.Api.Sevice.UploadImages;
 using Schools.DAL.UnitOfWork;
+using Schools.DataBase.Context;
 using Schools.DataStorage.Entity;
 using Schools.DTO.DTO;
 using System;
@@ -20,10 +21,12 @@ namespace Schools.Api.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _Map;
-        public Students(IUnitOfWork unit, IMapper map)
+        private readonly SchoolsDB _schoolsDB;
+        public Students(IUnitOfWork unit, IMapper map ,SchoolsDB schoolsDB)
         {
             this._unitOfWork = unit;
             this._Map = map;
+            this._schoolsDB = schoolsDB;
         }
         [HttpGet]
         public async Task<IActionResult>GetAll()
@@ -77,7 +80,7 @@ namespace Schools.Api.Controllers
 
             }
         }
-        [HttpPost("{SSN}")]
+        [HttpPost("{SSN}")] 
         public async Task<IActionResult> AddImage(long SSN, IFormFile image)
         {
 
@@ -104,11 +107,18 @@ namespace Schools.Api.Controllers
             }
             else
             {
-                CurrentStudent = _Map.Map<StudentDto,Student>(studentDto,CurrentStudent);
-                CurrentStudent.StudenntSSN = SSN;
+                CurrentStudent.FirstName = studentDto.FirstName;
+                CurrentStudent.MiddleName = studentDto.MiddleName;
+                CurrentStudent.LastName = studentDto.LastName;
+                CurrentStudent.DB = studentDto.DB;
+                CurrentStudent.Phone = studentDto.Phone;
+                CurrentStudent.SchoolsYearId = studentDto.SchoolsYearId;
+                CurrentStudent.ClassRoomId = studentDto.ClassRoomId;
+                //CurrentStudent = _Map.Map<StudentDto,Student>(studentDto,CurrentStudent);
+                //CurrentStudent.StudenntSSN = SSN;
                 //CurrentStudent.Image = studentDto.Image!= null? UploadFiles.UploadImage(studentDto.Picture) : CurrentStudent.Image;
-                _unitOfWork.Student.Updating(SSN,CurrentStudent);
-                if (_unitOfWork.Complete() > 0)
+                //_unitOfWork.Student.Updating(SSN,CurrentStudent);
+                if (_schoolsDB.SaveChanges() > 0)
                 {
                     return Ok("Update student Successfully");
                 }

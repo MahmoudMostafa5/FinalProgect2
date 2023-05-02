@@ -111,6 +111,8 @@
     </div>
 
     //ADD ExamResult
+
+    /**/
     if (isAdd)
     {
         <div class="modal" tabindex="-1" style="display:block" role="dialog">
@@ -118,92 +120,45 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3 class="modal-title">@modalTitle</h3>
-                        <button type="button" class="close" @onclick="@closeModal">
+                        <button type="button" class="close" @onclick="@closeModalAsync">
                             <span aria-hidden="true">X</span>
                         </button>
                     </div>
+
                     <div class="modal-body">
-                        <EditForm Model="@CurrenExamResult" OnValidSubmit="@HandleValidSubmitAdding">
-                            <DataAnnotationsValidator />
-                            <hr />
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">
-                                    Student
-                                </label>
-                                <div class="col-sm-10">
-                                    <InputSelect class="form-control" @bind-Value="@CurrenExamResult.StudentSSN">
-                                        <option value="0">-- Select Student --</option>
-                                        @foreach (var student in Students)
-                                                {
-                                            <option value="@student.StudenntSSN">@student.FirstName @student.LastName </option>
-                                                }
+                        <label>Schools Year </label>
+                        <select @onchange="UpdateSchoolsYearAsync">
+                            <option>--Select Schools Year</option>
 
-                                    </InputSelect>
-                                    <div class="col-sm-8 text-danger">
-                                        <ValidationMessage For="@(() => CurrenExamResult.StudentSSN)" />
-                                    </div>
-                                </div>
-                            </div>
+                            @foreach (var item in SchoolYears)
+                            {
+                                <option value="@item.Id">@item.SchoolYear</option>
+                            }
+                        </select>
+                        <br />
+                        <label>Student </label>
+                        <select @onchange="UpdateStudentAsync">
+                                                            <option>--Select Student</option>
 
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">
-                                    Subject
-                                </label>
-                                <div class="col-sm-10">
-                                    <InputSelect class="form-control" @bind-Value="@CurrenExamResult.SubjectId">
-                                        <option value="0">-- Select Subject --</option>
-                                        @foreach (var Subject in Subjects)
-                                                {
-                                            <option value="@Subject.CodeId">@Subject.Name </option>
-                                                }
+                            @foreach (var item in Students)
+                            {
+                                <option value="@item.StudenntSSN">@item.FirstName @item.MiddleName @item.LastName</option>
+                            }
+                        </select>
+                        <br />
+                        <label>Exam </label>
+                        <select @onchange="UpdateExamAsync">
+                            <option>--Select Exam</option>
 
-                                    </InputSelect>
-                                    <div class="col-sm-8 text-danger">
-                                        <ValidationMessage For="@(() => CurrenExamResult.SubjectId)" />
-                                    </div>
-                                </div>
-                            </div>
+                            @foreach (var item in Exams)
+                            {
+                                <option value="@item.Id">@item.ExamName</option>
+                            }
+                        </select>
 
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">
-                                    Exam
-                                </label>
-                                <div class="col-sm-10">
-                                    <InputSelect class="form-control" @bind-Value="@CurrenExamResult.ExamId">
-                                        <option value="0">-- Select Exam --</option>
-                                        @foreach (var Exam in Exams)
-                                                {
-                                            <option value="@Exam.Id">@Exam.ExamName </option>
-
-
-                                                }
-
-                                    </InputSelect>
-                                    <div class="col-sm-8 text-danger">
-                                        <ValidationMessage For="@(() => CurrenExamResult.ExamId)" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="ExamDegree" class="col-sm-5 col-form-label">
-                                    Exam Degree
-                                </label>
-                                <div class="col-sm-7">
-                                    <InputNumber id="ExamDegree" class="form-control" placeholder="Exam Degree"
-                                                 @bind-Value="CurrenExamResult.ExamDegree" />
-                                    <div class="col-sm-8 text-danger">
-                                        <ValidationMessage For="() => CurrenExamResult.ExamDegree" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-block btn-success" data-dismiss="modal">Adding</button>
-                            </div>
-                        </EditForm>
+                        <input type="number" @bind-value="Degree" />
+                        <input type="button" value="Save" @onclick="AddingResultAsync" />
                     </div>
-
                 </div>
             </div>
         </div>
@@ -240,7 +195,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-danger" @onclick="@(async () => await DeleteExamResult(CurrenExamResult.StudentSSN,CurrenExamResult.SubjectId,CurrenExamResult.ExamId))" data-dismiss="modal">YES</button>
-                        <button class="btn btn-warning" @onclick="@closeModal">NO</button>
+                        <button class="btn btn-warning" @onclick="@closeModalAsync">NO</button>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,204 @@
+<!-- Start Task Number 7 -->
+
+<!-- <!DOCTYPE html>
+<html> 
+<head>
+<meta charset=utf-8 />
+<title>Taks 7 </title>
+<style type="text/css">
+body {margin: 30px;}
+</style> 
+</head>
+<body>
+    <h3 style="text-align: center;">Task By D/Hanan</h3>
+<div style="text-align: center;
+padding: 10px;
+padding: 5pa;
+padding: 15px;
+margin: 15px;">
+    <form>
+        1st Number : <input type="text" id="firstNumber" /><br>
+        2nd Number: <input type="text" id="secondNumber" /><br>
+        <br>
+        <br>
+       <div class="btns">
+        <input type="button" onClick="multiplyBy()" Value="Multiply" />
+        <input type="button" onClick="divideBy()" Value="Divide" />
+       </div>
+        </form>
+        <p>The Result is : <br>
+        <span id = "result"></span>
+        </p>
+</div>
+<script>
+    function multiplyBy()
+{
+        num1 = document.getElementById("firstNumber").value;
+        num2 = document.getElementById("secondNumber").value;
+        document.getElementById("result").innerHTML = num1 * num2;
+}
+
+function divideBy() 
+{ 
+        num1 = document.getElementById("firstNumber").value;
+        num2 = document.getElementById("secondNumber").value;
+document.getElementById("result").innerHTML = num1 / num2;
+}
+
+</script>
+</body>
+</html>  -->
+
+
+<!-- End Task Number 7 -->
+
+
+
+<!-- Start Task Number 8 -->
+
+<!-- <!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Taks 8</title>
+<style>
+    li {list-style-type: none;
+font-size: 16pt;
+}
+.mail {
+margin: auto;
+padding-top: 10px;
+padding-bottom: 10px;
+width: 400px;
+background : #D8F1F8;
+border: 1px soild silver;
+}
+.mail h2 {
+margin-left: 38px;
+}
+input {
+font-size: 20pt;
+}
+input:focus, textarea:focus{
+background-color: lightyellow;
+}
+input submit {
+font-size: 12pt;
+}
+.rq {
+color: #FF0000;
+font-size: 10pt;
+}
+
+</style>
+</head>
+<body>
+<div class="mail">
+<h2>Input your Name and Submit</h2>
+<form name="form1" action="#" onsubmit="required()">
+<ul>
+<li><input type='text' id="ClientName" name ='text1'/></li>
+<li class="rq">*Required Field</li>
+<li><input type="submit" name="submit" value="Submit" /></li>
+</ul>
+</form>
+</div>
+<script>
+    function required()
+{
+var empt = document.forms["form1"]["text1"].value;
+if (empt == "")
+{
+alert("Please input a Value (Please insert your Name !?)");
+return false;
+}
+else 
+{
+    var Name = document.getElementById('ClientName').value
+alert('Hello Mr : '+Name);
+return true; 
+}
+}
+
+</script>
+
+</body>
+</html> -->
+
+<!-- End Task Number 8 -->
+
+<!-- Start Task Number 9 -->
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Task 9</title>
+</head>
+<body>
+<input type="button" value="Change background-color" onclick="set_background()">
+<p>My Name : Hanan</p>
+<p>My Job : Teaching Assistant University</p>
+<script>
+    function set_background() {
+ docBody = document.getElementsByTagName("body")[0];
+  //Get all the p elements that are descendants of the body
+  myBodyElements = docBody.getElementsByTagName("p");
+// get the first p elements
+  myp1 = myBodyElements[0];
+  myp1.style.background = "rgb(255,0,0)";
+// get the second p elements
+  myp2 = myBodyElements[1];
+  myp2.style.background = "rgb(255,255,0)";
+}
+
+</script>
+</body>
+</html> -->
+
+<!-- End Task Number 9 -->
+
+<!-- Start Task Number 10 -->
+
+<!-- <!DOCTYPE html>
+<html>
+    <head>
+        <title>Task 10</title>
+    </head>
+    <body>
+        <h3>Value of image (Height , Width , alt and title)</h3>
+        <img id="image6" src="6.png" width="500"Height="400" alt="This is image for test " title="Image for Test">
+        <br/> <br/>
+        <p id="demo">
+
+        </p>
+        <button onclick="getAttributes()">Show Properties</button>
+        <script>
+            function getAttributes(){
+                var attrbuties_values="";
+                var src = document.getElementById("image6").src;
+                attrbuties_values+="Value of Source image Attribute (src) is ==>"+src+"<br />";
+                var width = document.getElementById("image6").width;
+                attrbuties_values+="Value of Width Image Attribute (width) is ==>"+width+"<br />";
+                var height = document.getElementById("image6").height;
+                attrbuties_values+="Value of Height image Attribute (src) is ==>"+height+"<br />";
+
+                var Alt = document.getElementById("image6").alt;
+                attrbuties_values+="Value of Alt image Attribute (alt) is ==>"+Alt+"<br />";
+
+                var Title = document.getElementById("image6").title;
+                attrbuties_values+="Value of Title image Attribute (title) is ==>"+Title+"<br />";
+
+                document.getElementById("demo").innerHTML=attrbuties_values;
+                document.getElementById("demo").style.color="rgb(0,0,255)";
+
+
+           
+            }
+        </script>
+    </body>
+</html> -->
+
+
+<!-- End Task Number 10 -->
+

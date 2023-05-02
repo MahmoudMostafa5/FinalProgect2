@@ -77,6 +77,7 @@
                     <td class="text-center"><img src="https://localhost:44348/Images/@EmployeeDto.Image" class="w-25" style="height:50px" /></td>
 
                     <td class="h5 text-center">
+                        <button @onclick="@(async () => await Details(EmployeeDto.EmployeeSSN))" class="btn btn-primary"><i class="fa fa-pencil-square"></i></button>
                         <button @onclick="@(async () => await UpdateSub(EmployeeDto.EmployeeSSN))" class="btn btn-primary"><i class="fa fa-pencil-square"></i></button>
                         <button @onclick="@(async () => await DeleteSub(EmployeeDto.EmployeeSSN))" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                     </td>
@@ -233,6 +234,25 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label for="Department" class="col-sm-2 col-form-label">
+                                            Job Degree
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <InputSelect class="form-control" @bind-Value="@CurrenEmployee.JobDegreeId">
+                                                <option value="0" disabled>--Select Department--</option>
+                                                @foreach (var job in JobsDegree)
+                                                        {
+
+                                                    <option value="@job.Id">@job.Name</option>
+                                                        }
+
+                                            </InputSelect>
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="@(() => CurrenEmployee.JobDegreeId)" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                     <h1>Upload file!</h1>
@@ -284,21 +304,6 @@
                             <hr />
                             @*<div class="row">
                                 <div class="col-md-8">*@
-
-                                    <div class="form-group row">
-                                        <label for="EmployeeSSN" class="col-sm-2 col-form-label">
-                                            Employee SSN
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <InputNumber id="EmployeeSSN" class="form-control" placeholder="Employee SSN"
-                                                         @bind-Value="CurrenEmployee.EmployeeSSN" />
-                                            <div class="col-sm-8 text-danger">
-
-                                                <ValidationMessage For="() => CurrenEmployee.EmployeeSSN" />
-
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="form-group row">
                                         <label for="Department" class="col-sm-2 col-form-label">
                                             Department
@@ -358,6 +363,14 @@
                                                 <ValidationMessage For="() => CurrenEmployee.LastName" />
 
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="LastName" class="col-sm-2 col-form-label">
+                                            Employee Image
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input type="file" @ref="inputReference" @onchange="@OpenFileAsync" />
                                         </div>
                                     </div>
                                     <div class="form-group row">

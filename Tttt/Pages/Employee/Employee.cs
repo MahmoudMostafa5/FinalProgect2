@@ -27,6 +27,10 @@ namespace Tttt.Pages.Employee
         [Inject]
         public IDepartmentDataService DepartmentDataService { get; set; }
         [Inject]
+        public IJobDegreeService JobDegreeService { get; set; }
+        [Parameter]
+        public IEnumerable<JobDegreeDto> JobsDegree { get; set; }
+        [Inject]
         public IToastService ToastService { get; set; }
         [Inject]
         public NavigationManager _navigation { get; set; }
@@ -61,14 +65,18 @@ namespace Tttt.Pages.Employee
         {
             AllEmployee = await EmployeeDataService.GetAll();
             Departments = await DepartmentDataService.GetAll();
+            JobsDegree = await JobDegreeService.GetAll();
         }
         protected async Task HandleValidSubmitAdding()
         {
             try
             {
                 await EmployeeDataService.Add(CurrenEmployee);
-                await UploadFileAsync();
-                AfterChangeImage();
+                if (file is not null)
+                {
+                    await UploadFileAsync();
+                    AfterChangeImage();
+                }
 
                 ToastService.ShowSuccess("Adding New Employee Succefully");
             }
@@ -85,10 +93,11 @@ namespace Tttt.Pages.Employee
             try
             {
                 await EmployeeDataService.Update(CurrenEmployee.EmployeeSSN, CurrenEmployee);
-                //if (file is not null)
-                //{
-                //    await UploadFileAsync();
-                //}
+                if (file is not null)
+                {
+                    await UploadFileAsync();
+                    AfterChangeImage();
+                }
                 ToastService.ShowSuccess("Update  Employee Succefully");
 
 
@@ -201,6 +210,10 @@ namespace Tttt.Pages.Employee
             fileStream = null;
             file = null;
             imagePreview = string.Empty;
+        }
+        protected async Task Details(long? SSN)
+        {
+            _navigation.NavigateTo($"EmployeeProfile/{SSN}");
         }
         protected async Task Modify(long SSN)
         {

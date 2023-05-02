@@ -50,8 +50,6 @@
                 <tr>
                     <th> Exam Id </th>
                     <th> Exam Name </th>
-                    <th> Exam PDF </th>
-                    <th> Exam Link </th>
                     <th> Exam Start at </th>
                     <th> Exam End at </th>
                     <th> Exam Type </th>
@@ -71,8 +69,6 @@
                         @*<td class="h5 text-center">@ExamDto.ExamId</td>*@
                         <td>@ExamDto.Id</td>
                         <td>@ExamDto.ExamName</td>
-                        <td>@ExamDto.ExamPdf</td>
-                        <td>@ExamDto.ExamLink</td>
                         <td>@ExamDto.StartAt.ToString("dd/MM/yyyy")</td>
                         <td>@ExamDto.EndAt.ToString("dd/MM/yyyy")</td>
                         <td>@ExamDto.ExamType.ExamName</td>
@@ -132,18 +128,18 @@
                             <div class="col-md-8">
 
                                 @*<div class="form-group row">
-                                        <label for="ExamId" class="col-sm-3 col-form-label">
-                                            Exam Id
-                                        </label>
-                                        <div class="col-sm-9">
-                                            <InputNumber id="ExamId" class="form-control" placeholder="Exam Id"
-                                                         @bind-Value="CurrenExam.Id" />
+            <label for="ExamId" class="col-sm-3 col-form-label">
+                Exam Id
+            </label>
+            <div class="col-sm-9">
+                <InputNumber id="ExamId" class="form-control" placeholder="Exam Id"
+                             @bind-Value="CurrenExam.Id" />
 
-                                            <div class="col-sm-8 text-danger">
-                                                <ValidationMessage For="@(() => CurrenExam.Id)" />
-                                            </div>
-                                        </div>
-                                    </div>*@
+                <div class="col-sm-8 text-danger">
+                    <ValidationMessage For="@(() => CurrenExam.Id)" />
+                </div>
+            </div>
+        </div>*@
                                 <div class="form-group row">
                                     <label for="ExamName" class="col-sm-3 col-form-label">
                                         Exam Name
@@ -156,18 +152,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="ExamLink" class="col-sm-3 col-form-label">
-                                        Exam Link
-                                    </label>
-                                    <div class="col-sm-9">
-                                        <InputText id="ExamLink" class="form-control" placeholder="Exam Link"
-                                                   @bind-Value="CurrenExam.ExamLink" />
-                                        <div class="col-sm-8 text-danger">
-                                            <ValidationMessage For="() => CurrenExam.ExamLink" />
-                                        </div>
-                                    </div>
-                                </div>
+
 
                                 <div class="form-group row">
                                     <label for="SA" class="col-sm-3 col-form-label">
@@ -226,11 +211,29 @@
                                                 }
 
                                         </InputSelect>
+
                                         <div class="col-sm-8 text-danger">
                                             <ValidationMessage For="@(() => CurrenExam.ExamAnswerId)" />
                                         </div>
                                     </div>
                                 </div>
+
+                                @if (CurrenExam.ExamAnswerId == 4)
+                                {
+                                    <div class="form-group row">
+                                        <label for="ExamLink" class="col-sm-3 col-form-label">
+                                            Exam Link
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <InputText id="ExamLink" class="form-control" placeholder="Exam Link"
+                                                       @bind-Value="CurrenExam.ExamLink" />
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="() => CurrenExam.ExamLink" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                
 
                                 <div class="form-group row">
                                     <label for="FinalDegree" class="col-sm-3 col-form-label">
@@ -285,18 +288,7 @@
                                         </div>
                                     </div>*@
 
-                                <div class="form-group row">
-                                    <label for="pdf" class="col-sm-5 m-auto col-form-label">
-                                        Exam PDF
-                                    </label>
-                                    <div class="col-sm-9 m-auto">
-                                        <InputFile id="pdf" class="form-control" placeholder="Exam Pdf"
-                                                   @bind-Value="CurrenExam.ExamPdf" />
-                                        <div class="col-sm-8 text-danger">
-                                            <ValidationMessage For="() => CurrenExam.ExamPdf" />
-                                        </div>
-                                    </div>
-                                </div>
+                            
                             </div>
                         </div>
 

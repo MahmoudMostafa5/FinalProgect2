@@ -13,98 +13,112 @@ namespace Tttt.Shared
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "D:\FinalProgect2\Tttt\_Imports.razor"
+#line 1 "D:\final Project\FinalProgect2\Tttt\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "D:\FinalProgect2\Tttt\_Imports.razor"
+#line 2 "D:\final Project\FinalProgect2\Tttt\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "D:\FinalProgect2\Tttt\_Imports.razor"
+#line 3 "D:\final Project\FinalProgect2\Tttt\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "D:\FinalProgect2\Tttt\_Imports.razor"
+#line 4 "D:\final Project\FinalProgect2\Tttt\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "D:\FinalProgect2\Tttt\_Imports.razor"
+#line 5 "D:\final Project\FinalProgect2\Tttt\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "D:\FinalProgect2\Tttt\_Imports.razor"
+#line 6 "D:\final Project\FinalProgect2\Tttt\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "D:\FinalProgect2\Tttt\_Imports.razor"
+#line 7 "D:\final Project\FinalProgect2\Tttt\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "D:\FinalProgect2\Tttt\_Imports.razor"
+#line 8 "D:\final Project\FinalProgect2\Tttt\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "D:\FinalProgect2\Tttt\_Imports.razor"
+#line 9 "D:\final Project\FinalProgect2\Tttt\_Imports.razor"
 using Tttt;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "D:\FinalProgect2\Tttt\_Imports.razor"
+#line 10 "D:\final Project\FinalProgect2\Tttt\_Imports.razor"
 using Tttt.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "D:\FinalProgect2\Tttt\_Imports.razor"
+#line 11 "D:\final Project\FinalProgect2\Tttt\_Imports.razor"
 using Schools.DataStorage.Entity;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 12 "D:\FinalProgect2\Tttt\_Imports.razor"
+#line 12 "D:\final Project\FinalProgect2\Tttt\_Imports.razor"
 using Blazored.Toast;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 13 "D:\FinalProgect2\Tttt\_Imports.razor"
+#line 13 "D:\final Project\FinalProgect2\Tttt\_Imports.razor"
 using Blazored.Toast.Services;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "D:\FinalProgect2\Tttt\Shared\MainLayout.razor"
+#line 5 "D:\final Project\FinalProgect2\Tttt\Shared\MainLayout.razor"
+using Tttt.Services;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "D:\final Project\FinalProgect2\Tttt\Shared\MainLayout.razor"
+using System.Security.Claims;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "D:\final Project\FinalProgect2\Tttt\Shared\MainLayout.razor"
 using Blazored.Toast.Configuration;
 
 #line default
@@ -118,39 +132,142 @@ using Blazored.Toast.Configuration;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 69 "D:\FinalProgect2\Tttt\Shared\MainLayout.razor"
+#line 86 "D:\final Project\FinalProgect2\Tttt\Shared\MainLayout.razor"
       
-    [CascadingParameter]
-    Task<AuthenticationState> AuthenticationState { get; set; }
+    //[CascadingParameter]
+    //Task<AuthenticationState> AuthenticationState { get; set; }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (!(await AuthenticationState).User.Identity.IsAuthenticated)
-        {
-            string email =await _customStateProvider.GetemailAsync();
-            string password =await _customStateProvider.GetpaswordAsync();
-            if(string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
-            {
-               string uri= navigationManager.ToBaseRelativePath(navigationManager.Uri);
-                if(string.IsNullOrWhiteSpace(uri))
-                navigationManager.NavigateTo("/LoginPage");
-            }
-            else
-            {
-                await _customStateProvider.Login(new Schools.DTO.DTO.LoginDto() { Email = email, Password = password, RememberMe = true });
-            }
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (!(await AuthenticationState).User.Identity.IsAuthenticated)
+    //    {
+    //        string email = await _customStateProvider.GetemailAsync();
+    //        string password = await _customStateProvider.GetpaswordAsync();
+    //        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+    //        {
+    //            string uri = navigationManager.ToBaseRelativePath(navigationManager.Uri);
+    //            if (string.IsNullOrWhiteSpace(uri))
+    //                navigationManager.NavigateTo("/LoginPage");
+    //        }
+    //        else
+    //        {
+    //            await _customStateProvider.Login(new Schools.DTO.DTO.LoginDto() { Email = email, Password = password, RememberMe = true });
+    //        }
 
-        }
-    }
-    async Task Logout()
-    {
-        await _customStateProvider.Logout();
-        navigationManager.NavigateTo("/LoginPage");
-    }
+    //    }
+    //}
+    //async Task Logout()
+    //{
+    //    //await _customStateProvider.Logout();
+    //    //navigationManager.NavigateTo("/LoginPage");
+    //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //[Inject]
+
+    //public IDepartmentDataService DepartmentDataService { get; set; }
+    //public IEmployeeDataService EmployeeDataService { get; set; }
+    //[Parameter]
+    //public string _userId { get; set; }
+    //[Inject]
+    //public Tttt.Authentication.CustomStateProvider _authenticationStateProvider { get; set; }
+    //public List<Claim> AA { get; set; }
+    //[Parameter]
+    //public List<string> roles { get; set; }
+    //protected async Task getUserIdAsync()
+    //{
+    //    var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+    //    var UserId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
+    //    var User = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+    //    AA = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User.Claims.ToList();
+
+    //    roles = ((ClaimsIdentity)User.Identity).Claims
+    //       .Where(c => c.Type == ClaimTypes.Role)
+    //       .Select(c => c.Value).ToList();
+
+    //    _userId = UserId;
+    //}
+
+
+    //protected async void ViewProfile()
+    //{
+    //    await getUserIdAsync();
+    //    for (int i = 0; i < roles.Count(); i++)
+    //    {
+    //        string roleName = roles[i];
+    //        switch (roleName)
+    //        {
+    //            case "Teacher":
+    //                _NavigationManager.NavigateTo($"/TeacherProfile/{_userId.ToString()}");
+    //                break;
+    //            case "Student":
+    //                _NavigationManager.NavigateTo($"/StudentAdresses/{_userId.ToString()}");
+    //                _NavigationManager.NavigateTo("/StudentAdresses/4ca21881-bf32-46f1-b6d9-994d13bb49ed");
+    //                break;
+    //            case "Parent":
+    //                _NavigationManager.NavigateTo($"/StudentAdresses/{_userId.ToString()}");
+    //                _NavigationManager.NavigateTo("/StudentAdresses/4ca21881-bf32-46f1-b6d9-994d13bb49ed");
+    //                break;
+    //            case "StudentAffaris":
+    //            case "Secratria":
+    //                var SSN = (await EmployeeDataService.GetAll()).Where(s => s.User_Id == _userId).FirstOrDefault().EmployeeSSN;
+    //                _NavigationManager.NavigateTo($"EmployeeProfile/{SSN}");
+    //                break;
+    //            default:
+    //                _NavigationManager.NavigateTo("/TestAuth");
+    //                break;
+    //        }
+
+    //    }
+    //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager _NavigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private Tttt.Authentication.CustomStateProvider _customStateProvider { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
     }

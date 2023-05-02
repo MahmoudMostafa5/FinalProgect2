@@ -35,9 +35,11 @@ namespace Tttt.Pages.gg
         public TeacherDto CurrenTeacher { get; set; } = new TeacherDto();
         [Parameter]
         public long SSN  { get; set; }
+        List<string> SubjectsName = new List<string>();
         [Inject]
         IFileReaderService fileReader { get; set; }
         [Inject]
+        
         HttpClient client { get; set; }
         IFileReference file = null;
         ElementReference inputReference;
@@ -57,34 +59,42 @@ namespace Tttt.Pages.gg
         const string DefaultStatus = "Maximum size allowed for the image is 4 MB";
         protected string status = DefaultStatus;
         const int MaxFileSize = 4 * 1024 * 1024; // 4MB
-
         public MultipartFormDataContent content = new MultipartFormDataContent();
-        public bool IsShow { get; set; } = true;
-
-        public void Show()
-        {
-            IsShow = !IsShow;
-        }
-
         protected string modalTitle { get; set; }
         protected Boolean isDelete = false;
         protected Boolean isAdd = false;
         protected Boolean isModify = false;
+        protected Boolean IsShow = true;
+
         protected override async Task OnInitializedAsync()
         {
-            Teacher = await TeacherDataService.GetAll();
+           
             CurrenTeacher = await TeacherDataService.Get(SSN);
-            CurrenTeacherAdress = await TeacherAdressDataService.Get(SSN);
+            var ResultCheck = await TeacherAdressDataService.CheckTeacherAdress(SSN);
+            if (ResultCheck.IsSuccessStatusCode)
+            {
+                CurrenTeacherAdress = await TeacherAdressDataService.Get(SSN);
+            }
+           
+            if (CurrenTeacher.Subject is not null)
+            {
+                foreach (var item in CurrenTeacher.Subject.ToList())
+                {
+                    SubjectsName.Add(item.Name);
+                }
+            }
         }
         protected async Task HandleValidSubmitUpdate()
         {
             try
             {
-                await TeacherAdressDataService.Update(CurrenTeacherAdress.TeacherSSN, CurrenTeacherAdress);
-                if (file is not null)
+                var Result = await TeacherAdressDataService.CheckTeacherAdress(SSN);
+                if (Result.IsSuccessStatusCode)
                 {
-                    await UploadFileAsync();
+                    await TeacherAdressDataService.Update(CurrenTeacherAdress.TeacherSSN, CurrenTeacherAdress);
                 }
+                else
+                    await TeacherAdressDataService.Add(CurrenTeacherAdress);
                 ToastService.ShowSuccess("Update TeacherAdress Succefully");
 
 
@@ -115,9 +125,9 @@ namespace Tttt.Pages.gg
                 fileStream = new MemoryStream(ms.ToArray());
                 imagePreview = string.Concat("data:image/png;base64,", Convert.ToBase64String(ms.ToArray()));
             }
+           await UploadFileAsync();
 
         }
-
         protected async Task UploadFileAsync()
         {
 
@@ -128,7 +138,7 @@ namespace Tttt.Pages.gg
 
             string url = "https://localhost:44348";
 
-            var response = await client.PostAsync($"{url}/api/TeacherAdresss/AddImage/{CurrenTeacherAdress.TeacherSSN}", content);
+            var response = await client.PostAsync($"{url}/api/Teachers/AddImage/{CurrenTeacher.TeacherSSN}", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -138,8 +148,20 @@ namespace Tttt.Pages.gg
                 content = new MultipartFormDataContent();
                 fileStream = null;
             }
+            await OnInitializedAsync();
 
-
+        }
+        private void AfterChangeImage()
+        {
+            message = string.Empty;
+            imagePath = null;
+            imagePath2 = null;
+            fileName = string.Empty;
+            type = string.Empty;
+            size = string.Empty;
+            fileStream = null;
+            file = null;
+            imagePreview = string.Empty;
         }
         protected async Task UpdateTeacherAdress(long? SSN)
         {
@@ -159,24 +181,18 @@ namespace Tttt.Pages.gg
             CurrenTeacherAdress = new TeacherAdressDto();
             AfterChangeImage();
         }
-        private void AfterChangeImage()
-        {
-            message = string.Empty;
-            imagePath = null;
-            imagePath2 = null;
-            fileName = string.Empty;
-            type = string.Empty;
-            size = string.Empty;
-            fileStream = null;
-            file = null;
-            imagePreview = string.Empty;
-        }
+     
         protected async Task Modify(long? SSN)
         {
-            CurrenTeacherAdress = await TeacherAdressDataService.Get(SSN);
-            Show();
+            var Result = await TeacherAdressDataService.CheckTeacherAdress(SSN);
+            if (Result.IsSuccessStatusCode)
+            {
+                CurrenTeacherAdress = await TeacherAdressDataService.Get(SSN);
+            } else
+                CurrenTeacherAdress = new TeacherAdressDto() { TeacherSSN = SSN };
             this.modalTitle = "Modify TeacherAdress";
             this.isModify = true;
+            this.IsShow = !IsShow;
         }
         protected async Task Detail(long SSN)
         {

@@ -74,3 +74,22 @@ D:\FinalProgect2\Schools.DAL\obj\Debug\net5.0\Schools.DAL.csproj.CopyComplete
 D:\FinalProgect2\Schools.DAL\obj\Debug\net5.0\Schools.DAL.dll
 D:\FinalProgect2\Schools.DAL\obj\Debug\net5.0\ref\Schools.DAL.dll
 D:\FinalProgect2\Schools.DAL\obj\Debug\net5.0\Schools.DAL.pdb
+D:\final Project\FinalProgect2\Schools.DAL\bin\Debug\net5.0\Schools.DAL.deps.json
+D:\final Project\FinalProgect2\Schools.DAL\bin\Debug\net5.0\Schools.DAL.dll
+D:\final Project\FinalProgect2\Schools.DAL\bin\Debug\net5.0\ref\Schools.DAL.dll
+D:\final Project\FinalProgect2\Schools.DAL\bin\Debug\net5.0\Schools.DAL.pdb
+D:\final Project\FinalProgect2\Schools.DAL\bin\Debug\net5.0\Schools.DataBase.dll
+D:\final Project\FinalProgect2\Schools.DAL\bin\Debug\net5.0\Schools.DataStorage.dll
+D:\final Project\FinalProgect2\Schools.DAL\bin\Debug\net5.0\Schools.Service.dll
+D:\final Project\FinalProgect2\Schools.DAL\bin\Debug\net5.0\Schools.DataBase.pdb
+D:\final Project\FinalProgect2\Schools.DAL\bin\Debug\net5.0\Schools.DataStorage.pdb
+D:\final Project\FinalProgect2\Schools.DAL\bin\Debug\net5.0\Schools.Service.pdb
+D:\final Project\FinalProgect2\Schools.DAL\obj\Debug\net5.0\Schools.DAL.csproj.AssemblyReference.cache
+D:\final Project\FinalProgect2\Schools.DAL\obj\Debug\net5.0\Schools.DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\final Project\FinalProgect2\Schools.DAL\obj\Debug\net5.0\Schools.DAL.AssemblyInfoInputs.cache
+D:\final Project\FinalProgect2\Schools.DAL\obj\Debug\net5.0\Schools.DAL.AssemblyInfo.cs
+D:\final Project\FinalProgect2\Schools.DAL\obj\Debug\net5.0\Schools.DAL.csproj.CoreCompileInputs.cache
+D:\final Project\FinalProgect2\Schools.DAL\obj\Debug\net5.0\Schools.DAL.csproj.CopyComplete
+D:\final Project\FinalProgect2\Schools.DAL\obj\Debug\net5.0\Schools.DAL.dll
+D:\final Project\FinalProgect2\Schools.DAL\obj\Debug\net5.0\ref\Schools.DAL.dll
+D:\final Project\FinalProgect2\Schools.DAL\obj\Debug\net5.0\Schools.DAL.pdb

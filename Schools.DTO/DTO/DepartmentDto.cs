@@ -11,7 +11,9 @@ namespace Schools.DTO.DTO
     {
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
-        //[JsonIgnore]
+        public string Departmentbuilding { get; set; }
+        public string DepartmentLocation { get; set; }
+
         public virtual ICollection<EmployeeDto> Employees { get; set; }
     }
 }

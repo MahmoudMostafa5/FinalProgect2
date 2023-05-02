@@ -39,29 +39,37 @@ namespace Tttt.Pages.Studentabsence
 
         protected override async Task OnInitializedAsync()
         {
-            //AllStudentabsence = await StudentabsenceDataService.GetBySchoolYearAndClassRoom(SchoolYearId, ClassRoomId);
+            AllStudentabsence = (await StudentabsenceDataService.GetAll()).Where(s => s.Date.Date == DateTime.Now.Date);
             //Students = await StudentDataService.GetAll();
             SchoolYears = await SchoolYearDataService.GetAll();
             ClassRooms = await classRoomDataService.GetAll();
         }
         private async Task Search()
         {
-            AllStudentabsence = await  StudentabsenceDataService.GetBySchoolYearAndClassRoom(SchoolYearId, ClassRoomId);
             Students = (await StudentDataService.GetAll()).Where(a => a.SchoolsYearId == SchoolYearId && a.ClassRoomId == ClassRoomId);
             await OnInitializedAsync();
         }
-        protected async Task HandleValidSubmitAdding()
+        protected async Task HandleValidSubmitAdding(long? SSN)
         {
-            CurrenStudentabsence = new StudentAbsenceDto();
-            try
+            var Result = await StudentabsenceDataService.CheckAbsenceIsExisted(SSN);
+            if (Result.IsSuccessStatusCode || Result.StatusCode==System.Net.HttpStatusCode.OK)
             {
-                await StudentabsenceDataService.Add(CurrenStudentabsence);
-                ToastService.ShowSuccess("Adding New Studentabsence Succefully");
+                ToastService.ShowError("This Student Already Added in Absences before !!");
             }
-            catch
+            else
             {
-                ToastService.ShowError("Adding New Studentabsence Falied !!");
+                var StudentAbence = new StudentAbsenceDto() { Date = DateTime.Now, StudentSSN = SSN };
+                try
+                {
+                    await StudentabsenceDataService.Add(StudentAbence);
+                    ToastService.ShowSuccess("Adding Student To absence Succefully");
+                }
+                catch
+                {
+                    ToastService.ShowError("Adding Student to absence Falied !!");
+                }
             }
+            
             await Search();
             await OnInitializedAsync();
         }

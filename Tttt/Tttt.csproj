@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Schools.DTO\Schools.DTO.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Report\" />
+  </ItemGroup>
+
 </Project>

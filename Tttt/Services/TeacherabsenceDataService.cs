@@ -30,6 +30,21 @@ namespace Tttt.Services
             return JsonConvert.DeserializeObject<TeacherAbsenceDto>(json);
         }
 
+
+
+        public async Task<HttpResponseMessage> CheckTeacherAbsenceIsExisted(long SSN)
+        {
+            var Result = await _httpClient.GetAsync($"api/TeacherAbsense/CheckAbsenceIsExisted/{SSN}");
+            if (Result.IsSuccessStatusCode)
+            {
+                return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK };
+            }
+            else
+                return new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.NotFound };
+
+        }
+
+
         public async Task<HttpResponseMessage> Add(TeacherAbsenceDto Teacherabsence)
         {
 
@@ -48,5 +63,7 @@ namespace Tttt.Services
             var stringContent = new StringContent(serialized, Encoding.UTF8, "application/json");
             return stringContent;
         }
+
+
     }
 }

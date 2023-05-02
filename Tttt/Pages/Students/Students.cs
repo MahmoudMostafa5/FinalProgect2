@@ -14,6 +14,8 @@ namespace Tttt.Pages.Students
 {
     public partial class Students : ComponentBase
     {
+        [Inject]
+        public IStudentAdressDataService StudentAdressDataService { get; set; }
         [Parameter]
         public StudentDto CurrenStudent { get; set; }
         [Inject]
@@ -54,12 +56,15 @@ namespace Tttt.Pages.Students
         const int MaxFileSize = 4 * 1024 * 1024; // 4MB
 
         public MultipartFormDataContent content = new MultipartFormDataContent();
-
+        [Parameter]
+        public StudentAdressDto CurrenStudentAdress { get; set; } = new StudentAdressDto();
 
         protected string modalTitle { get; set; }
         protected Boolean isDelete = false;
         protected Boolean isAdd = false;
         protected Boolean isModify = false;
+        protected Boolean Adress = false;
+        protected Boolean UpdateStatues = false;
 
         protected override async Task OnInitializedAsync()
         {
@@ -68,13 +73,46 @@ namespace Tttt.Pages.Students
             SchoolYears = await schoolYearDataService.GetAll();
 
         }
+        protected async Task HandleStudentAdress()
+        {
+            try
+            {
+                await StudentAdressDataService.Update(CurrenStudentAdress.StudentSSN, CurrenStudentAdress);
+                ToastService.ShowSuccess("Update Student Adress Success ");
+            }
+            catch 
+            {
+                ToastService.ShowError("Update Student Adress Falied !! ");
+            }
+            this.Adress = false;
+            this.UpdateStatues = false;
+        }
+        protected async Task AddTeacherAdress(long? SSN)
+        {
+
+            var CheckStudentAdress = await StudentAdressDataService.CheckStudentAdress(SSN);
+            if (CheckStudentAdress.IsSuccessStatusCode
+                || CheckStudentAdress.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                CurrenStudentAdress = await StudentAdressDataService.Get(SSN);
+                this.UpdateStatues = true;
+            }
+            else
+                CurrenStudentAdress = new StudentAdressDto() { StudentSSN = SSN };
+            this.modalTitle = "Student Adress";
+            this.Adress = true;
+
+        }
         protected async Task HandleValidSubmitAdding()
         {
             try
             {
                 await StudentDataService.Add(CurrenStudent);
-                await UploadFileAsync();
-                AfterChangeImage();
+                if (file is not null)
+                {
+                    await UploadFileAsync();
+                    AfterChangeImage();
+                }
 
                 ToastService.ShowSuccess("Adding New Student Succefully");
             }
@@ -94,8 +132,9 @@ namespace Tttt.Pages.Students
                 if (file is not null)
                 {
                     await UploadFileAsync();
+                    AfterChangeImage();
                 }
-                ToastService.ShowSuccess("Update  Student Succefully");
+                ToastService.ShowSuccess("Update Student Succefully");
             }
             catch
             {
@@ -186,6 +225,10 @@ namespace Tttt.Pages.Students
             this.isAdd = false;
             this.isModify = false;
             this.isDelete = false;
+            this.Adress = false;
+            this.UpdateStatues = false;
+            CurrenStudentAdress = new StudentAdressDto();
+            AfterChangeImage();
         }
 
         private void AfterChangeImage()
@@ -209,7 +252,23 @@ namespace Tttt.Pages.Students
         }
         protected async Task Detail(long? SSN)
         {
-            _navigation.NavigateTo($"StudentAdresses/{SSN}");
+            _navigation.NavigateTo($"StudentAdresses/{$"4ca21881-bf32-46f1-b6d9-994d13bb49ed"}");
+        }
+        protected async Task AddingAdress()
+        {
+
+            try
+            {
+                await StudentAdressDataService.Add(CurrenStudentAdress);
+                ToastService.ShowSuccess("Adding Teacher Adress Success");
+            }
+            catch
+            {
+                ToastService.ShowError("Adding Teacher Adress Failed");
+            }
+            this.Adress = false;
+            CurrenStudentAdress = new StudentAdressDto();
+            await OnInitializedAsync();
         }
     }
 }

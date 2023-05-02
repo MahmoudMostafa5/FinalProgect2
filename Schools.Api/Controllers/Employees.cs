@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Schools.Api.Sevice.UploadImages;
 using Schools.DAL.UnitOfWork;
+using Schools.DataBase.Context;
 using Schools.DataStorage.Entity;
 using Schools.DTO.DTO;
 using System;
@@ -16,14 +17,17 @@ namespace Schools.Api.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    // api/Employees/Update
     public class Employees : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _Map;
-        public Employees(IUnitOfWork unit, IMapper map)
+        private readonly SchoolsDB _schoolsDB;
+        public Employees(IUnitOfWork unit, IMapper map ,SchoolsDB dB)
         {
             this._unitOfWork = unit;
             this._Map = map;
+            this._schoolsDB = dB;
         }
         // GET: api/<Department>
         [HttpGet]
@@ -78,10 +82,15 @@ namespace Schools.Api.Controllers
             var CurrentEmployee = await _unitOfWork.Employee.GetByIdAsync(SSN);
             if (CurrentEmployee is null)
                 return BadRequest("Not Found This Employee");
-            CurrentEmployee = _Map.Map<EmployeeDto, Employee>(employeeDto, CurrentEmployee);
-            CurrentEmployee.EmployeeSSN = SSN;
-            _unitOfWork.Employee.Updating(SSN, CurrentEmployee);
-            return _unitOfWork.Complete() > 0 ? Ok("Done") : BadRequest("Error in Update Employee");
+            CurrentEmployee.FirstName = employeeDto.FirstName;
+            CurrentEmployee.MiddleName = employeeDto.MiddleName;
+            CurrentEmployee.LastName = employeeDto.LastName;
+            CurrentEmployee.DepartmentId = employeeDto.DepartmentId;
+            CurrentEmployee.DB = employeeDto.DB;
+            CurrentEmployee.Phone = employeeDto.Phone;
+            CurrentEmployee.JobDegreeId = employeeDto.JobDegreeId;
+
+            return _schoolsDB.SaveChanges() > 0 ? Ok("Done") : BadRequest("Error in Update Employee");
         }
 
         // DELETE api/<Department>/5

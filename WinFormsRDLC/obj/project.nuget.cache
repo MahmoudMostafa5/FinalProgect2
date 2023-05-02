@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "l27L4Ht0QAHXYf2Kt1ukYJRSGRPO+d0pqi6gZWJ0xqkALXVnPlC1lyWOqHaTt7QqjU0BTOBxj65XWDk2km2ZSw==",
+  "success": true,
+  "projectFilePath": "D:\\final Project\\FinalProgect2\\WinFormsRDLC\\WinFormsRDLC.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jkhal\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.17\\microsoft.netcore.app.host.win-x64.5.0.17.nupkg.sha512"
+  ],
+  "logs": []
+}

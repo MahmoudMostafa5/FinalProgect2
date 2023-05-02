@@ -165,28 +165,19 @@ namespace Schools.Api.Controllers
 
             }
         }
-        //public async Task<IActionResult> Add(long? SSN)
-        //{
+        [HttpGet("{SSN}")]
+        public async Task<IActionResult> CheckAbsenceIsExisted(long SSN)
+        {
 
-        //    if (SSN is null)
-        //        return BadRequest("Invalid Student");
-        //    var CurrentStudent = await _unitOfWork.Student.GetByIdAsync(SSN);
-        //    if (CurrentStudent is null)
-        //        return BadRequest("Invalid Student");
-        //    var StudentAbsence = await _unitOfWork.StudentAbsence.
-        //        FindAsync(s => s.StudentSSN == SSN
-        //    && s.Date.Date == DateTime.Now.Date);
-        //    if (StudentAbsence.Count() == 0)
-        //    {
-
-        //        StudentAbsenceDto studentAbsenseDto = new StudentAbsenceDto { Date = DateTime.Now, StudentSSN = SSN };
-        //        var Data = _Map.Map<Studentabsence>(studentAbsenseDto);
-        //        await _unitOfWork.StudentAbsence.Insert(Data);
-        //        return _unitOfWork.Complete() > 0 ? Ok("Adding Absence Done") : BadRequest("Adding Absence Failed !");
-        //    }
-        //    return BadRequest("Adding Absence Failed !");
-
-        //}
+            var CurrentStudentabsence = (await _unitOfWork.StudentAbsence.FindAsync(s => s.StudentSSN == SSN))
+                .Where(s => s.Date.Date == DateTime.Now.Date).Count();
+            if (CurrentStudentabsence > 0)
+            {
+                return Ok();
+            }
+            else
+                return NotFound();
+        }
 
         [HttpDelete("{Id}")]
         public async Task<IActionResult> Delete(int? Id)

@@ -38,9 +38,9 @@ namespace Tttt.Services
         }
 
 
-        public async Task<HttpResponseMessage> Update(long? CodedId, StudentDto Student)
+        public async Task<HttpResponseMessage> Update(long? SSN, StudentDto Student)
         {
-            return await _httpClient.PutAsync($"api/Students/Update/{CodedId}", getStringContentFromObject(Student));
+            return await _httpClient.PutAsync($"api/Students/Update/{SSN}", getStringContentFromObject(Student));
         }
 
         public async Task<HttpResponseMessage> Delete(long? StudentId)

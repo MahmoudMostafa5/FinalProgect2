@@ -13,7 +13,11 @@ namespace Schools.DTO.DTO
         public long EmployeeSSN { get; set; }
 
         public int DepartmentId { get; set; }
+        public int? JobDegreeId { get; set; }
         //[JsonIgnore]
         public virtual DepartmentDto Department { get; set; }
+       
+        public virtual JobDegreeDto JobDegree { get; set; }
+        public string User_Id { get; set; }
     }
 }
