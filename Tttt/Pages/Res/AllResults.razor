@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Table -->
     <table id="example" class="my-3 table table-striped" style="width:100%">
         <thead>
@@ -73,41 +73,25 @@
     </table>
 
     <!-- pagination -->
-    <div class="row">
-        <div class="col-sm-12 col-md-5">
-            <h3 class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</h3>
-        </div>
-        <div class="col-sm-12 col-md-2"></div>
-        <div class="col-sm-12 col-md-5">
-            <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
-                <ul class="pagination">
-                    <li class="paginate_button page-item previous disabled" id="example_previous">
-                        <a aria-controls="example" aria-disabled="true" aria-role="link" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a>
-                    </li>
-                    <li class="paginate_button page-item active">
-                        <a href="#" aria-controls="example" aria-role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="5" tabindex="0" class="page-link">6</a>
-                    </li>
-                    <li class="paginate_button page-item next" id="example_next">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div class="py-3 d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
     //ADD ExamResult
@@ -119,45 +103,75 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title">@modalTitle</h3>
+                        <h3 class="modal-title text-center">@modalTitle</h3>
                         <button type="button" class="close" @onclick="@closeModalAsync">
                             <span aria-hidden="true">X</span>
                         </button>
                     </div>
 
                     <div class="modal-body">
-                        <label>Schools Year </label>
-                        <select @onchange="UpdateSchoolsYearAsync">
-                            <option>--Select Schools Year</option>
+                        <hr />
+                        <div class="row">
+                            @*<div class="col-md-10 m-auto">*@
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Schools Year </label>
+                                <div class="col-sm-8">
 
-                            @foreach (var item in SchoolYears)
-                            {
-                                <option value="@item.Id">@item.SchoolYear</option>
-                            }
-                        </select>
-                        <br />
-                        <label>Student </label>
-                        <select @onchange="UpdateStudentAsync">
-                                                            <option>--Select Student</option>
+                                    <select class="form-control text-center" @onchange="UpdateSchoolsYearAsync">
+                                        <option value="0">-- Select Schools Year --</option>
 
-                            @foreach (var item in Students)
-                            {
-                                <option value="@item.StudenntSSN">@item.FirstName @item.MiddleName @item.LastName</option>
-                            }
-                        </select>
-                        <br />
-                        <label>Exam </label>
-                        <select @onchange="UpdateExamAsync">
-                            <option>--Select Exam</option>
+                                        @foreach (var item in SchoolYears)
+                                        {
+                                            <option value="@item.Id">@item.SchoolYear</option>
+                                        }
+                                    </select>
+                                    @*<div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="@(() => CurrenExamResult.ExamId)" />
+                                        </div>*@
+                                </div>
+                            </div>
+                            <div class="form-group row">
 
-                            @foreach (var item in Exams)
-                            {
-                                <option value="@item.Id">@item.ExamName</option>
-                            }
-                        </select>
+                                <label class="col-sm-4 col-form-label">Student : </label>
+                                <div class="col-sm-8">
+                                    <select class="form-control text-center" @onchange="UpdateStudentAsync">
+                                        <option value="0">-- Select Student --</option>
 
-                        <input type="number" @bind-value="Degree" />
-                        <input type="button" value="Save" @onclick="AddingResultAsync" />
+                                        @foreach (var item in Students)
+                                        {
+                                            <option value="@item.StudenntSSN">@item.FirstName @item.MiddleName @item.LastName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Exam </label>
+                                <div class="col-sm-8">
+                                    <select class="form-control text-center" @onchange="UpdateExamAsync">
+                                        <option value="0">-- Select Exam --</option>
+
+                                        @foreach (var item in Exams)
+                                        {
+                                            <option value="@item.Id">@item.ExamName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Exam Degree</label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control text-center" @bind-value="Degree" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <input type="button" class="form-control btn btn-success" value="Save" @onclick="AddingResultAsync" />
+                            </div>
+                            @*<div class="input-group row">*@
+                            @*<input type="number" class="form-control " @bind-value="Degree" />*@
+                            @*<input type="button" class="form-control" value="Save" @onclick="AddingResultAsync" />*@
+                            @*</div>*@
+                            @*</div>*@
+                        </div>
                     </div>
                 </div>
             </div>

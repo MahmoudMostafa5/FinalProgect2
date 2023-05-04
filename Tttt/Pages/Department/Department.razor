@@ -48,8 +48,10 @@
     <table id="Departmentple" class="my-3 table table-striped" style="width:100%">
         <thead>
             <tr>
-                <th class="h5 text-center"> Department Id </th>
+                @*<th class="h5 text-center"> Department Id </th>*@
                 <th class="h4 text-center"> Department Name </th>
+                <th class="h4 text-center"> Department Building </th>
+                <th class="h4 text-center"> Department Location </th>
                 <th class="h4 text-center">
                     <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Add"><i class="fa fa-plus-square"></i></button>
                 </th>
@@ -59,57 +61,43 @@
         <tbody>
             @foreach (var DepartmentDto in AllDepartment)
             {
-                <tr>
+            <tr>
 
-                    <td class="h5 text-center">@DepartmentDto.DepartmentId</td>
-                    <td class="h5 text-center">@DepartmentDto.DepartmentName</td>
+                @*<td class="h5 text-center">@DepartmentDto.DepartmentId</td>*@
+                <td class="h5 text-center">@DepartmentDto.DepartmentName</td>
+                <td class="h5 text-center">@DepartmentDto.Departmentbuilding</td>
+                <td class="h5 text-center">@DepartmentDto.DepartmentLocation</td>
 
-                    <td class="h5 text-center">
-                        <button @onclick="@(async () => await Modify(DepartmentDto.DepartmentId))" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Edit"><i class="fa fa-pencil-square"></i></button>
-                        <button @onclick="@(async () => await DeleteDepartment(DepartmentDto.DepartmentId))" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Delete"><i class="fa fa-trash"></i></button>
-                    </td>
+                <td class="h5 text-center">
+                    <button @onclick="@(async () => await Modify(DepartmentDto.DepartmentId))" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Edit"><i class="fa fa-pencil-square"></i></button>
+                    <button @onclick="@(async () => await DeleteDepartment(DepartmentDto.DepartmentId))" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Delete"><i class="fa fa-trash"></i></button>
+                </td>
 
-                </tr>
+            </tr>
             }
         </tbody>
     </table>
 
     <!-- pagination -->
-    <div class="row">
-        <div class="col-sm-12 col-md-5">
-            <h3 class="dataTables_info" id="Departmentple_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</h3>
-        </div>
-        <div class="col-sm-12 col-md-2"></div>
-        <div class="col-sm-12 col-md-5">
-            <div class="dataTables_paginate paging_simple_numbers" id="Departmentple_paginate">
-                <ul class="pagination">
-                    <li class="paginate_button page-item previous disabled" id="Departmentple_previous">
-                        <a aria-controls="Departmentple" aria-disabled="true" aria-role="link" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a>
-                    </li>
-                    <li class="paginate_button page-item active">
-                        <a href="#" aria-controls="Departmentple" aria-role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="Departmentple" aria-role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="Departmentple" aria-role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="Departmentple" aria-role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="Departmentple" aria-role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="Departmentple" aria-role="link" data-dt-idx="5" tabindex="0" class="page-link">6</a>
-                    </li>
-                    <li class="paginate_button page-item next" id="Departmentple_next">
-                        <a href="#" aria-controls="Departmentple" aria-role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div class="py-3 d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
     //ADD Department
@@ -128,18 +116,18 @@
                         <hr />
                         <div class="row">
                             @*<div class="form-group row">
-                                    <label for="DepartmentId" class="col-sm-2 col-form-label">
-                                        Department Id
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <InputNumber id="DepartmentId" class="form-control" placeholder="Department Id"
-                                                     @bind-Value="CurrenDepartment.Id" />
+            <label for="DepartmentId" class="col-sm-2 col-form-label">
+                Department Id
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="DepartmentId" class="form-control" placeholder="Department Id"
+                             @bind-Value="CurrenDepartment.Id" />
 
-                                        <div class="col-sm-8 text-danger">
-                                            <ValidationMessage For="@(() => CurrenDepartment.Id)" />
-                                        </div>
-                                    </div>
-                                </div>*@
+                <div class="col-sm-8 text-danger">
+                    <ValidationMessage For="@(() => CurrenDepartment.Id)" />
+                </div>
+            </div>
+        </div>*@
                             <div class="form-group row">
                                 <label for="DepartmentName" class="col-sm-4 col-form-label">
                                     Department Name
@@ -147,8 +135,32 @@
                                 <div class="col-sm-8">
                                     <InputText id="DepartmentName" class="form-control" placeholder="Department Name"
                                                @bind-Value="CurrenDepartment.DepartmentName" />
-                                    <div class="col-sm-8 text-danger">
+                                    <div class="col-sm-12 text-danger">
                                         <ValidationMessage For="() => CurrenDepartment.DepartmentName" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="DepartmentBuilding" class="col-sm-4 col-form-label">
+                                    Department Building
+                                </label>
+                                <div class="col-sm-8">
+                                    <InputText id="DepartmentBuilding" class="form-control" placeholder="Department Building"
+                                               @bind-Value="CurrenDepartment.Departmentbuilding" />
+                                    <div class="col-sm-12 text-danger">
+                                        <ValidationMessage For="() => CurrenDepartment.Departmentbuilding" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="DepartmentLocation" class="col-sm-4 col-form-label">
+                                    Department Location
+                                </label>
+                                <div class="col-sm-8">
+                                    <InputText id="DepartmentLocation" class="form-control" placeholder="Department Location"
+                                               @bind-Value="CurrenDepartment.DepartmentLocation" />
+                                    <div class="col-sm-12 text-danger">
+                                        <ValidationMessage For="() => CurrenDepartment.DepartmentLocation" />
                                     </div>
                                 </div>
                             </div>
@@ -181,19 +193,19 @@
                         <hr />
                         <div class="row">
                             @*<div class="form-group row">
-                                    <label for="DepartmentId" class="col-sm-2 col-form-label">
-                                        Department Id
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <InputNumber id="DepartmentId" class="form-control" placeholder="Department Id"
-                                                     @bind-Value="CurrenDepartment.Id" />
-                                        <div class="col-sm-8 text-danger">
+            <label for="DepartmentId" class="col-sm-2 col-form-label">
+                Department Id
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="DepartmentId" class="form-control" placeholder="Department Id"
+                             @bind-Value="CurrenDepartment.Id" />
+                <div class="col-sm-8 text-danger">
 
-                                            <ValidationMessage For="() => CurrenDepartment.Id" />
+                    <ValidationMessage For="() => CurrenDepartment.Id" />
 
-                                        </div>
-                                    </div>
-                                </div>*@
+                </div>
+            </div>
+        </div>*@
                             <div class="form-group row">
                                 <label for="DepartmentName" class="col-sm-4 col-form-label">
                                     Department Name
@@ -201,10 +213,34 @@
                                 <div class="col-sm-8">
                                     <InputText id="DepartmentName" class="form-control" placeholder="Department Name"
                                                @bind-Value="CurrenDepartment.DepartmentName" />
-                                    <div class="col-sm-8 text-danger">
+                                    <div class="col-sm-12 text-danger">
 
                                         <ValidationMessage For="() => CurrenDepartment.DepartmentName" />
 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="DepartmentBuilding" class="col-sm-4 col-form-label">
+                                    Department Building
+                                </label>
+                                <div class="col-sm-8">
+                                    <InputText id="DepartmentBuilding" class="form-control" placeholder="Department Building"
+                                               @bind-Value="CurrenDepartment.Departmentbuilding" />
+                                    <div class="col-sm-12 text-danger">
+                                        <ValidationMessage For="() => CurrenDepartment.Departmentbuilding" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="DepartmentLocation" class="col-sm-4 col-form-label">
+                                    Department Location
+                                </label>
+                                <div class="col-sm-8">
+                                    <InputText id="DepartmentLocation" class="form-control" placeholder="Department Location"
+                                               @bind-Value="CurrenDepartment.DepartmentLocation" />
+                                    <div class="col-sm-12 text-danger">
+                                        <ValidationMessage For="() => CurrenDepartment.DepartmentLocation" />
                                     </div>
                                 </div>
                             </div>
@@ -232,13 +268,21 @@
                 <div class="modal-body">
                     <h4>Do you want to delete this Department ??</h4>
                     <table class="table">
-                        <tr>
-                            <td>Department Id</td>
-                            <td>@CurrenDepartment.DepartmentId</td>
-                        </tr>
+                        @*<tr>
+            <td>Department Id</td>
+            <td>@CurrenDepartment.DepartmentId</td>
+        </tr>*@
                         <tr>
                             <td>Department Name</td>
                             <td>@CurrenDepartment.DepartmentName</td>
+                        </tr>
+                        <tr>
+                            <td>Department Building</td>
+                            <td>@CurrenDepartment.Departmentbuilding</td>
+                        </tr>
+                        <tr>
+                            <td>Department Location</td>
+                            <td>@CurrenDepartment.DepartmentLocation</td>
                         </tr>
                     </table>
                 </div>

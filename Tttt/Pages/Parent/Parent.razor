@@ -49,7 +49,7 @@
         <table class="table text-center">
             <thead class="fs-5">
                 <tr>
-                    <th> Parent SSN </th>
+                    @*<th> Parent SSN </th>*@
                     <th> First Name </th>
                     <th> Middle Name </th>
                     <th> Last Name </th>
@@ -65,7 +65,7 @@
                 @foreach (var ParentDto in AllParent)
                 {
                     <tr>
-                        <td>@ParentDto.ParentSSN</td>
+                        @*<td>@ParentDto.ParentSSN</td>*@
                         <td>@ParentDto.FirstName</td>
                         <td>@ParentDto.MiddleName</td>
                         <td>@ParentDto.LastName</td>
@@ -74,7 +74,7 @@
                         <td><img src="https://localhost:44348/Images/@ParentDto.Image" class="w-25" style="height:50px" /></td>
 
                         <td class="h5 text-center">
-                            <button @onclick="@(async () => await Details(ParentDto.ParentSSN))" class="btn btn-primary"><i class="fa fa-pencil-square"></i></button>
+                            <button @onclick="@(async () => await Details(ParentDto.ParentSSN))" class="btn btn-success"><i class="fa fa-info-circle"></i></button>
                             <button @onclick="@(async () => await Modify(ParentDto.ParentSSN))" class="btn btn-primary"><i class="fa fa-pencil-square"></i></button>
                             <button @onclick="@(async () => await DeleteParent(ParentDto.ParentSSN))" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                         </td>

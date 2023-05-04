@@ -83,3 +83,20 @@ D:\final Project\FinalProgect2\Schools.DTO\obj\Debug\net5.0\Schools.DTO.csproj.C
 D:\final Project\FinalProgect2\Schools.DTO\obj\Debug\net5.0\Schools.DTO.dll
 D:\final Project\FinalProgect2\Schools.DTO\obj\Debug\net5.0\ref\Schools.DTO.dll
 D:\final Project\FinalProgect2\Schools.DTO\obj\Debug\net5.0\Schools.DTO.pdb
+E:\FinalProgect2\Schools.DTO\bin\Debug\net5.0\Schools.DTO.deps.json
+E:\FinalProgect2\Schools.DTO\bin\Debug\net5.0\Schools.DTO.dll
+E:\FinalProgect2\Schools.DTO\bin\Debug\net5.0\ref\Schools.DTO.dll
+E:\FinalProgect2\Schools.DTO\bin\Debug\net5.0\Schools.DTO.pdb
+E:\FinalProgect2\Schools.DTO\bin\Debug\net5.0\Schools.DataStorage.dll
+E:\FinalProgect2\Schools.DTO\bin\Debug\net5.0\Schools.Service.dll
+E:\FinalProgect2\Schools.DTO\bin\Debug\net5.0\Schools.DataStorage.pdb
+E:\FinalProgect2\Schools.DTO\bin\Debug\net5.0\Schools.Service.pdb
+E:\FinalProgect2\Schools.DTO\obj\Debug\net5.0\Schools.DTO.csproj.AssemblyReference.cache
+E:\FinalProgect2\Schools.DTO\obj\Debug\net5.0\Schools.DTO.GeneratedMSBuildEditorConfig.editorconfig
+E:\FinalProgect2\Schools.DTO\obj\Debug\net5.0\Schools.DTO.AssemblyInfoInputs.cache
+E:\FinalProgect2\Schools.DTO\obj\Debug\net5.0\Schools.DTO.AssemblyInfo.cs
+E:\FinalProgect2\Schools.DTO\obj\Debug\net5.0\Schools.DTO.csproj.CoreCompileInputs.cache
+E:\FinalProgect2\Schools.DTO\obj\Debug\net5.0\Schools.DTO.csproj.CopyComplete
+E:\FinalProgect2\Schools.DTO\obj\Debug\net5.0\Schools.DTO.dll
+E:\FinalProgect2\Schools.DTO\obj\Debug\net5.0\ref\Schools.DTO.dll
+E:\FinalProgect2\Schools.DTO\obj\Debug\net5.0\Schools.DTO.pdb

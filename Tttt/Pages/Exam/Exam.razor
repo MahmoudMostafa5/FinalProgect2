@@ -48,7 +48,7 @@
         <table class="table text-center">
             <thead class="fs-5">
                 <tr>
-                    <th> Exam Id </th>
+                    @*<th> Exam Id </th>*@
                     <th> Exam Name </th>
                     <th> Exam Start at </th>
                     <th> Exam End at </th>
@@ -67,7 +67,7 @@
                 {
                     <tr>
                         @*<td class="h5 text-center">@ExamDto.ExamId</td>*@
-                        <td>@ExamDto.Id</td>
+                        @*<td>@ExamDto.Id</td>*@
                         <td>@ExamDto.ExamName</td>
                         <td>@ExamDto.StartAt.ToString("dd/MM/yyyy")</td>
                         <td>@ExamDto.EndAt.ToString("dd/MM/yyyy")</td>
@@ -88,7 +88,6 @@
     </div>
 
     <!-- pagination -->
-
     <div class="py-3 d-flex justify-content-center">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
@@ -128,18 +127,18 @@
                             <div class="col-md-8">
 
                                 @*<div class="form-group row">
-            <label for="ExamId" class="col-sm-3 col-form-label">
-                Exam Id
-            </label>
-            <div class="col-sm-9">
-                <InputNumber id="ExamId" class="form-control" placeholder="Exam Id"
-                             @bind-Value="CurrenExam.Id" />
+                                        <label for="ExamId" class="col-sm-3 col-form-label">
+                                            Exam Id
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <InputNumber id="ExamId" class="form-control" placeholder="Exam Id"
+                                                         @bind-Value="CurrenExam.Id" />
 
-                <div class="col-sm-8 text-danger">
-                    <ValidationMessage For="@(() => CurrenExam.Id)" />
-                </div>
-            </div>
-        </div>*@
+                                            <div class="col-sm-8 text-danger">
+                                                <ValidationMessage For="@(() => CurrenExam.Id)" />
+                                            </div>
+                                        </div>
+                                    </div>*@
                                 <div class="form-group row">
                                     <label for="ExamName" class="col-sm-3 col-form-label">
                                         Exam Name
@@ -233,7 +232,7 @@
                                         </div>
                                     </div>
                                 }
-                                
+
 
                                 <div class="form-group row">
                                     <label for="FinalDegree" class="col-sm-3 col-form-label">
@@ -288,7 +287,7 @@
                                         </div>
                                     </div>*@
 
-                            
+
                             </div>
                         </div>
 

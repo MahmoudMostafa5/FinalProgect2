@@ -11,7 +11,6 @@ namespace Schools.DTO.DTO
     public class EmployeeDto:User
     {
         public long EmployeeSSN { get; set; }
-
         public int DepartmentId { get; set; }
         public int? JobDegreeId { get; set; }
         //[JsonIgnore]

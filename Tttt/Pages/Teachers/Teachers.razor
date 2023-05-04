@@ -47,7 +47,7 @@
         <table class="table text-center">
             <thead class="fs-5">
                 <tr>
-                    <th> Teacher SSN </th>
+                    @*<th> Teacher SSN </th>*@
                     <th> First Name </th>
                     <th> Middle Name </th>
                     <th> Last Name </th>
@@ -63,7 +63,7 @@
                 @foreach (var TeacherDto in AllTeacher)
                 {
                     <tr>
-                        <td>@TeacherDto.TeacherSSN</td>
+                        @*<td>@TeacherDto.TeacherSSN</td>*@
                         <td>@TeacherDto.FirstName</td>
                         <td>@TeacherDto.MiddleName</td>
                         <td>@TeacherDto.LastName</td>
@@ -75,35 +75,13 @@
                             <a @onclick="@(async () => await Detail(TeacherDto.TeacherSSN))" class="btn btn-success"><i class="fa fa-info-circle"></i></a>
                             <button @onclick="@(async () => await Modify(TeacherDto.TeacherSSN))" class="btn btn-primary"><i class="fa fa-pencil-square"></i></button>
                             <button @onclick="@(async () => await DeleteTeacher(TeacherDto.TeacherSSN))" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                            <button @onclick="@(async () => await AddTeacherAdress(TeacherDto.TeacherSSN))" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                            <button @onclick="@(async () => await AddTeacherAdress(TeacherDto.TeacherSSN))" class="btn btn-secondary"><i class="fa fa-location-arrow"></i></button>
                         </td>
 
                     </tr>
                 }
             </tbody>
         </table>
-    </div>
-
-    <!-- pagination -->
-    <div class="py-3 d-flex justify-content-center">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
     </div>
 
     if (isAdd)

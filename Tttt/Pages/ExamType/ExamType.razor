@@ -47,7 +47,7 @@
     <table id="example" class="my-3 table table-striped" style="width:100%">
         <thead>
             <tr>
-                <th class="h5 text-center"> ExamType Id </th>
+                @*<th class="h5 text-center"> ExamType Id </th>*@
                 <th class="h4 text-center"> Exam Name </th>
                 <th class="h4 text-center"> Description </th>
                 <th class="h4 text-center">
@@ -61,7 +61,7 @@
             {
                 <tr>
 
-                    <td class="h5 text-center">@ExamTypeDto.Id</td>
+                    @*<td class="h5 text-center">@ExamTypeDto.Id</td>*@
                     <td class="h5 text-center">@ExamTypeDto.ExamName</td>
                     <td class="h5 text-center">@ExamTypeDto.Description</td>
 
@@ -76,41 +76,25 @@
     </table>
 
     <!-- pagination -->
-    <div class="row">
-        <div class="col-sm-12 col-md-5">
-            <h3 class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</h3>
-        </div>
-        <div class="col-sm-12 col-md-2"></div>
-        <div class="col-sm-12 col-md-5">
-            <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
-                <ul class="pagination">
-                    <li class="paginate_button page-item previous disabled" id="example_previous">
-                        <a aria-controls="example" aria-disabled="true" aria-role="link" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a>
-                    </li>
-                    <li class="paginate_button page-item active">
-                        <a href="#" aria-controls="example" aria-role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="5" tabindex="0" class="page-link">6</a>
-                    </li>
-                    <li class="paginate_button page-item next" id="example_next">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div class="py-3 d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
     //ADD ExamType
@@ -129,38 +113,38 @@
                         <hr />
                         <div class="row">
                             @*<div class="form-group row">
-                                <label for="ExamTypeId" class="col-sm-2 col-form-label">
-                                    ExamType Id
-                                </label>
-                                <div class="col-sm-10">
-                                    <InputNumber id="ExamTypeId" class="form-control" placeholder="ExamType Id"
-                                                 @bind-Value="CurrenExamType.Id" />
+                                    <label for="ExamTypeId" class="col-sm-2 col-form-label">
+                                        ExamType Id
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <InputNumber id="ExamTypeId" class="form-control" placeholder="ExamType Id"
+                                                     @bind-Value="CurrenExamType.Id" />
 
-                                    <div class="col-sm-8 text-danger">
-                                        <ValidationMessage For="@(() => CurrenExamType.Id)" />
+                                        <div class="col-sm-8 text-danger">
+                                            <ValidationMessage For="@(() => CurrenExamType.Id)" />
+                                        </div>
                                     </div>
-                                </div>
-                            </div>*@
+                                </div>*@
                             <div class="form-group row">
-                                <label for="ExamName" class="col-sm-2 col-form-label">
+                                <label for="ExamName" class="col-sm-3 col-form-label">
                                     Exam Name
                                 </label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <InputText id="ExamName" class="form-control" placeholder="Exam Name"
                                                @bind-Value="CurrenExamType.ExamName" />
-                                    <div class="col-sm-8 text-danger">
+                                    <div class="col-sm-10 text-danger">
                                         <ValidationMessage For="() => CurrenExamType.ExamName" />
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="Description" class="col-sm-2 col-form-label">
+                                <label for="Description" class="col-sm-3 col-form-label">
                                     Description
                                 </label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <InputText id="Description" class="form-control" placeholder="Description"
                                                @bind-Value="CurrenExamType.Description" />
-                                    <div class="col-sm-8 text-danger">
+                                    <div class="col-sm-10 text-danger">
                                         <ValidationMessage For="() => CurrenExamType.Description" />
                                     </div>
                                 </div>
@@ -194,27 +178,27 @@
                         <hr />
                         <div class="row">
                             @*<div class="form-group row">
-                                <label for="ExamTypeId" class="col-sm-2 col-form-label">
-                                    ExamType Id
-                                </label>
-                                <div class="col-sm-10">
-                                    <InputNumber id="ExamTypeId" class="form-control" placeholder="ExamType Id"
-                                                 @bind-Value="CurrenExamType.Id" />
-                                    <div class="col-sm-8 text-danger">
+                                    <label for="ExamTypeId" class="col-sm-2 col-form-label">
+                                        ExamType Id
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <InputNumber id="ExamTypeId" class="form-control" placeholder="ExamType Id"
+                                                     @bind-Value="CurrenExamType.Id" />
+                                        <div class="col-sm-8 text-danger">
 
-                                        <ValidationMessage For="() => CurrenExamType.Id" />
+                                            <ValidationMessage For="() => CurrenExamType.Id" />
 
+                                        </div>
                                     </div>
-                                </div>
-                            </div>*@
+                                </div>*@
                             <div class="form-group row">
-                                <label for="ExamName" class="col-sm-2 col-form-label">
+                                <label for="ExamName" class="col-sm-3 col-form-label">
                                     Exam Name
                                 </label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <InputText id="ExamName" class="form-control" placeholder="Exam Name"
                                                @bind-Value="CurrenExamType.ExamName" />
-                                    <div class="col-sm-8 text-danger">
+                                    <div class="col-sm-10 text-danger">
 
                                         <ValidationMessage For="() => CurrenExamType.ExamName" />
 
@@ -222,13 +206,13 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="Description" class="col-sm-2 col-form-label">
+                                <label for="Description" class="col-sm-3 col-form-label">
                                     Description
                                 </label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <InputText id="Description" class="form-control" placeholder="Description"
                                                @bind-Value="CurrenExamType.Description" />
-                                    <div class="col-sm-8 text-danger">
+                                    <div class="col-sm-10 text-danger">
 
                                         <ValidationMessage For="() => CurrenExamType.Description" />
 
@@ -259,10 +243,10 @@
                 <div class="modal-body">
                     <h4>Do you want to delete this ExamType ??</h4>
                     <table class="table">
-                        <tr>
+                        @*<tr>
                             <td>ExamTypeSSN</td>
                             <td>@CurrenExamType.Id</td>
-                        </tr>
+                        </tr>*@
                         <tr>
                             <td>Exam Name</td>
                             <td>@CurrenExamType.ExamName</td>

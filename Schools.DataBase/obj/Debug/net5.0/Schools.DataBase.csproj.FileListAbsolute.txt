@@ -98,3 +98,23 @@ D:\final Project\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBas
 D:\final Project\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\ref\Schools.DataBase.dll
 D:\final Project\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.pdb
 D:\final Project\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.genruntimeconfig.cache
+E:\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.DataBase.deps.json
+E:\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.DataBase.runtimeconfig.json
+E:\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.DataBase.runtimeconfig.dev.json
+E:\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.DataBase.dll
+E:\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\ref\Schools.DataBase.dll
+E:\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.DataBase.pdb
+E:\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.DataStorage.dll
+E:\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.Service.dll
+E:\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.DataStorage.pdb
+E:\FinalProgect2\Schools.DataBase\bin\Debug\net5.0\Schools.Service.pdb
+E:\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.csproj.AssemblyReference.cache
+E:\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.GeneratedMSBuildEditorConfig.editorconfig
+E:\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.AssemblyInfoInputs.cache
+E:\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.AssemblyInfo.cs
+E:\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.csproj.CoreCompileInputs.cache
+E:\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.csproj.CopyComplete
+E:\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.dll
+E:\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\ref\Schools.DataBase.dll
+E:\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.pdb
+E:\FinalProgect2\Schools.DataBase\obj\Debug\net5.0\Schools.DataBase.genruntimeconfig.cache

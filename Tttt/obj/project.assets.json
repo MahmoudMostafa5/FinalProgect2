@@ -8870,19 +8870,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jkhal\\.nuget\\packages\\": {}
+    "C:\\Users\\mahmoud khallaf\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\final Project\\FinalProgect2\\Tttt\\Tttt.csproj",
+      "projectUniqueName": "E:\\FinalProgect2\\Tttt\\Tttt.csproj",
       "projectName": "Tttt",
-      "projectPath": "D:\\final Project\\FinalProgect2\\Tttt\\Tttt.csproj",
-      "packagesPath": "C:\\Users\\jkhal\\.nuget\\packages\\",
-      "outputPath": "D:\\final Project\\FinalProgect2\\Tttt\\obj\\",
+      "projectPath": "E:\\FinalProgect2\\Tttt\\Tttt.csproj",
+      "packagesPath": "C:\\Users\\mahmoud khallaf\\.nuget\\packages\\",
+      "outputPath": "E:\\FinalProgect2\\Tttt\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jkhal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mahmoud khallaf\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8896,17 +8896,17 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\final Project\\FinalProgect2\\Schools.Api\\Schools.Api.csproj": {
-              "projectPath": "D:\\final Project\\FinalProgect2\\Schools.Api\\Schools.Api.csproj"
+            "E:\\FinalProgect2\\Schools.Api\\Schools.Api.csproj": {
+              "projectPath": "E:\\FinalProgect2\\Schools.Api\\Schools.Api.csproj"
             },
-            "D:\\final Project\\FinalProgect2\\Schools.AutoMapper\\Schools.AutoMapper.csproj": {
-              "projectPath": "D:\\final Project\\FinalProgect2\\Schools.AutoMapper\\Schools.AutoMapper.csproj"
+            "E:\\FinalProgect2\\Schools.AutoMapper\\Schools.AutoMapper.csproj": {
+              "projectPath": "E:\\FinalProgect2\\Schools.AutoMapper\\Schools.AutoMapper.csproj"
             },
-            "D:\\final Project\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj": {
-              "projectPath": "D:\\final Project\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj"
+            "E:\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj": {
+              "projectPath": "E:\\FinalProgect2\\Schools.DataStorage\\Schools.DataStorage.csproj"
             },
-            "D:\\final Project\\FinalProgect2\\Schools.DTO\\Schools.DTO.csproj": {
-              "projectPath": "D:\\final Project\\FinalProgect2\\Schools.DTO\\Schools.DTO.csproj"
+            "E:\\FinalProgect2\\Schools.DTO\\Schools.DTO.csproj": {
+              "projectPath": "E:\\FinalProgect2\\Schools.DTO\\Schools.DTO.csproj"
             }
           }
         }
@@ -8952,12 +8952,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[5.0.17, 5.0.17]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -8966,7 +8960,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   }

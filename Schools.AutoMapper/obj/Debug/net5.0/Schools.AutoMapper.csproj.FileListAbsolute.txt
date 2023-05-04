@@ -93,3 +93,22 @@ D:\final Project\FinalProgect2\Schools.AutoMapper\obj\Debug\net5.0\Schools.AutoM
 D:\final Project\FinalProgect2\Schools.AutoMapper\obj\Debug\net5.0\Schools.AutoMapper.dll
 D:\final Project\FinalProgect2\Schools.AutoMapper\obj\Debug\net5.0\ref\Schools.AutoMapper.dll
 D:\final Project\FinalProgect2\Schools.AutoMapper\obj\Debug\net5.0\Schools.AutoMapper.pdb
+E:\FinalProgect2\Schools.AutoMapper\bin\Debug\net5.0\Schools.AutoMapper.deps.json
+E:\FinalProgect2\Schools.AutoMapper\bin\Debug\net5.0\Schools.AutoMapper.dll
+E:\FinalProgect2\Schools.AutoMapper\bin\Debug\net5.0\ref\Schools.AutoMapper.dll
+E:\FinalProgect2\Schools.AutoMapper\bin\Debug\net5.0\Schools.AutoMapper.pdb
+E:\FinalProgect2\Schools.AutoMapper\bin\Debug\net5.0\Schools.DataStorage.dll
+E:\FinalProgect2\Schools.AutoMapper\bin\Debug\net5.0\Schools.DTO.dll
+E:\FinalProgect2\Schools.AutoMapper\bin\Debug\net5.0\Schools.Service.dll
+E:\FinalProgect2\Schools.AutoMapper\bin\Debug\net5.0\Schools.DataStorage.pdb
+E:\FinalProgect2\Schools.AutoMapper\bin\Debug\net5.0\Schools.DTO.pdb
+E:\FinalProgect2\Schools.AutoMapper\bin\Debug\net5.0\Schools.Service.pdb
+E:\FinalProgect2\Schools.AutoMapper\obj\Debug\net5.0\Schools.AutoMapper.csproj.AssemblyReference.cache
+E:\FinalProgect2\Schools.AutoMapper\obj\Debug\net5.0\Schools.AutoMapper.GeneratedMSBuildEditorConfig.editorconfig
+E:\FinalProgect2\Schools.AutoMapper\obj\Debug\net5.0\Schools.AutoMapper.AssemblyInfoInputs.cache
+E:\FinalProgect2\Schools.AutoMapper\obj\Debug\net5.0\Schools.AutoMapper.AssemblyInfo.cs
+E:\FinalProgect2\Schools.AutoMapper\obj\Debug\net5.0\Schools.AutoMapper.csproj.CoreCompileInputs.cache
+E:\FinalProgect2\Schools.AutoMapper\obj\Debug\net5.0\Schools.AutoMapper.csproj.CopyComplete
+E:\FinalProgect2\Schools.AutoMapper\obj\Debug\net5.0\Schools.AutoMapper.dll
+E:\FinalProgect2\Schools.AutoMapper\obj\Debug\net5.0\ref\Schools.AutoMapper.dll
+E:\FinalProgect2\Schools.AutoMapper\obj\Debug\net5.0\Schools.AutoMapper.pdb

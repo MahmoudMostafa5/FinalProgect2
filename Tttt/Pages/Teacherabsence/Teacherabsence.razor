@@ -17,12 +17,15 @@
 {
     <div class="row text-center m-auto">
         
-        <div class="col-sm-12 col-md-6">
+        <div class="col-sm-12 col-md-12">
             <div id="example_filter" class="dataTables_filter row">
-                <p class="h5 col-md-2">Search : </p>
-                <label class="col-md-5">
-                    <input type="search"@bind-value="TeacherName" class="form-control form-control-sm" placeholder="Search for Teacher" aria-controls="example">
-                    <input type="button" value="Search" class="btn-dark" @onclick="@(async () =>await Search())" />
+                <label class="col-md-12 input-group">
+                    <div class="col-md-2"></div>
+                    <p class="h5 col-md-2 text-success">Search : </p>
+                    <input type="search" @bind-value="TeacherName" class="form-control form-control-sm text-center" placeholder="Search by Teacher Name" aria-controls="example">
+                    <p class="col-md-1"></p>
+                    <input type="button" value="Search" class="btn btn-outline-info form-control col-md-2" @onclick="@(async () =>await Search())" />
+                    <div class="col-md-2"></div>
                 </label>
             </div>
         </div>

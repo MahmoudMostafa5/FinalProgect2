@@ -8,19 +8,19 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\jkhal\\.nuget\\packages\\": {}
+    "C:\\Users\\mahmoud khallaf\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\final Project\\FinalProgect2\\Schools.Service\\Schools.Service.csproj",
+      "projectUniqueName": "E:\\FinalProgect2\\Schools.Service\\Schools.Service.csproj",
       "projectName": "Schools.Service",
-      "projectPath": "D:\\final Project\\FinalProgect2\\Schools.Service\\Schools.Service.csproj",
-      "packagesPath": "C:\\Users\\jkhal\\.nuget\\packages\\",
-      "outputPath": "D:\\final Project\\FinalProgect2\\Schools.Service\\obj\\",
+      "projectPath": "E:\\FinalProgect2\\Schools.Service\\Schools.Service.csproj",
+      "packagesPath": "C:\\Users\\mahmoud khallaf\\.nuget\\packages\\",
+      "outputPath": "E:\\FinalProgect2\\Schools.Service\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jkhal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mahmoud khallaf\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -60,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   }

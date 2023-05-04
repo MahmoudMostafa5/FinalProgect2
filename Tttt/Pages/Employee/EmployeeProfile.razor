@@ -1,5 +1,4 @@
 ﻿@page "/EmployeeProfile/{SSN:long}"
-
 @* Spiner Style Css *@
 <style>
     .lds-spinner {
@@ -113,13 +112,13 @@
 
 
                                 <img src="/pluto-1.0.0/images/images (2).jpg" alt="avatar"
-                                     class="rounded-circle img-fluid" style="width: 150px;">
+                                     class="rounded-circle img-fluid" style="width: 150px;height:150px">
 
                             }
                             else
                             {
                                 <img src="https://localhost:44348/Images/@CurrentEmployee.Image" alt="avatar"
-                                     class="rounded-circle img-fluid" style="width: 150px;">
+                                     class="rounded-circle img-fluid" style="width: 150px;height:150px">
                             }
                             <h5 class="my-3">Name @CurrentEmployee.FirstName @CurrentEmployee.MiddleName @CurrentEmployee.LastName</h5>
                             <p class="text-muted mb-1">Work at Department: </p>
@@ -192,16 +191,15 @@
                             </div>
                             <hr>
 
-                          
+
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-11 m-auto">
-                            <div class="card mb-4 mb-md-0">
+                        <div class="col-md-12 m-auto">
+                            <div class="card mb-4">
                                 <div class="card-body">
-
                                     <div class="row" id="edit">
-                                        <div class="col-md-8 m-auto">
+                                        <div class="col-md-10 m-auto">
                                             <h4>Student Details</h4>
                                             <div class="form-group row">
                                                 <label for="State" class="col-sm-3 col-form-label">
@@ -254,39 +252,38 @@
                                                     <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
                                                            value="@CurrentDepartment.DepartmentName" />
                                                 </div>
-
-                                                <div class="form-group row">
-                                                    <label for="State" class="col-sm-3 col-form-label">
-                                                        Department Building
-                                                    </label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
-                                                               value="@CurrentDepartment.Departmentbuilding" />
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label for="State" class="col-sm-3 col-form-label">
-                                                        Department Location
-                                                    </label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
-                                                               value="@CurrentDepartment.DepartmentLocation" />
-                                                    </div>
-                                                </div>
-                                                @if (CurrentEmployee.JobDegreeId is not null)
-                                                {
-                                                    <div class="form-group row">
-                                                        <label for="State" class="col-sm-3 col-form-label">
-                                                            Job Degree
-                                                        </label>
-                                                        <div class="col-sm-9">
-                                                            <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
-                                                                   value="@CurrentJobDegree.Name" />
-                                                        </div>
-                                                    </div>
-                                                }
                                             </div>
+                                            <div class="form-group row">
+                                                <label for="State" class="col-sm-3 col-form-label">
+                                                    Department Building
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                           value="@CurrentDepartment.Departmentbuilding" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="State" class="col-sm-3 col-form-label">
+                                                    Department Location
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                           value="@CurrentDepartment.DepartmentLocation" />
+                                                </div>
+                                            </div>
+
+                                            @if (CurrentEmployee.JobDegreeId is not null)
+                                            {
+                                                <div class="form-group row">
+                                                    <label for="State" class="col-sm-3 col-form-label">
+                                                        Job Degree
+                                                    </label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                               value="@CurrentJobDegree.Name" />
+                                                    </div>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 </div>

@@ -73,3 +73,18 @@ D:\final Project\FinalProgect2\Schools.DataStorage\obj\Debug\net5.0\Schools.Data
 D:\final Project\FinalProgect2\Schools.DataStorage\obj\Debug\net5.0\Schools.DataStorage.dll
 D:\final Project\FinalProgect2\Schools.DataStorage\obj\Debug\net5.0\ref\Schools.DataStorage.dll
 D:\final Project\FinalProgect2\Schools.DataStorage\obj\Debug\net5.0\Schools.DataStorage.pdb
+E:\FinalProgect2\Schools.DataStorage\bin\Debug\net5.0\Schools.DataStorage.deps.json
+E:\FinalProgect2\Schools.DataStorage\bin\Debug\net5.0\Schools.DataStorage.dll
+E:\FinalProgect2\Schools.DataStorage\bin\Debug\net5.0\ref\Schools.DataStorage.dll
+E:\FinalProgect2\Schools.DataStorage\bin\Debug\net5.0\Schools.DataStorage.pdb
+E:\FinalProgect2\Schools.DataStorage\bin\Debug\net5.0\Schools.Service.dll
+E:\FinalProgect2\Schools.DataStorage\bin\Debug\net5.0\Schools.Service.pdb
+E:\FinalProgect2\Schools.DataStorage\obj\Debug\net5.0\Schools.DataStorage.csproj.AssemblyReference.cache
+E:\FinalProgect2\Schools.DataStorage\obj\Debug\net5.0\Schools.DataStorage.GeneratedMSBuildEditorConfig.editorconfig
+E:\FinalProgect2\Schools.DataStorage\obj\Debug\net5.0\Schools.DataStorage.AssemblyInfoInputs.cache
+E:\FinalProgect2\Schools.DataStorage\obj\Debug\net5.0\Schools.DataStorage.AssemblyInfo.cs
+E:\FinalProgect2\Schools.DataStorage\obj\Debug\net5.0\Schools.DataStorage.csproj.CoreCompileInputs.cache
+E:\FinalProgect2\Schools.DataStorage\obj\Debug\net5.0\Schools.DataStorage.csproj.CopyComplete
+E:\FinalProgect2\Schools.DataStorage\obj\Debug\net5.0\Schools.DataStorage.dll
+E:\FinalProgect2\Schools.DataStorage\obj\Debug\net5.0\ref\Schools.DataStorage.dll
+E:\FinalProgect2\Schools.DataStorage\obj\Debug\net5.0\Schools.DataStorage.pdb

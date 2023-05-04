@@ -101,198 +101,198 @@
 @if (CurrenParent is not null)
 {
     <section style="background-color: #eee;">
-    <div class="container py-5">
+        <div class="container py-5">
 
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="card mb-4">
-                    <div class="card-body text-center">
-                        @if (string.IsNullOrEmpty(CurrenParent.Image))
-                        {
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            @if (string.IsNullOrEmpty(CurrenParent.Image))
+                            {
 
 
-                            <img src="/pluto-1.0.0/images/images (2).jpg" alt="avatar"
-                                 class="rounded-circle img-fluid" style="width: 150px;">
+                                <img src="/pluto-1.0.0/images/images (2).jpg" alt="avatar"
+                                     class="rounded-circle img-fluid" style="width: 150px;">
 
-                        }
-                        else
-                        {
-                            <img src="https://localhost:44348/Images/@CurrenParent.Image" alt="avatar"
-                                 class="rounded-circle img-fluid" style="width: 150px;">
-                        }
-                        <h5 class="my-3">Name @CurrenParent.FirstName @CurrenParent.MiddleName @CurrenParent.LastName</h5>
-                        <p class="text-muted mb-1">The guardian of the student </p>
-                        <p class="text-muted mb-1">@CurrentStudent.FirstName @CurrentStudent.LastName </p>
-                        <div class="d-flex justify-content-center mb-2">
-                            <input class="form-control" @ref="inputReference" type="file" @onchange="@OpenFileAsync" id="formFile">
+                            }
+                            else
+                            {
+                                <img src="https://localhost:44348/Images/@CurrenParent.Image" alt="avatar"
+                                     class="rounded-circle img-fluid" style="width: 150px;">
+                            }
+                            <h5 class="my-3">@CurrenParent.FirstName @CurrenParent.MiddleName @CurrenParent.LastName</h5>
+                            <p class="text-muted mb-1">The guardian of the student </p>
+                            <p class="text-muted mb-1">@CurrentStudent.FirstName @CurrentStudent.LastName </p>
+                            <div class="d-flex justify-content-center mb-2">
+                                <input class="form-control" @ref="inputReference" type="file" @onchange="@OpenFileAsync" id="formFile">
+                            </div>
                         </div>
                     </div>
-        </div>
-        <div class="card mb-4 mb-lg-0">
-            <div class="card-body p-0">
-                <ul class="list-group list-group-flush rounded-3">
-                    <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
-                        <i class="fa fa-globe fa-lg text-warning"></i>
-                        <p class="mb-0">https://mdbootstrap.com</p>
-                    </li>
-                    <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
-                        <i class="fa fa-github fa-lg" style="color: #333333;"></i>
-                        <p class="mb-0">mdbootstrap</p>
-                    </li>
-                    <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
-                        <i class="fa fa-twitter fa-lg" style="color: #55acee;"></i>
-                        <p class="mb-0">mdbootstrap</p>
-                    </li>
-                    <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
-                        <i class="fa fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                        <p class="mb-0">mdbootstrap</p>
-                    </li>
-                    <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
-                        <i class="fa fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                        <p class="mb-0">mdbootstrap</p>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-8">
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p class="mb-0">Full Name</p>
-                    </div>
-                    <div class="col-sm-9">
-                        <p class="text-muted mb-0">@CurrenParent.FirstName @CurrenParent.LastName</p>
+                    <div class="card mb-4 mb-lg-0">
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush rounded-3">
+                                <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
+                                    <i class="fa fa-globe fa-lg text-warning"></i>
+                                    <p class="mb-0">https://mdbootstrap.com</p>
+                                </li>
+                                <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
+                                    <i class="fa fa-github fa-lg" style="color: #333333;"></i>
+                                    <p class="mb-0">mdbootstrap</p>
+                                </li>
+                                <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
+                                    <i class="fa fa-twitter fa-lg" style="color: #55acee;"></i>
+                                    <p class="mb-0">mdbootstrap</p>
+                                </li>
+                                <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
+                                    <i class="fa fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                                    <p class="mb-0">mdbootstrap</p>
+                                </li>
+                                <li class="list-group-CurrenStudentAdress d-flex justify-content-between align-CurrenStudentAdresss-center p-3">
+                                    <i class="fa fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                                    <p class="mb-0">mdbootstrap</p>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p class="mb-0">Date Of Birth</p>
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Full Name</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@CurrenParent.FirstName @CurrenParent.LastName</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Date Of Birth</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@CurrenParent.DB.ToString("dd/MM/yyyy")</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Phone</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@CurrenParent.Phone </p>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Address</p>
+                                </div>
+                                @if (CurrentStudentAdress is not null)
+                                {
+                                    <div class="col-sm-7">
+                                        <p class="text-muted mb-0">@CurrentStudentAdress.State , @CurrentStudentAdress.Government , @CurrentStudentAdress.street , @CurrentStudentAdress.ZipCode</p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-sm-7">
+                                        <p class="text-muted mb-0"></p>
+
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-9">
-                        <p class="text-muted mb-0">@CurrenParent.DB.ToString("dd/MM/yyyy")</p>
+                    <div class="row">
+                        <div class="col-md-11 m-auto">
+                            <div class="card mb-4 mb-md-0">
+                                <div class="card-body">
+
+                                    <div class="row" id="edit">
+                                        <div class="col-md-8 m-auto">
+                                            <h4>Student Details</h4>
+                                            <div class="form-group row">
+                                                <label for="State" class="col-sm-3 col-form-label">
+                                                    First Name:
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                           value="@CurrentStudent.FirstName" />
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group row">
+                                                <label for="State" class="col-sm-3 col-form-label">
+                                                    Middel Name:
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                           value="@CurrentStudent.MiddleName" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="State" class="col-sm-3 col-form-label">
+                                                    Last Name:
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                           value="@CurrentStudent.LastName" />
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label for="State" class="col-sm-3 col-form-label">
+                                                    Date BirthDay:
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                           value="@CurrentStudent.DB.ToString()" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="State" class="col-sm-3 col-form-label">
+                                                    Schools Year:
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                           value="@CurrentStudent.SchoolYears.SchoolYear" />
+                                                </div>
+
+
+
+
+                                                <div class="form-group row">
+                                                    <label for="State" class="col-sm-3 col-form-label">
+                                                        Class Room :
+                                                    </label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
+                                                               value="@CurrentStudent.ClassRoom.ClassRoomNumber" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p class="mb-0">Phone</p>
-                    </div>
-                    <div class="col-sm-9">
-                        <p class="text-muted mb-0">@CurrenParent.Phone </p>
-                    </div>
-                </div>
-                <hr>
 
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p class="mb-0">Address</p>
-                    </div>
-               @if (CurrentStudentAdress is not null)
-                {
-                <div class="col-sm-7">
-                        <p class="text-muted mb-0">@CurrentStudentAdress.State , @CurrentStudentAdress.Government , @CurrentStudentAdress.street , @CurrentStudentAdress.ZipCode</p>
-                </div>
-                }
-                else
-                {
-                <div class="col-sm-7">
-                    <p class="text-muted mb-0"></p>
-
-                </div>
-                }
-
-                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-11 m-auto">
-                <div class="card mb-4 mb-md-0">
-                    <div class="card-body">
-
-<div class="row" id="edit">
-    <div class="col-md-8 m-auto">
-        <h4>Student Details</h4>
-        <div class="form-group row">
-            <label for="State" class="col-sm-3 col-form-label">
-                First Name:
-            </label>
-            <div class="col-sm-9">
-                <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
-                       value="@CurrentStudent.FirstName" />
-            </div>
-        </div>
-
-
-
-        <div class="form-group row">
-            <label for="State" class="col-sm-3 col-form-label">
-                Middel Name:
-            </label>
-            <div class="col-sm-9">
-                <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
-                       value="@CurrentStudent.MiddleName" />
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="State" class="col-sm-3 col-form-label">
-                Last Name:
-            </label>
-            <div class="col-sm-9">
-                <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
-                       value="@CurrentStudent.LastName" />
-            </div>
-        </div>
-
-
-        <div class="form-group row">
-            <label for="State" class="col-sm-3 col-form-label">
-                Date BirthDay:
-            </label>
-            <div class="col-sm-9">
-                <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
-                       value="@CurrentStudent.DB.ToString()" />
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="State" class="col-sm-3 col-form-label">
-                Schools Year:
-            </label>
-            <div class="col-sm-9">
-                <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
-                       value="@CurrentStudent.SchoolYears.SchoolYear" />
-            </div>
-
-
-
-
-        <div class="form-group row">
-            <label for="State" class="col-sm-3 col-form-label">
-                Class Room :
-            </label>
-            <div class="col-sm-9">
-                <input type="text" readonly id="FirstName" class="form-control" placeholder="First Name"
-                       value="@CurrentStudent.ClassRoom.ClassRoomNumber" />
-            </div>
-        </div>
-    </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-
-    </div>
-        </div>
-</section>
+    </section>
 }
 else
 {
-<div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 }

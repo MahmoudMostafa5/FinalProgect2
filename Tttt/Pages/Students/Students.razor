@@ -47,7 +47,7 @@
         <table class="table text-center">
             <thead class="fs-6">
                 <tr>
-                    <th> Student SSN </th>
+                    @*<th> Student SSN </th>*@
                     <th> First Name </th>
                     <th> Middle Name </th>
                     <th> Last Name </th>
@@ -65,7 +65,7 @@
                 @foreach (var StudentDto in AllStudent)
                 {
                     <tr>
-                        <td>@StudentDto.StudenntSSN</td>
+                        @*<td>@StudentDto.StudenntSSN</td>*@
                         <td>@StudentDto.FirstName</td>
                         <td>@StudentDto.MiddleName</td>
                         <td>@StudentDto.LastName</td>
@@ -79,7 +79,7 @@
                             <a @onclick="@(async () => await Detail(StudentDto.StudenntSSN))" class="btn btn-success"><i class="fa fa-info-circle"></i></a>
                             <button @onclick="@(async () => await Modify(StudentDto.StudenntSSN))" class="btn btn-primary"><i class="fa fa-pencil-square"></i></button>
                             <button @onclick="@(async () => await DeleteSub(StudentDto.StudenntSSN))" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                            <button @onclick="@(async () => await AddTeacherAdress(StudentDto.StudenntSSN))" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                            <button @onclick="@(async () => await AddTeacherAdress(StudentDto.StudenntSSN))" class="btn btn-secondary"><i class="fa fa-location-arrow"></i></button>
                         </td>
 
                     </tr>
@@ -286,7 +286,7 @@
                             <hr />
                             <div class="row">
                                 <div class="col-md-8">
-                                   
+
                                     <div class="form-group row">
                                         <label for="FirstName" class="col-sm-2 col-form-label">
                                             First Name
@@ -541,13 +541,13 @@
 
                             <div class="modal-footer">
                                 @if (!UpdateStatues)
-        {
-            <button type="button" @onclick="@(async () => await AddingAdress())" class="btn btn-block btn-success" data-dismiss="modal">Adding</button>
-        }
-        else
-        {
-            <button type="submit" class="btn btn-block btn-success" data-dismiss="modal">Save</button>
-        }
+                                {
+                                    <button type="button" @onclick="@(async () => await AddingAdress())" class="btn btn-block btn-success" data-dismiss="modal">Adding</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-block btn-success" data-dismiss="modal">Save</button>
+                                }
 
                             </div>
                         </EditForm>

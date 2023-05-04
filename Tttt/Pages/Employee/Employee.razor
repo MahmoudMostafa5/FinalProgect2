@@ -48,15 +48,15 @@
     <table id="example" class="my-3 table table-striped" style="width:100%">
         <thead>
             <tr>
-                <th class="h5 text-center"> Employee SSN </th>
+                @*<th class="h5 text-center"> Employee SSN </th>*@
                 <th class="h5 text-center"> Department Name </th>
-                <th class="h4 text-center"> First Name </th>
-                <th class="h4 text-center"> Middle Name </th>
-                <th class="h4 text-center"> Last Name </th>
-                <th class="h4 text-center"> Date Of Birth </th>
-                <th class="h4 text-center"> Phone </th>
-                <th class="h4 text-center" style="width:15%"> Image </th>
-                <th class="h4 text-center">
+                <th class="h5 text-center"> First Name </th>
+                <th class="h5 text-center"> Middle Name </th>
+                <th class="h5 text-center"> Last Name </th>
+                <th class="h5 text-center"> Date Of Birth </th>
+                <th class="h5 text-center"> Phone </th>
+                <th class="h5 text-center" style="width:15%"> Image </th>
+                <th class="h5 text-center">
                     <button class="btn btn-secondary" @onclick="AddSub"><i class="fa fa-plus-square"></i></button>
                 </th>
 
@@ -67,7 +67,7 @@
             {
                 <tr>
 
-                    <td class="h5 text-center">@EmployeeDto.EmployeeSSN</td>
+                    @*<td class="h5 text-center">@EmployeeDto.EmployeeSSN</td>*@
                     <td class="h5 text-center">@EmployeeDto.Department.DepartmentName</td>
                     <td class="h5 text-center">@EmployeeDto.FirstName</td>
                     <td class="h5 text-center">@EmployeeDto.MiddleName</td>
@@ -77,7 +77,7 @@
                     <td class="text-center"><img src="https://localhost:44348/Images/@EmployeeDto.Image" class="w-25" style="height:50px" /></td>
 
                     <td class="h5 text-center">
-                        <button @onclick="@(async () => await Details(EmployeeDto.EmployeeSSN))" class="btn btn-primary"><i class="fa fa-pencil-square"></i></button>
+                        <button @onclick="@(async () => await Details(EmployeeDto.EmployeeSSN))" class="btn btn-success"><i class="fa fa-info-circle"></i></button>
                         <button @onclick="@(async () => await UpdateSub(EmployeeDto.EmployeeSSN))" class="btn btn-primary"><i class="fa fa-pencil-square"></i></button>
                         <button @onclick="@(async () => await DeleteSub(EmployeeDto.EmployeeSSN))" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                     </td>
@@ -88,41 +88,25 @@
     </table>
 
     <!-- pagination -->
-    <div class="row">
-        <div class="col-sm-12 col-md-5">
-            <h3 class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</h3>
-        </div>
-        <div class="col-sm-12 col-md-2"></div>
-        <div class="col-sm-12 col-md-5">
-            <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
-                <ul class="pagination">
-                    <li class="paginate_button page-item previous disabled" id="example_previous">
-                        <a aria-controls="example" aria-disabled="true" aria-role="link" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a>
-                    </li>
-                    <li class="paginate_button page-item active">
-                        <a href="#" aria-controls="example" aria-role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="5" tabindex="0" class="page-link">6</a>
-                    </li>
-                    <li class="paginate_button page-item next" id="example_next">
-                        <a href="#" aria-controls="example" aria-role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div class="py-3 d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
     if (isAdd)
@@ -304,105 +288,105 @@
                             <hr />
                             @*<div class="row">
                                 <div class="col-md-8">*@
-                                    <div class="form-group row">
-                                        <label for="Department" class="col-sm-2 col-form-label">
-                                            Department
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <InputSelect class="form-control" @bind-Value="@CurrenEmployee.DepartmentId">
-                                                <option value="0" disabled>--Select Department--</option>
-                                                @foreach (var Dep in Departments)
-                                                        {
+                            <div class="form-group row">
+                                <label for="Department" class="col-sm-2 col-form-label">
+                                    Department
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputSelect class="form-control" @bind-Value="@CurrenEmployee.DepartmentId">
+                                        <option value="0" disabled>--Select Department--</option>
+                                        @foreach (var Dep in Departments)
+                                                {
 
-                                                    <option value="@Dep.DepartmentId">@Dep.DepartmentName</option>
-                                                        }
+                                            <option value="@Dep.DepartmentId">@Dep.DepartmentName</option>
+                                                }
 
-                                            </InputSelect>
-                                            <div class="col-sm-8 text-danger">
-                                                <ValidationMessage For="@(() => CurrenEmployee.DepartmentId)" />
-                                            </div>
-                                        </div>
+                                    </InputSelect>
+                                    <div class="col-sm-8 text-danger">
+                                        <ValidationMessage For="@(() => CurrenEmployee.DepartmentId)" />
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="FirstName" class="col-sm-2 col-form-label">
-                                            First Name
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <InputText id="FirstName" class="form-control" placeholder="First Name"
-                                                       @bind-Value="CurrenEmployee.FirstName" />
-                                            <div class="col-sm-8 text-danger">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="FirstName" class="col-sm-2 col-form-label">
+                                    First Name
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputText id="FirstName" class="form-control" placeholder="First Name"
+                                               @bind-Value="CurrenEmployee.FirstName" />
+                                    <div class="col-sm-8 text-danger">
 
-                                                <ValidationMessage For="() => CurrenEmployee.FirstName" />
+                                        <ValidationMessage For="() => CurrenEmployee.FirstName" />
 
-                                            </div>
-                                        </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="MiddleName" class="col-sm-2 col-form-label">
-                                            Middle Name
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <InputText id="MiddleName" class="form-control" placeholder="Middle Name"
-                                                       @bind-Value="CurrenEmployee.MiddleName" />
-                                            <div class="col-sm-8 text-danger">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="MiddleName" class="col-sm-2 col-form-label">
+                                    Middle Name
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputText id="MiddleName" class="form-control" placeholder="Middle Name"
+                                               @bind-Value="CurrenEmployee.MiddleName" />
+                                    <div class="col-sm-8 text-danger">
 
-                                                <ValidationMessage For="() => CurrenEmployee.MiddleName" />
+                                        <ValidationMessage For="() => CurrenEmployee.MiddleName" />
 
-                                            </div>
-                                        </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="LastName" class="col-sm-2 col-form-label">
-                                            Last Name
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <InputText id="LastName" class="form-control" placeholder="Last Name"
-                                                       @bind-Value="CurrenEmployee.LastName" />
-                                            <div class="col-sm-8 text-danger">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="LastName" class="col-sm-2 col-form-label">
+                                    Last Name
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputText id="LastName" class="form-control" placeholder="Last Name"
+                                               @bind-Value="CurrenEmployee.LastName" />
+                                    <div class="col-sm-8 text-danger">
 
-                                                <ValidationMessage For="() => CurrenEmployee.LastName" />
+                                        <ValidationMessage For="() => CurrenEmployee.LastName" />
 
-                                            </div>
-                                        </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="LastName" class="col-sm-2 col-form-label">
-                                            Employee Image
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <input type="file" @ref="inputReference" @onchange="@OpenFileAsync" />
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="LastName" class="col-sm-2 col-form-label">
+                                    Employee Image
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="file" @ref="inputReference" @onchange="@OpenFileAsync" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="DB" class="col-sm-2 col-form-label">
+                                    Date Of Birth
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputDate id="DB" class="form-control" placeholder="Date Of Birth"
+                                               @bind-Value="CurrenEmployee.DB" />
+                                    <div class="col-sm-8 text-danger">
+
+                                        <ValidationMessage For="() => CurrenEmployee.DB" />
+
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="DB" class="col-sm-2 col-form-label">
-                                            Date Of Birth
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <InputDate id="DB" class="form-control" placeholder="Date Of Birth"
-                                                       @bind-Value="CurrenEmployee.DB" />
-                                            <div class="col-sm-8 text-danger">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Phone" class="col-sm-2 col-form-label">
+                                    Phone
+                                </label>
+                                <div class="col-sm-10">
+                                    <InputText id="Phone" class="form-control" placeholder="Phone"
+                                               @bind-Value="CurrenEmployee.Phone" />
+                                    <div class="col-sm-8 text-danger">
 
-                                                <ValidationMessage For="() => CurrenEmployee.DB" />
+                                        <ValidationMessage For="() => CurrenEmployee.Phone" />
 
-                                            </div>
-                                        </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="Phone" class="col-sm-2 col-form-label">
-                                            Phone
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <InputText id="Phone" class="form-control" placeholder="Phone"
-                                                       @bind-Value="CurrenEmployee.Phone" />
-                                            <div class="col-sm-8 text-danger">
-
-                                                <ValidationMessage For="() => CurrenEmployee.Phone" />
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                @*</div>*@
-                                @*<div class="col-md-4">
+                                </div>
+                            </div>
+                            @*</div>*@
+                            @*<div class="col-md-4">
                                     <h1>Upload file!</h1>
                                     <div class="form-group row">
                                         <div class="col-8 text-center">
